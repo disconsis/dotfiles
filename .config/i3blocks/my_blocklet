@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo '<span foreground="#FF0000">[<i>Hello World!</i>]</span><sup>+1</sup>'
-# echo 'New world'
