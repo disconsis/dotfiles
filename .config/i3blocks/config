@@ -1,0 +1,105 @@
+# [separator]
+full_text=∙
+align=center
+color=#ffffff
+separator=false
+
+[bandwidth]
+full_text=
+label= 
+command=/home/ketan/.config/i3blocks/scripts/bandwidth
+interval=1
+markup=pango
+
+[separator]
+
+[wifi]
+full_text=
+label= 
+command=/home/ketan/.config/i3blocks/scripts/wifi
+interval=1
+
+[section_separator]
+full_text=‖
+align=center
+color=#00afee
+separator=false
+
+[cpu]
+full_text=
+label= 
+command=/home/ketan/.config/i3blocks/scripts/cpu_usage
+interval=1
+[separator]
+
+[load]
+full_text=
+label= 
+command=/home/ketan/.config/i3blocks/scripts/load_average
+interval=2
+[separator]
+
+[memory]
+full_text=
+label= 
+command=/home/ketan/.config/i3blocks/scripts/memory
+interval=2
+[separator]
+
+[disk_acc]
+full_text=
+label= 
+command=/home/ketan/.config/i3blocks/scripts/disk_acc
+interval=2
+
+[section_separator]
+full_text=‖
+align=center
+color=#00afee
+separator=false
+
+[mouse]
+full_text=
+# label= 
+label= 
+command=/home/ketan/.config/i3blocks/scripts/check_mouse
+interval=once
+signal=2
+[separator]
+
+[capslock]
+full_text=
+label=Aa
+command=/home/ketan/.config/i3blocks/scripts/check_capslock
+interval=1
+# interval=once
+# signal=2
+[separator]
+
+[volume]
+full_text=
+# label=♫ 
+label= 
+command=/home/ketan/.config/i3blocks/scripts/volume 5% pulse
+interval=once
+signal=2
+color=#F4BF75
+
+[section_separator]
+full_text=‖
+align=center
+color=#00afee
+separator=false
+
+[time]
+full_text=
+# label= 
+command=date '+%I:%M %p'
+interval=60
+[separator]
+
+[date]
+full_text=
+# label=  
+command=date '+%a, %b %d'
+interval=60
