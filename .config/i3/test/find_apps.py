@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 # TODO: implement locking mechanism
-# TODO: fix last app remaining on closing all of them
 
 import subprocess as proc
 import i3ipc
@@ -11,6 +10,7 @@ import re
 
 
 def classify_windows(i3):
+    "get list of windows in each workspace"
     windows = i3.get_tree().leaves()
     workspace_content = defaultdict(list)
     for window in windows:
@@ -111,11 +111,22 @@ def rename_workspace(i3, workspace, windows):
                                                               new_name))
 
 
+def main(i3):
+    workspace_list = i3.get_workspaces()
+    workspace_content = classify_windows(i3)
+    for workspace in workspace_content.keys():
+        windows = workspace_content[workspace]
+        rename_workspace(i3, workspace, windows)
+    for workspace in workspace_list:
+        if workspace.name not in [w.name for w in workspace_content.keys()]:
+            i3.command('rename workspace "{}" to "{}"'.format(
+                workspace.name,
+                str(workspace.num))
+            )
+
+
 if __name__ == '__main__':
     i3 = i3ipc.Connection()
     while True:
-        workspace_content = classify_windows(i3)
-        for workspace in workspace_content.keys():
-            windows = workspace_content[workspace]
-            rename_workspace(i3, workspace, windows)
+        main(i3)
         sleep(0.5)
