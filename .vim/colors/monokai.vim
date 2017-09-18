@@ -69,9 +69,8 @@ endfunction
 " Palettes
 " --------
 
-
 let s:white       = { "gui": "#E8E8E3", "cterm": "252" }
-let s:black       = { "gui": "#272822", "cterm": "234" }
+let s:black       = { "gui": "#272822", "cterm": "016" }
 let s:lightblack  = { "gui": "#2D2E27", "cterm": "235" }
 let s:lightblack2 = { "gui": "#383a3e", "cterm": "236" }
 let s:darkblack   = { "gui": "#211F1C", "cterm": "233" }
@@ -79,7 +78,8 @@ let s:grey        = { "gui": "#8F908A", "cterm": "243" }
 let s:lightgrey   = { "gui": "#575b61", "cterm": "237" }
 let s:darkgrey    = { "gui": "#64645e", "cterm": "239" }
 let s:warmgrey    = { "gui": "#75715E", "cterm": "059" }
-let s:brown       = { "gui": "#565346", "cterm": "000" }
+let s:brown       = { "gui": "#565346", "cterm": "236" }
+let s:blue        = { "gui": "#0000ff", "cterm": "033" }
 
 let s:pink        = { "gui": "#F92772", "cterm": "197" }
 let s:green       = { "gui": "#A6E22D", "cterm": "148" }
@@ -117,7 +117,7 @@ call s:h("MoreMsg",       { "fg": s:yellow })
 call s:h("ErrorMsg",      { "fg": s:black,      "bg": s:red,          "format": "standout" })
 call s:h("WarningMsg",    { "fg": s:red })
 call s:h("VertSplit",     { "fg": s:darkgrey,   "bg": s:white })
-call s:h("LineNr",        { "fg": s:brown,       "bg": s:black })
+call s:h("LineNr",        { "fg": s:brown,      "bg": s:black })
 call s:h("CursorLineNr",  { "fg": s:yellow,     "bg": s:lightblack })
 call s:h("SignColumn",    {                     "bg": s:lightblack })
 

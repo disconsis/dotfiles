@@ -7,7 +7,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
 " Plugin 'scrooloose/nerdtree'
-" Plugin 'Python-mode-klen'
 Plugin 'python-mode/python-mode'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
@@ -21,6 +20,7 @@ Plugin 'michaeljsmith/vim-indent-object'
 " Plugin 'ying17zi/vim-live-latex-preview'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'mikewest/vim-markdown'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 call vundle#end()
 filetype plugin indent on
 
@@ -54,6 +54,7 @@ set nohlsearch
 syntax enable
 set noshowmode
 set wrap
+nnoremap Y y$
 
 " Swap actual & virtual lines
 " ===========================
