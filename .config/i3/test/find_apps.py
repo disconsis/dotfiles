@@ -1,35 +1,47 @@
 #!/usr/bin/python3
 
-# TODO: implement locking mechanism
+# TODO: highlight last focused window
 
 import subprocess as proc
 import i3ipc
-from time import sleep
 from collections import defaultdict
 import re
+import fasteners
+
+
+LOCK_FILE = '/tmp/ws_name_lock'
 
 
 def classify_windows(i3):
     "get list of windows in each workspace"
     windows = i3.get_tree().leaves()
     workspace_content = defaultdict(list)
+    focused_window = None
     for window in windows:
         workspace_content[window.workspace()].append(window)
-    return workspace_content
+        if window.focused is True:
+            focused_window = window
+    return workspace_content, focused_window
 
 
-def find_apps(windows):
+def find_apps(windows, focused_window=None):
     apps = []
     for window in windows:
         if window.name is None:
             continue
         app = get_app(window.name)
+        if window == focused_window:
+            app = "<span foreground='cyan'>{}</span>".format(
+                app if app is not None else '?'
+            )
         if app is not None:
             apps.append(app)
     return apps
 
 
 def get_app(title):
+
+    # download manager
     download_regex = re.compile('^uGet( - (\d+) tasks)?$')
     match = download_regex.fullmatch(title)
     if match is None:
@@ -41,6 +53,7 @@ def get_app(title):
         print(match.groups())
         return ' +{}'.format(num_tasks)
 
+    # browser
     browser_regex = [
         re.compile('^((.+) - )?Mozilla Firefox$'),
         re.compile('^((.+) - )?Vimperator$'),
@@ -57,12 +70,15 @@ def get_app(title):
                 return ''
             return ''
 
+    # pdf viewer
     okular_regex = re.compile('^(.+ – )?Okular$')  # IMP: the dash is abnormal
     if okular_regex.fullmatch(title):
         return ''
 
+    # virtual machines
     vm_regex = [
-        re.compile('^(.+ - )?VMware Workstation 12 Player (Non-commercial use only)$'),
+        re.compile(('^(.+ - )?VMware Workstation 12'
+                    ' Player (Non-commercial use only)$')),
         re.compile('^(.+ (\[.+\]) - )?Oracle VM VirtualBox Manager$')
     ]
     for reg in vm_regex:
@@ -74,7 +90,9 @@ def get_app(title):
         return ''
 
     # TODO: steam
-    if title == 'Terminal':
+
+    # terminal
+    if title in ('Terminal', 'urxvt'):
         return ''
 
     return None
@@ -95,10 +113,10 @@ def get_new_name(workspace, apps):
     return new_name
 
 
-def rename_workspace(i3, workspace, windows):
+def rename_workspace(i3, workspace, windows, focused_window=None):
     if not len(windows):
         return
-    apps = find_apps(windows)
+    apps = find_apps(windows, focused_window)
     try:
         new_name = get_new_name(workspace, apps)
     except ValueError:
@@ -107,18 +125,27 @@ def rename_workspace(i3, workspace, windows):
         return
     else:
         if new_name != workspace.name:
-            i3.command('rename workspace "{}" to "{}"'.format(workspace.name,
-                                                              new_name))
+            i3.command('rename workspace "{}" to "{}"'.format(
+                workspace.name, new_name
+            ))
 
 
-def main(i3):
+def rename_everything(i3, e):
     workspace_list = i3.get_workspaces()
-    workspace_content = classify_windows(i3)
+    workspace_content, focused_window = classify_windows(i3)
+    focused_workspace = (focused_window.workspace()
+                         if focused_window is not None
+                         else None)
     for workspace in workspace_content.keys():
         windows = workspace_content[workspace]
-        rename_workspace(i3, workspace, windows)
+        if workspace == focused_workspace:
+            with fasteners.InterProcessLock(LOCK_FILE):
+                rename_workspace(i3, workspace, windows, focused_window)
+        else:
+            rename_workspace(i3, workspace, windows)
+    filled_workspaces = [w.name for w in workspace_content.keys()]
     for workspace in workspace_list:
-        if workspace.name not in [w.name for w in workspace_content.keys()]:
+        if workspace.name not in filled_workspaces:
             i3.command('rename workspace "{}" to "{}"'.format(
                 workspace.name,
                 str(workspace.num))
@@ -127,6 +154,9 @@ def main(i3):
 
 if __name__ == '__main__':
     i3 = i3ipc.Connection()
-    while True:
-        main(i3)
-        sleep(0.5)
+    i3.on('workspace::focus', rename_everything)
+    i3.on('window::focus', rename_everything)
+    i3.on('window::move', rename_everything)
+    i3.on('window::title', rename_everything)
+    i3.on('window::close', rename_everything)
+    i3.main()
