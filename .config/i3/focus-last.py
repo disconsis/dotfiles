@@ -6,9 +6,14 @@ import selectors
 import threading
 from argparse import ArgumentParser
 import i3ipc
+import fasteners
+# import posix_ipc as posix
 
 SOCKET_FILE = '/tmp/i3_focus_last'
+LAST_FOCUSED_FILE = '/tmp/i3_last_focused'
+# SEMAPHORE_NAME = '/i3_last_sema'
 MAX_WIN_HISTORY = 15
+LAST_LOCK_FILE = '/tmp/last_win_lock'
 
 
 class FocusWatcher:
@@ -24,6 +29,8 @@ class FocusWatcher:
         self.listening_socket.listen(1)
         self.window_list = []
         self.window_list_lock = threading.RLock()
+        # self.last_sema = posix.Semaphore(SEMAPHORE_NAME, flags=posix.O_CREAT,
+        #                                  initial_value=0)
 
     def on_window_focus(self, i3conn, event):
         with self.window_list_lock:
@@ -33,6 +40,11 @@ class FocusWatcher:
             self.window_list.insert(0, window_id)
             if len(self.window_list) > MAX_WIN_HISTORY:
                 del self.window_list[MAX_WIN_HISTORY:]
+        if len(self.window_list) > 1:
+            with fasteners.InterProcessLock(LAST_LOCK_FILE):
+                with open(LAST_FOCUSED_FILE, 'w+') as fp:
+                    fp.write(str(self.window_list[1]))
+            # self.last_sema.release()
 
     def launch_i3(self):
         self.i3.main()
@@ -89,11 +101,11 @@ if __name__ == '__main__':
                         default=False)
     args = parser.parse_args()
 
-    if not args.switch:
-        focus_watcher = FocusWatcher()
-        focus_watcher.run()
-    else:
+    if args.switch:
         client_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         client_socket.connect(SOCKET_FILE)
         client_socket.send(b'switch')
         client_socket.close()
+    else:
+        focus_watcher = FocusWatcher()
+        focus_watcher.run()
