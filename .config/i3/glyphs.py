@@ -1,11 +1,11 @@
-# vim:fileencoding=utf-8
+# vim: fileencoding=utf-8
 
 from os import listdir
 from collections import OrderedDict
 
 glyph_mapping = OrderedDict([
-    (('- youtube',),                                        ''),
-    (('firefox', '- vimperator', 'chrome', 'palemoon'),     ''),
+    (('YouTube',),                                        ''),
+    (('Mozilla Firefox', 'Vimperator', 'chrome', 'palemoon'),     ''),
     (('okular',),                                         ''),
     (('vmware', 'vmplayer', 'virtualbox'),                ''),
     (('vlc',),                                            ''),

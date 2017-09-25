@@ -1,10 +1,11 @@
 # Startup settings
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
-exec --no-startup-id feh --bg-tile ~/.config/i3/wallpaper
-exec --no-startup-id python3 ~/.config/i3/test/find_apps.py
+exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper
+exec --no-startup-id python3 ~/.config/i3/find_apps.py 2> /tmp/find_apps.err
 exec --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
+exec --no-startup-id compton
 
 # set modifier key
 set $mod Mod1
@@ -16,17 +17,27 @@ font pango:Monaco for Powerline 10
 
 # Misc
 hide_edge_borders both
-bindsym $mod+Return exec i3-sensible-terminal -e tmux
+# bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
+bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
-bindsym $mod2+l exec "splash ~/.config/i3/opsec-img 0.8; i3lock -p win -t -f -i ~/.config/i3/i3lock-img"
+bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
 bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -RTMIN+2 i3blocks"
 
 # Screenshot keybinds
-    ## focused monitor only
+## focused monitor only
 bindsym Print exec scrot -q 100 -u 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
-    ## both monitors
+## both monitors
 bindsym Shift+Print exec scrot -q 100 -m 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
+
+# remove borders for i3-gaps
+for_window [class="^.*"] border pixel 0
+new_window none
+
+# add gaps
+# smart_gaps on
+gaps inner 20
+gaps outer 10
 
 # Move workspaces between monitors
 bindsym $mod+x move workspace to output right
@@ -54,8 +65,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Choose split direction
-bindsym $mod+backslash split h
-bindsym $mod+minus split v
+bindsym $mod+Shift+backslash split h
+bindsym $mod+Shift+minus split v
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -164,7 +175,8 @@ bar {
             #                   border                   bg                       text
             focused_workspace   $bar-bg-color            $bar-bg-color            $bar-text-color
             inactive_workspace  $bar-inactive-bg-color   $bar-inactive-bg-color   $bar-inactive-text-color
-            active_workspace    $bar-inactive-text-color $bar-inactive-text-color $bar-inactive-bg-color
+            active_workspace    $bg-color                $bar-inactive-bg-color   $bar-inactive-text-color
+            # active_workspace    $bar-inactive-text-color $bar-inactive-text-color $bar-inactive-bg-color
             urgent_workspace    $bar-urgent-bg-color     $bar-urgent-bg-color     $bar-text-color
         }
 }
@@ -173,15 +185,18 @@ bar {
 bindsym $mod+b exec i3-bar "bar mode toggle"
 
 # rename workspaces
-bindsym $mod+n exec python3 /home/ketan/.config/i3/test/rename_ws.py rename
+# bindsym $mod+n exec python3 /home/ketan/.config/i3/test/rename_ws.py rename
+# bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/test/rename_ws.py remove
+bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/test/rename_ws.py rename %s'
 bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/test/rename_ws.py remove
 
 # run applications (rofi)
-bindsym $mod+d exec rofi -show run -width 100 -padding 200 -opacity "75" -bw 0 \
-    -bc "$bar-bg-color" -bg "$bar-bg-color" -fg "$bar-text-color" -hlbg "$hl-bg-color" \
-    -hlfg "#00d7ff" -font "Monaco 12"
+# bindsym $mod+d exec rofi -show run -width 100 -padding 200 -opacity "75" -bw 0 \
+#     -bc "$bar-bg-color" -bg "$bar-bg-color" -fg "$bar-text-color" -hlbg "$hl-bg-color" \
+#     -hlfg "#00d7ff" -font "Monaco 12"
+bindsym $mod+d exec rofi -show run
 
 # volume keybinds
-bindsym $mod2+minus exec "amixer -D pulse sset Master 5%-; pkill -RTMIN+2 i3blocks"
-bindsym $mod2+equal exec "amixer -D pulse sset Master 5%+; pkill -RTMIN+2 i3blocks"
-bindsym $mod2+0 exec "amixer -D pulse sset Master toggle; pkill -RTMIN+2 i3blocks"
+bindsym $mod+minus exec "amixer -D pulse sset Master 5%-; pkill -RTMIN+2 i3blocks"
+bindsym $mod+equal exec "amixer -D pulse sset Master 5%+; pkill -RTMIN+2 i3blocks"
+bindsym $mod+0 exec "amixer -D pulse sset Master toggle; pkill -RTMIN+2 i3blocks"

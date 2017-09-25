@@ -7,6 +7,7 @@ import i3ipc
 from collections import defaultdict
 import re
 import fasteners
+import pickle
 # import posix_ipc as posix
 
 
@@ -15,6 +16,7 @@ LAST_FOCUSED_COLOR = 'yellow'
 LOCK_FILE = '/tmp/ws_name_lock'
 LAST_LOCK_FILE = '/tmp/last_win_lock'
 LAST_FOCUSED_FILE = '/tmp/i3_last_focused'
+IFACES_LIST = '/tmp/ifaces.pickle'
 # SEMAPHORE_NAME = '/i3_last_sema'
 
 
@@ -22,8 +24,11 @@ def classify_windows(i3):
     "get list of windows in each workspace"
     windows = i3.get_tree().leaves()
     with fasteners.InterProcessLock(LAST_LOCK_FILE):
-        with open(LAST_FOCUSED_FILE) as fp:
-            last_id = int(fp.read())
+        try:
+            with open(LAST_FOCUSED_FILE) as fp:
+                last_id = int(fp.read())
+        except FileNotFoundError:
+            last_id = None
     workspace_content = defaultdict(list)
     focused_window = None
     last_focused_window = None
@@ -107,11 +112,38 @@ def get_app(title):
     if media_regex.fullmatch(title):
         return ''
 
-    # TODO: steam
+    # Wireshark
+    try:
+        ifaces = pickle.load(IFACES_LIST)
+    except Exception as err:
+        ifaces = []
+        out = proc.check_output('ip link show up'.split()).decode('utf-8')
+        for i, line in enumerate(out.splitlines()):
+            if i % 2 == 0:
+                iface = line.split()[1][:-1]
+                ifaces.append('Loopback: {}'.format(iface) if iface == 'lo'
+                              else iface)
+        try:
+            with open(IFACES_LIST, 'wb') as fp:
+                pickle.dump(ifaces, fp)
+        except Exception as err:
+            print(2, 'Error in writing ifaces to {_list}: {err}'.format(
+                _list=IFACES_LIST, err=err
+            ))
+
+    iface_re_group = '({})'.format('|'.join('{}'.format(iface)
+                                            for iface in ifaces))
+    wireshark_regex = [re.compile('^The Wireshark Network Analyzer$'),
+                       re.compile('^Capturing from {}$'.format(iface_re_group)),
+                       re.compile('^\*{}'.format(iface_re_group))]
+    for regex in wireshark_regex:
+        if regex.match(title):
+            return ''
 
     # terminal
     if title in ('Terminal', 'urxvt'):
-        return ''
+        # return ''
+        return ''
 
     return None
 

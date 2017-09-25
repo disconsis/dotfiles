@@ -7,7 +7,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
 " Plugin 'scrooloose/nerdtree'
-Plugin 'python-mode/python-mode'
+" Plugin 'python-mode/python-mode'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
@@ -21,6 +21,7 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'mikewest/vim-markdown'
 Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'vim-scripts/SyntaxRange'
 call vundle#end()
 filetype plugin indent on
 
@@ -87,7 +88,7 @@ set wrap
 set expandtab
 set tabstop=4
 set shiftwidth=4
-set list listchars=extends:⇒,precedes:⇒,tab:»\ ,trail:·
+set list listchars=extends:⇒,precedes:⇒,tab:\ \ ,trail:·
 
 " autocomplete options
 " ====================
@@ -191,6 +192,12 @@ nnoremap <leader>vs :vsp $MYVIMRC<cr>
 nnoremap <leader>vt :tabnew $MYVIMRC<cr>
 nnoremap <leader>vr :source $MYVIMRC<cr>
 cnorea vrc $MYVIMRC
+
+" augroup nuw_pedant
+"     autocmd!
+"     autocmd BufWritePost source /home/ketan/bin/nuw.vim
+" augroup END
+
 
 " vimwiki settings
 " ================
