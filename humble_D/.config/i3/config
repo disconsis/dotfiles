@@ -1,0 +1,296 @@
+# custom config by Humble Discipulus
+
+# set mod key
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:System San Francisco Display 12
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+# bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# --------------------------- CUSTOM CODE --------------------------------------------------------------------------------------
+
+set $WORKSPACE_1  "1: "
+set $WORKSPACE_2  "2: "
+set $WORKSPACE_3  "3: "
+set $WORKSPACE_4  "4: "
+set $WORKSPACE_5  "5: "
+set $WORKSPACE_6  "6: "
+set $WORKSPACE_7  "7: "
+set $WORKSPACE_8  "8: "
+set $WORKSPACE_9  "9: "
+set $WORKSPACE_10 "10: "
+
+# switch to workspace
+bindsym $mod+1 workspace $WORKSPACE_1
+bindsym $mod+2 workspace $WORKSPACE_2
+bindsym $mod+3 workspace $WORKSPACE_3
+bindsym $mod+4 workspace $WORKSPACE_4
+bindsym $mod+5 workspace $WORKSPACE_5
+bindsym $mod+6 workspace $WORKSPACE_6
+bindsym $mod+7 workspace $WORKSPACE_7
+bindsym $mod+8 workspace $WORKSPACE_8
+bindsym $mod+9 workspace $WORKSPACE_9
+bindsym $mod+0 workspace $WORKSPACE_10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $WORKSPACE_1
+bindsym $mod+Shift+2 move container to workspace $WORKSPACE_2
+bindsym $mod+Shift+3 move container to workspace $WORKSPACE_3
+bindsym $mod+Shift+4 move container to workspace $WORKSPACE_4
+bindsym $mod+Shift+5 move container to workspace $WORKSPACE_5
+bindsym $mod+Shift+6 move container to workspace $WORKSPACE_6
+bindsym $mod+Shift+7 move container to workspace $WORKSPACE_7
+bindsym $mod+Shift+8 move container to workspace $WORKSPACE_8
+bindsym $mod+Shift+9 move container to workspace $WORKSPACE_9
+bindsym $mod+Shift+0 move container to workspace $WORKSPACE_10
+
+assign [class="Google-chrome"] $WORKSPACE_2
+# assign [class="Thunar"] $WORKSPACE_4
+assign [class="vlc"] $WORKSPACE_5
+assign [class="Okular"] $WORKSPACE_6
+
+# ------------------------------------------------------------------------------------------------------------------------------
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# ----------------------------- CUSTOM CODE ------------------------------------------------------------------------------------
+
+# color variables
+set $bg-color 	         #263238
+set $inactive-bg-color   #263238
+set $text-color          #34febb
+set $inactive-text-color #78909C
+set $urgent-bg-color     #E53935
+
+# window colors
+#                       border              background         text                 indicator   child_border
+client.focused          $bg-color           $bg-color          $text-color          #34f3bb
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #34f3bb
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #34f3bb
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #34f3bb
+
+# Start i3bar to display a workspace bar
+# top bar
+bar {
+	# status command
+        status_command i3blocks -c ~/.config/i3blocks/i3blocks_topbar.conf
+        
+        # position of i3bar
+        position top
+
+        # disable workspace buttons
+        workspace_buttons no
+        
+        # tray icon padding
+        tray_padding 4
+        
+        # tray icons shall be displayed only on primary monitor
+        tray_output primary
+        
+        # custom seperator
+        # separator_symbol ":|:"
+        
+        # color scheme for i3bar
+        colors {								
+		# background color of i3bar
+		background $bg-color
+		
+		# color of seperators
+		separator #757575
+
+		# color scheme for workspace buttons								
+		#                  border             background         text
+		focused_workspace  $bg-color          $bg-color          $text-color
+		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+	}
+}
+
+# bottom bar
+bar {
+	# status command
+        status_command i3blocks -c ~/.config/i3blocks/i3blocks_bottombar.conf
+        
+        # position of i3bar
+        position bottom
+        
+        # tray icon padding
+        tray_padding 4
+        
+        # tray icons shall be displayed only on primary monitor
+        tray_output primary
+        
+        # custom seperator
+        # separator_symbol ":|:"
+        
+        # color scheme for i3bar
+        colors {								
+		# background color of i3bar
+		background $bg-color
+		
+		# color of seperators
+		separator #757575
+
+		# color scheme for workspace buttons								
+		#                  border             background         text
+		focused_workspace  $bg-color          $bg-color          $text-color
+		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+	}
+}
+
+# ------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------- CUSTOM CODE ------------------------------------------------------------------------------------
+
+# setting up wallpaper on startup
+exec_always feh --bg-scale ~/custom_wallpapers/hacker.jpg
+
+# lock screen with i3lock
+bindsym $mod+x exec ~/custom_scripts/lock.sh -n
+
+# enable natural scroll and horizontal scroll
+# synclient
+exec_always --no-startup-id synclient VertScrollDelta=-30 HorizScrollDelta=-30 HorizTwoFingerScroll=1
+# dell client
+exec_always xinput set-prop 11 273 -30, -30
+exec_always xinput set-prop 11 275 1, 1
+
+# brightness controls
+# TODO
+
+# sound controls for soundcard 0
+bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5%
+bindsym XF86AudioMute exec pactl -- set-sink-mute 0 toggle
+
+# screenshot controls using imagemagik
+bindsym Print exec ~/custom_scripts/screenshot.sh
+
+# autolock using xautolock
+exec_always xautolock -time 30 -locker ~/custom_scripts/lock.sh &
+
+# xrandr commands
+exec_always ~/custom_scripts/xrander_script.sh
+
+# launch rofi instead of dmenu
+bindsym $mod+d exec rofi -show run -hide-scrollbar -lines 6 -eh 2 -width 100 -padding 335 -opacity "90" -bw 3 -bc "#32ae85" -bg "$bg-color" -fg "$inactive-text-color" -hlbg "$bg-color" -hlfg "#34febb" -font "System San Francisco Display 18"
+
+# start compton
+exec compton -f
+
+# start google chrome
+# exec google-chrome-stable
+
+# start terminal
+# exec_always i3-message 'workspace $WORKSPACE_1 ; exec gnome-terminal'
+
+# ------------------------------------------------------------------------------------------------------------------------------
