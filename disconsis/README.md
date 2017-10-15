@@ -17,7 +17,6 @@
 - .vimrc
 - .zshrc
 
-7 directories, 12 files
   
 ## p9k\_scripts  
 Prompt segments for [powerlevel9k](https://github.com/bhilburn/powerlevel9k)  
