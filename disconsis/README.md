@@ -1,4 +1,6 @@
-# structure
+# Configuration files for disconsis
+
+## structure
 - .config
     - i3
         - config
@@ -18,11 +20,11 @@
 - .zshrc
 
   
-## p9k\_scripts  
+### p9k\_scripts  
 Prompt segments for [powerlevel9k](https://github.com/bhilburn/powerlevel9k)  
-### alarming.sh  
+#### alarming.sh  
 Primarily for use with my [alarm script](https://github.com/disconsis/Utils)  
 Displays the time the latest alarm is set for  
-### pltask.py  
+#### pltask.py  
 For use with **taskwarrior**  
 Displays the highest urgency of tasks  
