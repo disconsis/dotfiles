@@ -3,10 +3,13 @@ export TERMINAL=urxvt
 # export ZSH=/home/ketan/.oh-my-zsh
 export ZSH=$HOME/.oh-my-zsh
 export PYTHONSTARTUP=$HOME/.pythonrc
+
+POWERLEVEL9K_MODE='nerdfont-complete'
+
 ZSH_THEME="powerlevel9k/powerlevel9k"
 # COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="dd/mm/yyyy"
-plugins=(zsh-autosuggestions)
+plugins=(zsh-autosuggestions colored-man-pages)
 source $ZSH/oh-my-zsh.sh
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
 
@@ -20,8 +23,8 @@ export ARCHFLAGS="-arch x86_64"
 setopt interactivecomments
 setopt CORRECT
 
-autoload -Uz compinit
-compinit POWERLEVEL9K_MODE='default'
+# autoload -Uz compinit
+# compinit POWERLEVEL9K_MODE='default'
 
 zsh_file_count(){
     local signal=$(ls -A1 | wc -l)
@@ -31,7 +34,6 @@ zsh_file_count(){
 }
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir custom_file_count dir_writable vcs newline vi_mode)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode background_jobs custom_alarming custom_taskwarrior)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_alarming background_jobs)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=false
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
@@ -69,9 +71,8 @@ POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='027'
 POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='255'
 POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='082'
 POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='232'
-POWERLEVEL9K_VI_INSERT_MODE_STRING='»'
-# ›
-POWERLEVEL9K_VI_COMMAND_MODE_STRING='«'
+POWERLEVEL9K_VI_INSERT_MODE_STRING='' #'»'
+POWERLEVEL9K_VI_COMMAND_MODE_STRING='' #'«'
 
 POWERLEVEL9K_CUSTOM_TASKWARRIOR="python3 $HOME/p9k_scripts/pltask.py  124 255"
 POWERLEVEL9K_CUSTOM_TASKWARRIOR_BACKGROUND='234'
@@ -93,7 +94,7 @@ if [[ -r /usr/share/powerline/bindings/zsh/powerline.zsh ]]; then
 fi
 
 bindkey -v
-alias okular="okular 2>/dev/null 1>&2"
+export KEYTIMEOUT=1
 setxkbmap -option ctrl:swapcaps
 # Prevent printing of command
 DISABLE_AUTO_TITLE="true"
@@ -102,7 +103,6 @@ DISABLE_AUTO_TITLE="true"
 alias kbfix="setxkbmap -option ctrl:swapcaps"
 alias c="clear"
 alias lh="ls -lh"
-alias gdb="gdb -q -n -x /home/ketan/Desktop/gdbConfig32"
 alias objdump="objdump -M intel --no-show-raw-insn"
 alias rot13='tr a-mA-Mn-zN-Z n-zN-Za-mA-M'
 alias public_ip='curl http://icanhazip.com'
@@ -113,14 +113,11 @@ alias eog='pqiv -i'
 alias l="ls -lAh"
 alias open='xdg-open'
 alias speed='speedometer'
+alias mux='tmuxinator'
 
 # help
 autoload -Uz run-help
 alias help=run-help
-# Multibyte input
-autoload -Uz insert-unicode-char
-zle -N insert-unicode-char
-bindkey '\e[15~' insert-unicode-char # bound to F5
 
 #### fix vi_mode
 function zle-line-init {
@@ -148,7 +145,7 @@ function zle-keymap-select {
 }
 
 zle -N zle-line-init
-zle -N ale-line-finish
+zle -N zle-line-finish
 zle -N zle-keymap-select
 #### end: fix vi_mode
 
@@ -156,3 +153,4 @@ zle -N zle-keymap-select
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # (wal -R -t 1>/dev/null 2>&1)
+export XDG_CONFIG_HOME=$HOME/.config

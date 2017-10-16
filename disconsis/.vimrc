@@ -22,6 +22,10 @@ Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'mikewest/vim-markdown'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'vim-scripts/SyntaxRange'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'sjl/gundo.vim'
+Plugin 'shougo/vimproc'
+Plugin 'shougo/vimshell'
 call vundle#end()
 filetype plugin indent on
 
@@ -56,6 +60,10 @@ syntax enable
 set noshowmode
 set wrap
 nnoremap Y y$
+
+" Gundo settings
+" ==============
+let g:gundo_prefer_python3=1
 
 " Swap actual & virtual lines
 " ===========================
@@ -153,6 +161,12 @@ let g:airline#extensions#tabline#show_close_button=0
 " airline-statusline options
 " ==========================
 let g:airline_section_b = '%{getcwd()}'
+
+" vimshell options
+" ================
+let g:vimshell_user_prompt='fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt="$ "
+
 
 " autocorrect
 " ===========

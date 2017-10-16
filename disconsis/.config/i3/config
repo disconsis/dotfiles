@@ -2,10 +2,10 @@
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
 exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper
-exec --no-startup-id python3 ~/.config/i3/find_apps.py 2> /tmp/find_apps.err
-exec --no-startup-id python3 ~/.config/i3/focus-last.py
+exec_always --no-startup-id python3 ~/.config/i3/find_apps.py 2> /tmp/find_apps.err
+exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
-exec --no-startup-id compton
+exec --no-startup-id compton --vsync opengl --dbe
 
 # set modifier key
 set $mod Mod1
@@ -13,7 +13,7 @@ set $mod2 Mod4
 floating_modifier $mod
 
 # Font settings
-font pango:Monaco for Powerline 10
+font pango:FantasqueSansMono Nerd Font 11
 
 # Misc
 hide_edge_borders both
@@ -31,11 +31,10 @@ bindsym Print exec scrot -q 100 -u 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'm
 bindsym Shift+Print exec scrot -q 100 -m 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
 
 # remove borders for i3-gaps
-for_window [class="^.*"] border pixel 0
-new_window none
+for_window [class="^.*"] border pixel 2
+new_window pixel 2
 
 # add gaps
-# smart_gaps on
 gaps inner 20
 gaps outer 10
 
@@ -92,7 +91,6 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+Tab exec "python3 ~/.config/i3/focus-last.py --switch"
-# bindsym $mod+Tab workspace back_and_forth
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
@@ -105,11 +103,9 @@ bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
 
-# reload the configuration file
+# reload/restart/exit i3
 bindsym $mod+Shift+r reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+z restart
-# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+z exec "pkill -f ~/.config/i3/";restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 bindsym $mod+r mode "resize"
@@ -119,27 +115,14 @@ mode "resize" {
         bindsym k resize grow height 1 px or 1 ppt
         bindsym j resize shrink height 1 px or 1 ppt
         bindsym l resize grow width 1 px or 1 ppt
-
         # big shifts
-        bindsym $mod+h resize shrink width 10 px or 10 ppt
-        bindsym $mod+k resize grow height 10 px or 10 ppt
-        bindsym $mod+j resize shrink height 10 px or 10 ppt
-        bindsym $mod+l resize grow width 10 px or 10 ppt
-        # bindsym y resize shrink width 10 px or 10 ppt
-        # bindsym i resize grow height 10 px or 10 ppt
-        # bindsym u resize shrink height 10 px or 10 ppt
-        # bindsym o resize grow width 10 px or 10 ppt
-
+        bindsym Shift+h resize shrink width 10 px or 10 ppt
+        bindsym Shift+k resize grow height 10 px or 10 ppt
+        bindsym Shift+j resize shrink height 10 px or 10 ppt
+        bindsym Shift+l resize grow width 10 px or 10 ppt
         # escape resize mode
         bindsym Escape mode "default"
         bindsym $mod+bracketleft mode "default"
-}
-
-bindsym $mod+p mode "pr"
-mode "pr" {
-    bindsym q kill
-    bindsym Escape mode "default"
-    bindsym $mod+bracketleft mode "default"
 }
 
 # colours
@@ -156,13 +139,14 @@ set $bar-bg-color               #1c1c1c
 set $bar-inactive-bg-color      #444444
 set $bar-text-color             #f3f4f5
 set $bar-inactive-text-color    #999999
+set $active-border              #774077
 
 # window colors
 # element                border              background          text                  indicator
-client.focused           $bg-color           $bg-color           $text-color           $indicator-color
-client.unfocused         $inactive-border    $inactive-bg-color  $inactive-text-color  $indicator-color
-client.focused_inactive  $bg-color           $inactive-bg-color  $inactive-text-color  $indicator-color
-client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color           $indicator-color
+client.focused           $bg-color           $bg-color           $text-color           $bg-color
+client.unfocused         $inactive-border    $inactive-bg-color  $inactive-text-color  $bg-color
+client.focused_inactive  $bg-color           $inactive-bg-color  $inactive-text-color  $bg-color
+client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color           $bg-color
 
 bar {
         mode dock
@@ -181,19 +165,14 @@ bar {
         }
 }
 
-# toggle bar
-bindsym $mod+b exec i3-bar "bar mode toggle"
+# toggle bar # FIXME
+# bindsym $mod+b exec bar mode toggle
 
 # rename workspaces
-# bindsym $mod+n exec python3 /home/ketan/.config/i3/test/rename_ws.py rename
-# bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/test/rename_ws.py remove
-bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/test/rename_ws.py rename %s'
-bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/test/rename_ws.py remove
+bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/rename_ws.py rename "%s"'
+bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py remove
 
 # run applications (rofi)
-# bindsym $mod+d exec rofi -show run -width 100 -padding 200 -opacity "75" -bw 0 \
-#     -bc "$bar-bg-color" -bg "$bar-bg-color" -fg "$bar-text-color" -hlbg "$hl-bg-color" \
-#     -hlfg "#00d7ff" -font "Monaco 12"
 bindsym $mod+d exec rofi -show run
 
 # volume keybinds
