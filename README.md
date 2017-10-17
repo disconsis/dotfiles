@@ -33,7 +33,7 @@ Terminal-centric config with a focus on avoiding the mouse
   
 ### 2. humble\_D
 "Easy on the eyes, easy on the battery"  
-This setting is for a web application developer / coder. My settings comes with a README that has a list of softwares that you can be install to boost your productivity if you are also into the same business. Occasional use of mouse is part of this setting. It uses a **DuoDark** color scheme to give more of *hacker's* touch to the UI. The scripts have been set to minimize battery usage and is perfect for an *UltraBook* on the move.
+This setting is for a web application developer / coder. My settings come with a README that has a list of softwares that you can be install to boost your productivity if you are also into the same business. Occasional use of mouse is part of this setting. It uses a **DuoDark** color scheme to give more of *hacker's* touch to the UI. The scripts have been set to minimize battery usage and is perfect for an *UltraBook* on the move.
 
 ![terminal on humble\_D](/images/humble_D/terminal.jpg)
 

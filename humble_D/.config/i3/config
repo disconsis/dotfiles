@@ -261,16 +261,17 @@ bindsym $mod+x exec ~/custom_scripts/lock.sh -n
 # synclient
 exec_always --no-startup-id synclient VertScrollDelta=-30 HorizScrollDelta=-30 HorizTwoFingerScroll=1
 # dell client
-exec_always xinput set-prop 11 273 -30, -30
-exec_always xinput set-prop 11 275 1, 1
+exec_always xinput set-prop 11 272 -30, -30
+exec_always xinput set-prop 11 274 1, 1
 
 # brightness controls
-# TODO
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 && pkill -RTMIN+2 i3blocks
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 && pkill -RTMIN+2 i3blocks
 
 # sound controls for soundcard 0
-bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -5%
-bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5%
-bindsym XF86AudioMute exec pactl -- set-sink-mute 0 toggle
+bindsym XF86AudioLowerVolume exec amixer -c 0 set Master 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer -c 0 set Master 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle && exec pkill -RTMIN+1 i3blocks 
 
 # screenshot controls using imagemagik
 bindsym Print exec ~/custom_scripts/screenshot.sh
@@ -286,9 +287,6 @@ bindsym $mod+d exec rofi -show run -hide-scrollbar -lines 6 -eh 2 -width 100 -pa
 
 # start compton
 exec compton -f
-
-# start google chrome
-# exec google-chrome-stable
 
 # start terminal
 # exec_always i3-message 'workspace $WORKSPACE_1 ; exec gnome-terminal'
