@@ -1,0 +1,6 @@
+MusicDir = "/home/ketan/Windows/Music"
+StartInMusicDir = yes
+Theme = dante
+Keymap = "/home/ketan/.moc/keymap"
+
+# vim: ft=conf
