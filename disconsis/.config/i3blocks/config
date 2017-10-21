@@ -1,63 +1,51 @@
 [bandwidth]
-full_text=
 label= 
 command=/home/ketan/.config/i3blocks/scripts/bandwidth --inlabel "↓ " --outlabel "↑ "
 color=#ffffff
 interval=1
 markup=pango
 
-[wifi_ssid]
-full_text=
-label=
-command=/home/ketan/.config/i3blocks/scripts/ssid
-color=#ffffff
-interval=5
-
 [wifi]
-full_text=
-label=
-command=/home/ketan/.config/i3blocks/scripts/wifi
-interval=1
+command=/home/ketan/.git/i3_scripts/i3blocks/wifi_signal_strength.sh wlp4s0
+interval=2
 
 [cpu]
-full_text=
 label=
 command=/home/ketan/.config/i3blocks/scripts/cpu_usage
 interval=1
 
 [load]
-full_text=
 label=
 command=/home/ketan/.config/i3blocks/scripts/load_average
 interval=2
 
 [memory]
-full_text=
 label=
 command=/home/ketan/.config/i3blocks/scripts/memory
 interval=2
 
 [disk_acc]
-full_text=
 label=
 command=/home/ketan/.config/i3blocks/scripts/disk_acc
 interval=2
 
+[hddtemp]
+label=
+command=/home/ketan/.config/i3blocks/scripts/temp
+interval=3
+
 [mouse]
-full_text=
 label=
 command=/home/ketan/.config/i3blocks/scripts/check_mouse
 interval=once
 signal=2
 
 [capslock]
-full_text=
 label=Aa
 command=/home/ketan/.config/i3blocks/scripts/check_capslock; sleep 0.3
 interval=repeat
 
 [volume]
-full_text=
 label=
 command=/home/ketan/.config/i3blocks/scripts/volume 5% pulse
 interval=1
@@ -65,13 +53,11 @@ signal=2
 color=#F4BF75
 
 [time]
-full_text=
 command=date '+%I:%M %p'
 color=#ffffff
 interval=60
 
 [date]
-full_text=
 command=date '+%a, %b %d'
 color=#ffffff
 interval=60
