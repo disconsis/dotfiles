@@ -35,10 +35,10 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -47,10 +47,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -59,7 +59,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -86,7 +86,7 @@ bindsym $mod+a focus parent
 
 # --------------------------- CUSTOM CODE --------------------------------------------------------------------------------------
 
-set $WORKSPACE_1  "1: "
+set $WORKSPACE_1  "1: "
 set $WORKSPACE_2  "2: "
 set $WORKSPACE_3  "3: "
 set $WORKSPACE_4  "4: "
@@ -110,21 +110,21 @@ bindsym $mod+9 workspace $WORKSPACE_9
 bindsym $mod+0 workspace $WORKSPACE_10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $WORKSPACE_1
-bindsym $mod+Shift+2 move container to workspace $WORKSPACE_2
-bindsym $mod+Shift+3 move container to workspace $WORKSPACE_3
-bindsym $mod+Shift+4 move container to workspace $WORKSPACE_4
-bindsym $mod+Shift+5 move container to workspace $WORKSPACE_5
-bindsym $mod+Shift+6 move container to workspace $WORKSPACE_6
-bindsym $mod+Shift+7 move container to workspace $WORKSPACE_7
-bindsym $mod+Shift+8 move container to workspace $WORKSPACE_8
-bindsym $mod+Shift+9 move container to workspace $WORKSPACE_9
-bindsym $mod+Shift+0 move container to workspace $WORKSPACE_10
+bindsym $mod+Shift+1 move container to workspace $WORKSPACE_1; workspace $WORKSPACE_1
+bindsym $mod+Shift+2 move container to workspace $WORKSPACE_2; workspace $WORKSPACE_2
+bindsym $mod+Shift+3 move container to workspace $WORKSPACE_3; workspace $WORKSPACE_3
+bindsym $mod+Shift+4 move container to workspace $WORKSPACE_4; workspace $WORKSPACE_4
+bindsym $mod+Shift+5 move container to workspace $WORKSPACE_5; workspace $WORKSPACE_5
+bindsym $mod+Shift+6 move container to workspace $WORKSPACE_6; workspace $WORKSPACE_6
+bindsym $mod+Shift+7 move container to workspace $WORKSPACE_7; workspace $WORKSPACE_7
+bindsym $mod+Shift+8 move container to workspace $WORKSPACE_8; workspace $WORKSPACE_8
+bindsym $mod+Shift+9 move container to workspace $WORKSPACE_9; workspace $WORKSPACE_9
+bindsym $mod+Shift+0 move container to workspace $WORKSPACE_10; workspace $WORKSPACE_10
 
 assign [class="Google-chrome"] $WORKSPACE_2
 # assign [class="Thunar"] $WORKSPACE_4
-assign [class="vlc"] $WORKSPACE_5
-assign [class="Okular"] $WORKSPACE_6
+# assign [class="vlc"] $WORKSPACE_5
+# assign [class="Okular"] $WORKSPACE_6
 
 # ------------------------------------------------------------------------------------------------------------------------------
 
@@ -135,24 +135,18 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
+# ----------------------------- CUSTOM CODE ------------------------------------------------------------------------------------
+
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 5 px or 2 ppt
+        bindsym j resize grow height 5 px or 2 ppt
+        bindsym k resize shrink height 5 px or 2 ppt
+        bindsym l resize grow width 5 px or 2 ppt
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 2 ppt
+        bindsym Down resize grow height 5 px or 2 ppt
+        bindsym Up resize shrink height 5 px or 2 ppt
+        bindsym Right resize grow width 5 px or 2 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -161,24 +155,46 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# ------------------------------------------------------------------------------------------------------------------------------
+
 # ----------------------------- CUSTOM CODE ------------------------------------------------------------------------------------
 
 # color variables
-set $bg-color 	         #263238
-set $inactive-bg-color   #263238
-set $text-color          #34febb
-set $inactive-text-color #78909C
-set $urgent-bg-color     #E53935
+set $w-bg-color 	   #45565f
+set $w-inactive-bg-color   #222d32
+set $w-text-color          #d6e0e3
+set $w-inactive-text-color #5d6869
+set $w-urgent-bg-color     #fe9703
+set $w-indicator-color     #a3c639
+
+# use pixel size of 4 and no title bar for new windows
+new_window pixel 1
+new_float pixel 1
+
+# hide border when there is only one window in workspace
+# hide_edge_borders smart
 
 # window colors
-#                       border              background         text                 indicator   child_border
-client.focused          $bg-color           $bg-color          $text-color          #34f3bb
-client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #34f3bb
-client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #34f3bb
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #34f3bb
+#                       border                  background              text                    indicator               child_border
+client.focused          $w-bg-color             $w-bg-color             $w-text-color           $w-indicator-color      #03bcd4
+client.unfocused        $w-inactive-bg-color    $w-inactive-bg-color    $w-inactive-text-color  $w-indicator-color
+client.focused_inactive $w-inactive-bg-color    $w-inactive-bg-color    $w-inactive-text-color  $w-indicator-color
+client.urgent           $w-bg-color             $w-urgent-bg-color      $w-text-color           $w-indicator-color
 
-# Start i3bar to display a workspace bar
+# launch rofi instead of dmenu
+bindsym $mod+d exec rofi -show run -hide-scrollbar -lines 6 -eh 2 -width 100 -padding 334 -opacity "100" -bw 3 -bc "#18FFFF" -bg "$w-inactive-bg-color" -fg "$w-inactive-text-color" -hlbg "$w-inactive-bg-color" -hlfg "#18FFFF" -font "System San Francisco Display 18"
+
+# ------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------- CUSTOM CODE ------------------------------------------------------------------------------------
 # top bar
+set $tb-bg-color 	    #222d32
+set $tb-inactive-bg-color   #222d32
+set $tb-text-color          #d6e0e3
+set $tb-inactive-text-color #5d6869
+set $tb-urgent-bg-color     #fe9703
+set $tb-urgent-text-color   #FAFAFA
+
 bar {
 	# status command
         status_command i3blocks -c ~/.config/i3blocks/i3blocks_topbar.conf
@@ -196,25 +212,30 @@ bar {
         tray_output primary
         
         # custom seperator
-        # separator_symbol ":|:"
+        separator_symbol " ⏽ "
         
         # color scheme for i3bar
         colors {								
 		# background color of i3bar
-		background $bg-color
+		background $tb-bg-color
 		
 		# color of seperators
-		separator #757575
+		separator #8b96d2
 
 		# color scheme for workspace buttons								
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+		#                       border                  background              text
+		urgent_workspace        $tb-urgent-bg-color     $tb-urgent-bg-color     $tb-urgent-text-color
 	}
 }
 
 # bottom bar
+set $bb-bg-color 	    #29353b
+set $bb-inactive-bg-color   #222d32
+set $bb-text-color          #18FFFF
+set $bb-inactive-text-color #5d6869
+set $bb-urgent-bg-color     #fe9703
+set $tb-urgent-text-color   #FAFAFA
+
 bar {
 	# status command
         status_command i3blocks -c ~/.config/i3blocks/i3blocks_bottombar.conf
@@ -229,21 +250,22 @@ bar {
         tray_output primary
         
         # custom seperator
-        # separator_symbol ":|:"
+        separator_symbol "⏽"
         
         # color scheme for i3bar
         colors {								
 		# background color of i3bar
-		background $bg-color
+		background $bb-inactive-bg-color
 		
 		# color of seperators
-		separator #757575
+		separator #8b96d2
 
 		# color scheme for workspace buttons								
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+		#                  border                       background              text
+		focused_workspace  $bb-inactive-bg-color        $bb-inactive-bg-color   $bb-text-color
+                active_workspace   $bb-inactive-bg-color        $bb-inactive-bg-color   $bb-inactive-text-color
+		inactive_workspace $bb-inactive-bg-color        $bb-inactive-bg-color   $bb-inactive-text-color
+		urgent_workspace   $tb-urgent-bg-color          $tb-urgent-bg-color     $tb-urgent-text-color
 	}
 }
 
@@ -255,7 +277,7 @@ bar {
 exec_always feh --bg-scale ~/custom_wallpapers/hacker.jpg
 
 # lock screen with i3lock
-bindsym $mod+x exec ~/custom_scripts/lock.sh -n
+bindsym $mod+x exec ~/.i3_scripts/lock.sh -n
 
 # enable natural scroll and horizontal scroll
 # synclient
@@ -273,17 +295,27 @@ bindsym XF86AudioLowerVolume exec amixer -c 0 set Master 5%- && pkill -RTMIN+1 i
 bindsym XF86AudioRaiseVolume exec amixer -c 0 set Master 5%+ && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle && exec pkill -RTMIN+1 i3blocks 
 
+# screensharing controls
+# extended workspace
+bindsym $mod+m exec xrandr --output eDP1 --primary --auto --output DP1 --auto --above eDP1
+# presentation
+bindsym $mod+Mod1+p exec xrandr --output DP1 --primary --auto --same-as eDP1
+# big screen only
+bindsym $mod+Mod1+m exec xrandr --output eDP1 --off --output DP1 --primary --auto --same-as eDP1
+# restore defaults
+bindsym $mod+Shift+m exec xrandr --output eDP1 --primary --auto --output DP1 --off
+
 # screenshot controls using imagemagik
-bindsym Print exec ~/custom_scripts/screenshot.sh
+bindsym Print exec ~/.i3_scripts/i3/screenshot.sh
+
+# move toggle workspace output screen
+bindsym $mod+Tab move workspace to output up
 
 # autolock using xautolock
-exec_always xautolock -time 30 -locker ~/custom_scripts/lock.sh &
+# exec_always xautolock -time 30 -locker ~/.i3_scripts/lock.sh &
 
-# xrandr commands
-exec_always ~/custom_scripts/xrander_script.sh
-
-# launch rofi instead of dmenu
-bindsym $mod+d exec rofi -show run -hide-scrollbar -lines 6 -eh 2 -width 100 -padding 335 -opacity "90" -bw 3 -bc "#32ae85" -bg "$bg-color" -fg "$inactive-text-color" -hlbg "$bg-color" -hlfg "#34febb" -font "System San Francisco Display 18"
+# xrandr initial command on startup
+exec xrandr --output eDP1 --primary --auto --output DP1 --off
 
 # start compton
 exec compton -f
