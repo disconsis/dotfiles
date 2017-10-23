@@ -1,63 +1,73 @@
 [bandwidth]
-label= 
-command=/home/ketan/.config/i3blocks/scripts/bandwidth --inlabel "↓ " --outlabel "↑ "
-color=#ffffff
+label= 
+command=/home/ketan/.config/i3blocks/scripts/bandwidth -in "↓" -out "↑" -ic '#62cebf' -oc '#234552'
 interval=1
 markup=pango
 
-[wifi]
-command=/home/ketan/.git/i3_scripts/i3blocks/wifi_signal_strength.sh wlp4s0
+[wifi_ssid]
+label= 
+command=/home/ketan/.config/i3blocks/scripts/ssid
+color=#c73cff
 interval=2
 
+[wifi_strength]
+label= 
+command=/home/ketan/.config/i3blocks/scripts/wifi
+interval=1
+
 [cpu]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/cpu_usage
 interval=1
 
 [load]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/load_average
 interval=2
 
 [memory]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/memory
 interval=2
 
 [disk_acc]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/disk_acc
 interval=2
 
 [hddtemp]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/temp
 interval=3
 
 [mouse]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/check_mouse
 interval=once
 signal=2
 
 [capslock]
-label=Aa
+label= Aa
 command=/home/ketan/.config/i3blocks/scripts/check_capslock; sleep 0.3
 interval=repeat
 
 [volume]
-label=
+label= 
 command=/home/ketan/.config/i3blocks/scripts/volume 5% pulse
 interval=1
 signal=2
 color=#F4BF75
 
 [time]
+label= 
 command=date '+%I:%M %p'
 color=#ffffff
 interval=60
 
 [date]
+label= 
 command=date '+%a, %b %d'
 color=#ffffff
 interval=60
+
+# vim: ft=conf
