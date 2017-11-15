@@ -1,13 +1,11 @@
-" Vundle
-" ======
+" Vundle " {{{
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'python-mode/python-mode'
+Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
@@ -26,86 +24,93 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'sjl/gundo.vim'
 Plugin 'shougo/vimproc'
 Plugin 'shougo/vimshell'
+Plugin 'alvan/vim-closetag'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'Konfekt/FastFold'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'Konfekt/vim-zeal'
 call vundle#end()
 filetype plugin indent on
+" }}}
 
-" Font options
-" ============
+" Font options " {{{
 set encoding=utf-8
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
+" }}}
 
-" Colours
-" =======
+" Colours " {{{
 set t_Co=256
-" light scheme →
-" --------------
-" set background=light
-" colorscheme solarized
-" let g:solarized_termcolors=256
-" let g:airline_theme='sol'
-" dark scheme →
-" -------------
 colorscheme monokai
-let g:airline_theme='dark'
+let g:airline_theme = 'dark'
+" }}}
 
-" Miscellaneous
-" =============
-let mapleader="\<space>"
+" Miscellaneous " {{{
+let mapleader = "\,"
+" restore , functionality
+nnoremap <space> ,
 set showcmd
 set hidden
 set laststatus=2    " always show statusline
 set ttimeoutlen=10  " reduce latency in leaving insert mode
+set nrformats=      " disable bin/octal/hex number formats
 set nohlsearch
 syntax enable
-set noshowmode
+set noshowmode      " already have a statusline
 set wrap
+" make Y do something actually useful (instead of copying yy)
 nnoremap Y y$
+set undofile        " persistent undo !!!
+" stop vim littering every directory
+set undodir=~/tmp/.vim/undo
+set backupdir=~/tmp/.vim/swap
+" HTML FTW
+packadd! matchit
+" }}}
 
-" Gundo settings
-" ==============
-let g:gundo_prefer_python3=1
+" Gundo settings {{{
+let g:gundo_prefer_python3 = 1
+" }}}
 
-" Swap actual & virtual lines
-" ===========================
+" Swap actual & virtual lines " {{{
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+" }}}
 
-" Line numbering
-" ==============
+" Line numbering " {{{
 set ruler
 set number
 set norelativenumber
 " move b/w rel & abs numbering
 nnoremap <leader>nn :set norelativenumber number<cr>:<bs>
 nnoremap <leader>nr :set relativenumber nonumber<cr>:<bs>
+" }}}
 
-" Search options
-" ==============
+" Search options " {{{
 set nohlsearch
 set ignorecase
 set incsearch
 nnoremap <leader>sh :set hlsearch<cr>:<cr>
 nnoremap <leader>sn :set nohlsearch<cr>:<cr>
+" }}}
 
-" Indentation
-" ===========
+" Indentation " {{{
 set autoindent
 set wrap
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set list listchars=extends:⇒,precedes:⇒,tab:\ \ ,trail:·
+" }}}
 
-" autocomplete options
-" ====================
+" autocomplete options " {{{
 set wildmenu
 set wildmode=full
 set completeopt=menu
+" }}}
 
-" Change cursor in insert and normal modes
-" ========================================
+" Change cursor in insert and normal modes " {{{
 if exists('$TMUX')
     let &t_SI="\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
     let &t_EI="\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
@@ -113,21 +118,21 @@ else
     let &t_SI="\e[5 q"
     let &t_EI="\e[2 q"
 endif
+" }}}
 
-" Sensible splits
-" ===============
+" Sensible splits " {{{
 set splitbelow
 set splitright
+" }}}
 
-" Empty out line/whitespace
-" =========================
+" Empty out line/whitespace " {{{
 " for line
-nnoremap <leader>ee 0"_d$
+nnoremap <leader>ee Vc<esc>
 " for whitespace
-nnoremap <leader>ew $gel"_D
+nnoremap <leader>ew :s/\v\s+$//g<cr>
+" }}}
 
-" Miscellaneous mappings
-" ======================
+" Miscellaneous mappings " {{{
 " open tabs faster
 cnorea tnew tabnew
 " find len of visually selected area
@@ -135,60 +140,87 @@ vnoremap <leader>l "cy:echo len(<c-r>c)<cr>
 " insert lines above and below
 nnoremap ]<space> o<esc>k
 nnoremap [<space> O<esc>j
-" fix saving
-cnoremap W w
+" }}}
 
-" change case
-" ===========
+" change case " {{{
 nnoremap <leader>cu gUiw
 nnoremap <leader>cc g~iw
 nnoremap <leader>cl guiw
+" }}}
 
-" tmux-navigator options
-" ======================
-let g:tmux_navigator_disable_when_zoomed=1
+" tmux-navigator options {{{
+let g:tmux_navigator_disable_when_zoomed = 1
+" }}}
 
-" airline-tabline options
-" =======================
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#fnamemod=':.'
-let g:airline#extensions#tabline#fnamecollapse=0
-let g:airline#extensions#tabline#show_splits=0
-let g:airline#extensions#tabline#show_buffers=0
-let g:airline#extensions#tabline#show_tab_type=0
-let g:airline#extensions#tabline#show_close_button=0
+" airline-tabline options " {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':.'
+let g:airline#extensions#tabline#fnamecollapse = 0
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline_mode_map = {
+    \ '__': '-',
+    \ 'n' : 'N',
+    \ 'i' : 'I',
+    \ 'R' : 'R',
+    \ 'c' : 'C',
+    \ 'v' : 'V',
+    \ 'V' : 'Vl',
+    \ '': 'Vb',
+    \ 's' : 'S',
+    \ 'S' : 'S',
+    \ '': 'S',
+    \ }
+" }}}
 
-" airline-statusline options
-" ==========================
-let g:airline_section_b = '%{getcwd()}'
+" airline-statusline options " {{{
+let g:airline_skip_empty_sections = 1
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+let g:max_cwd_elements = 5
 
-" vimshell options
-" ================
+function! Getshortcwd()
+    let dirname = fnamemodify(getcwd(), ":~")
+    if dirname ==# "~/"
+        return "~"
+    endif
+    if len(split(dirname, '/')) <= g:max_cwd_elements
+        return dirname
+    else
+        return "…/" . join(split(dirname, "/")[-(g:max_cwd_elements-1):], "/")
+    endif
+endfunction
+let g:airline_section_b = '%{Getshortcwd()}'
+" }}}
+
+" vimshell options " {{{
 let g:vimshell_user_prompt='fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt="$ "
+" }}}
 
-
-" autocorrect
-" ===========
+" autocorrect " {{{
 inorea adn and
 inorea tehn then
 inorea intsall install
 inorea reutrn return
 inorea -> →
 " ↑ add a java exception?
+" }}}
 
-" brace completion
-" ================
+" completion " {{{
 inoremap ( ()<esc>i
 inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
 inoremap ` ``<esc>i
+autocmd Syntax htmldjango inoremap <buffer> % %%<esc>i
+autocmd Syntax css inoremap <buffer> /* /*<space><space>*/<esc>hhi
 inoremap <c-h> <esc>i
 inoremap <c-l> <esc>la
+" }}}
 
-" vimrc settings
-" ==============
+" vimrc settings " {{{
 augroup vimrc_
     autocmd!
     " underlining
@@ -206,15 +238,9 @@ nnoremap <leader>vs :vsp $MYVIMRC<cr>
 nnoremap <leader>vt :tabnew $MYVIMRC<cr>
 nnoremap <leader>vr :source $MYVIMRC<cr>
 cnorea vrc $MYVIMRC
+" }}}
 
-" augroup nuw_pedant
-"     autocmd!
-"     autocmd BufWritePost source /home/ketan/bin/nuw.vim
-" augroup END
-
-
-" vimwiki settings
-" ================
+" vimwiki settings " {{{
 augroup wikia_
     autocmd!
     " no width restrictions
@@ -223,9 +249,14 @@ augroup wikia_
     " need ' in normal text, so...
     " autocmd Syntax vimwiki iunmap ' → returns error
 augroup END
+" }}}
 
-" help settings
-" =============
+" nerdtree settings {{{
+nnoremap <leader>t :NERDTreeToggle<CR>
+let NERDTreeMinimalUI = 1
+" }}}
+
+" help settings " {{{
 augroup helptype_
     autocmd!
     " no numbering
@@ -236,9 +267,9 @@ augroup helptype_
     " no listchars ∵ tabs
     autocmd Syntax help setlocal nolist
 augroup END
+" }}}
 
-" quickfix settings
-" =================
+" quickfix settings " {{{
 augroup quickfix_
     " no width restrictions
     autocmd Syntax qf setlocal colorcolumn=""
@@ -249,6 +280,7 @@ augroup END
 
 " i3config settings
 " =================
+" {{{
 cnorea i3c ~/.config/i3/config
 cnorea i3d ~/.config/i3
 cnorea i3bc ~/.config/i3blocks/config
@@ -263,36 +295,16 @@ augroup END
 
 " python settings
 " ===============
+" {{{
 augroup python_
     autocmd!
-    autocmd Syntax python set textwidth=79
-    autocmd Syntax python set colorcolumn=80
+    autocmd Syntax python setlocal textwidth=79
+    autocmd Syntax python setlocal colorcolumn=80
     autocmd Syntax python inoremap ' ''<esc>i
-    autocmd Syntax python let g:pymode_rope=0 "so slow!!!
 augroup END
 
 " LaTeX settings
 " ==============
 let g:livepreview_previewer = 'okular'
 
-" Keys mapped
-" ===========
-" <leader>
-"     n
-"         n
-"         r
-"     s
-"         h
-"         n
-"     u
-"     =
-"     v
-"         e
-"         s
-"         t
-"         r
-"     e
-"         e
-"         w
-"     r (python-mode)
-"  ketan ketan  dsf ketan blah
+" vim: fdm=marker
