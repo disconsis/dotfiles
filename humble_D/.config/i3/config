@@ -291,8 +291,8 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 && pkill -RTMIN+2 i3blocks
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 && pkill -RTMIN+2 i3blocks
 
 # sound controls for soundcard 0
-bindsym XF86AudioLowerVolume exec amixer -c 0 set Master 5%- && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioRaiseVolume exec amixer -c 0 set Master 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -M -c 0 set PCM 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer -M -c 0 set PCM 5%+ && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle && exec pkill -RTMIN+1 i3blocks 
 
 # screensharing controls
