@@ -26,7 +26,7 @@ bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -
 
 # Screenshot keybinds
 ## focused monitor only
-bindsym Print exec scrot -q 100 -u 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
+bindsym Print exec scrot -q 100 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
 ## both monitors
 bindsym Shift+Print exec scrot -q 100 -m 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
 
@@ -80,6 +80,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
 
+# scratchpad settings
+bindsym $mod+u move scratchpad
+bindsym $mod+i scratchpad show
+
 # switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -106,23 +110,35 @@ bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
 # reload/restart/exit i3
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+z exec "pkill -f ~/.config/i3/";restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 bindsym $mod+r mode "resize"
 mode "resize" {
-        # small shifts
-        bindsym h resize shrink width 1 px or 1 ppt
-        bindsym k resize grow height 1 px or 1 ppt
-        bindsym j resize shrink height 1 px or 1 ppt
-        bindsym l resize grow width 1 px or 1 ppt
-        # big shifts
-        bindsym Shift+h resize shrink width 10 px or 10 ppt
-        bindsym Shift+k resize grow height 10 px or 10 ppt
-        bindsym Shift+j resize shrink height 10 px or 10 ppt
-        bindsym Shift+l resize grow width 10 px or 10 ppt
-        # escape resize mode
-        bindsym Escape mode "default"
-        bindsym $mod+bracketleft mode "default"
+    # small shifts
+    bindsym h resize shrink width 1 px or 1 ppt
+    bindsym k resize grow height 1 px or 1 ppt
+    bindsym j resize shrink height 1 px or 1 ppt
+    bindsym l resize grow width 1 px or 1 ppt
+    # big shifts
+    bindsym Shift+h resize shrink width 10 px or 10 ppt
+    bindsym Shift+k resize grow height 10 px or 10 ppt
+    bindsym Shift+j resize shrink height 10 px or 10 ppt
+    bindsym Shift+l resize grow width 10 px or 10 ppt
+    # escape resize mode
+    bindsym $mod+r mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+bracketleft mode "default"
+}
+
+bindsym $mod+m mode "monitor"
+mode "monitor" {
+    bindsym $mod+Shift+h exec "xrandr --output eDP1 --auto; xrandr --output HDMI2 --off;"
+    bindsym $mod+Shift+l exec "xrandr --output HDMI2 --auto; xrandr --output eDP1 --off;"
+    bindsym $mod+Shift+k exec "xrandr --output eDP1 --auto; sleep 2; xrandr --output HDMI2 --auto --right-of eDP1"
+
+    bindsym $mod+m mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+bracketleft mode "default"
 }
 
 # colours
@@ -140,6 +156,8 @@ set $bar-inactive-bg-color      #444444
 set $bar-text-color             #f3f4f5
 set $bar-inactive-text-color    #999999
 set $active-border              #774077
+set $bar-urgent-bg-color        #eeeeee
+set $bar-urgent-text-color      #00afee
 
 # window colors
 # element                border              background          text                  indicator
@@ -151,26 +169,27 @@ client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color    
 bar {
         mode dock
         position bottom
+        separator_symbol " ·"
         status_command i3blocks
         tray_output primary
         colors {
             background $bar-bg-color
-            separator #757575
+            # separator #757575
+            separator #00afee
             #                   border                   bg                       text
             focused_workspace   $bar-bg-color            $bar-bg-color            $bar-text-color
             inactive_workspace  $bar-inactive-bg-color   $bar-inactive-bg-color   $bar-inactive-text-color
             active_workspace    $bg-color                $bar-inactive-bg-color   $bar-inactive-text-color
-            # active_workspace    $bar-inactive-text-color $bar-inactive-text-color $bar-inactive-bg-color
-            urgent_workspace    $bar-urgent-bg-color     $bar-urgent-bg-color     $bar-text-color
+            urgent_workspace    $bar-urgent-bg-color     $bar-urgent-bg-color     $bar-urgent-text-color
         }
 }
 
-# toggle bar # FIXME
-# bindsym $mod+b exec bar mode toggle
+# toggle bar
+bindsym $mod+b bar mode toggle
 
 # rename workspaces
 bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/rename_ws.py rename "%s"'
-bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py remove
+bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder
 
 # run applications (rofi)
 bindsym $mod+d exec rofi -show run
