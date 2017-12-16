@@ -15,7 +15,6 @@ Plugin 'vim-scripts/ZoomWin'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'michaeljsmith/vim-indent-object'
-" Plugin 'ying17zi/vim-live-latex-preview'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'mikewest/vim-markdown'
 Plugin 'JamshedVesuna/vim-markdown-preview'
@@ -29,6 +28,8 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'Konfekt/FastFold'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'Konfekt/vim-zeal'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'Valloric/YouCompleteMe'
 call vundle#end()
 filetype plugin indent on
 " }}}
@@ -45,7 +46,8 @@ let g:airline_theme = 'dark'
 " }}}
 
 " Miscellaneous " {{{
-let mapleader = "\,"
+let mapleader = ","
+let maplocalleader = ","
 " restore , functionality
 nnoremap <space> ,
 set showcmd
@@ -63,19 +65,22 @@ set undofile        " persistent undo !!!
 " stop vim littering every directory
 set undodir=~/tmp/.vim/undo
 set backupdir=~/tmp/.vim/swap
+" don't fold at start
+set foldlevelstart=99
 " HTML FTW
 packadd! matchit
 " }}}
 
 " Gundo settings {{{
 let g:gundo_prefer_python3 = 1
+nnoremap <F7> :GundoToggle<cr>
 " }}}
 
 " Swap actual & virtual lines " {{{
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> gj j
+nnoremap <silent> gk k
 " }}}
 
 " Line numbering " {{{
@@ -83,16 +88,16 @@ set ruler
 set number
 set norelativenumber
 " move b/w rel & abs numbering
-nnoremap <leader>nn :set norelativenumber number<cr>:<bs>
-nnoremap <leader>nr :set relativenumber nonumber<cr>:<bs>
+nnoremap <silent> <leader>nn :set norelativenumber number<cr>
+nnoremap <silent> <leader>nr :set relativenumber nonumber<cr>
 " }}}
 
 " Search options " {{{
 set nohlsearch
 set ignorecase
 set incsearch
-nnoremap <leader>sh :set hlsearch<cr>:<cr>
-nnoremap <leader>sn :set nohlsearch<cr>:<cr>
+nnoremap <silent> <leader>sh :set hlsearch<cr>
+nnoremap <silent> <leader>sn :set nohlsearch<cr>
 " }}}
 
 " Indentation " {{{
@@ -125,11 +130,8 @@ set splitbelow
 set splitright
 " }}}
 
-" Empty out line/whitespace " {{{
-" for line
-nnoremap <leader>ee Vc<esc>
-" for whitespace
-nnoremap <leader>ew :s/\v\s+$//g<cr>
+" Clear whitespace {{{
+nnoremap <silent> <leader>ew :silent! s/\v\s+$//g<cr>
 " }}}
 
 " Miscellaneous mappings " {{{
@@ -143,9 +145,9 @@ nnoremap [<space> O<esc>j
 " }}}
 
 " change case " {{{
-nnoremap <leader>cu gUiw
-nnoremap <leader>cc g~iw
-nnoremap <leader>cl guiw
+nnoremap <leader>cu mzgUiw`z
+nnoremap <leader>cc mzg~iw`z
+nnoremap <leader>cl mzguiw`z
 " }}}
 
 " tmux-navigator options {{{
@@ -199,6 +201,11 @@ let g:vimshell_user_prompt='fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt="$ "
 " }}}
 
+" youcompleteme options " {{{
+" let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_server_log_level = 'debug'
+" }}}
+
 " autocorrect " {{{
 inorea adn and
 inorea tehn then
@@ -209,13 +216,7 @@ inorea -> →
 " }}}
 
 " completion " {{{
-inoremap ( ()<esc>i
-inoremap [ []<esc>i
-inoremap { {}<esc>i
-inoremap " ""<esc>i
-inoremap ` ``<esc>i
-autocmd Syntax htmldjango inoremap <buffer> % %%<esc>i
-autocmd Syntax css inoremap <buffer> /* /*<space><space>*/<esc>hhi
+let g:AutoPairsMapCh = 0
 inoremap <c-h> <esc>i
 inoremap <c-l> <esc>la
 " }}}
@@ -229,14 +230,14 @@ augroup vimrc_
     " chars in autocmd) (this one works btw, except for the autocmd thing)
     " autocmd Syntax vim inorea <buffer> augroup augroup<cr><c-d>augroup END<esc>ka
     " edit vimrc
-    autocmd VimEnter,WinEnter,TabEnter * nnoremap <leader>ve :e $MYVIMRC<cr>
-    autocmd BufNewFile,BufRead * nnoremap <leader>ve :w<cr>:e $MYVIMRC<cr>
+    autocmd VimEnter,WinEnter,TabEnter * nnoremap <silent> <leader>ve :e $MYVIMRC<cr>
+    autocmd BufNewFile,BufRead * nnoremap <silent> <leader>ve :w<cr>:e $MYVIMRC<cr>
     autocmd Syntax vim inoremap <buffer> " "
 augroup END
 " edit & reload vimrc
-nnoremap <leader>vs :vsp $MYVIMRC<cr>
-nnoremap <leader>vt :tabnew $MYVIMRC<cr>
-nnoremap <leader>vr :source $MYVIMRC<cr>
+nnoremap <silent> <leader>vs :vsp $MYVIMRC<cr>
+nnoremap <silent> <leader>vt :tabnew $MYVIMRC<cr>
+nnoremap <silent> <leader>vr :source $MYVIMRC<cr>
 cnorea vrc $MYVIMRC
 " }}}
 
@@ -246,13 +247,11 @@ augroup wikia_
     " no width restrictions
     autocmd Syntax vimwiki setlocal colorcolumn=""
     autocmd Syntax vimwiki setlocal textwidth=0
-    " need ' in normal text, so...
-    " autocmd Syntax vimwiki iunmap ' → returns error
 augroup END
 " }}}
 
 " nerdtree settings {{{
-nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <silent> <leader>t :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 " }}}
 
@@ -277,10 +276,9 @@ augroup quickfix_
     " absolute numbering
     autocmd Syntax qf setlocal number norelativenumber
 augroup END
+" }}}
 
-" i3config settings
-" =================
-" {{{
+" {{{ i3config settings
 cnorea i3c ~/.config/i3/config
 cnorea i3d ~/.config/i3
 cnorea i3bc ~/.config/i3blocks/config
@@ -291,20 +289,19 @@ augroup config_
     autocmd Syntax conf setlocal colorcolumn=""
     autocmd Syntax conf setlocal textwidth=0
 augroup END
-" find out no of occurrences of visually selected area
+" }}}
 
-" python settings
-" ===============
-" {{{
+" {{{ python settings
 augroup python_
     autocmd!
     autocmd Syntax python setlocal textwidth=79
     autocmd Syntax python setlocal colorcolumn=80
     autocmd Syntax python inoremap ' ''<esc>i
 augroup END
+" }}}
 
-" LaTeX settings
-" ==============
+" {{{ LaTeX settings
 let g:livepreview_previewer = 'okular'
+" }}}
 
 " vim: fdm=marker
