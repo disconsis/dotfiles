@@ -12,7 +12,7 @@ POWERLEVEL9K_MODE='awesome-fontconfig'
 
 # powerlevel9k settings
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir_writable dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs context)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv background_jobs context)
 
 # powerlevel context settings
 POWERLEVEL9K_ALWAYS_SHOW_CONTEXT="true"
