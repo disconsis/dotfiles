@@ -1,11 +1,14 @@
 # exports {{{
 export TERM=screen-256color
-export TERMINAL=urxvt
+export TERMINAL=st
 export ZSH=$HOME/.oh-my-zsh
 export PYTHONSTARTUP=$HOME/.pythonrc
 export ARCHFLAGS="-arch x86_64"
 export EDITOR='vim'
 export XDG_CONFIG_HOME=$HOME/.config
+export PROJECT_HOME=$HOME/.git
+export WORKON_HOME=$HOME/.virtualenvs
+export PATH=$PATH:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/emulator
 # }}}
 
 # powerlevel9k {{{
@@ -85,8 +88,8 @@ POWERLEVEL9K_VI_COMMAND_MODE_STRING=''
 POWERLEVEL9K_CUSTOM_TASKWARRIOR="python3 $HOME/p9k_scripts/pltask.py  124 255"
 POWERLEVEL9K_CUSTOM_TASKWARRIOR_BACKGROUND='234'
 
-POWERLEVEL9K_CUSTOM_ALARMING="$HOME/p9k_scripts/alarming.sh 124 255"
-POWERLEVEL9K_CUSTOM_ALARMING_BACKGROUND='234'
+# POWERLEVEL9K_CUSTOM_ALARMING="$HOME/p9k_scripts/alarming.sh 124 255"
+# POWERLEVEL9K_CUSTOM_ALARMING_BACKGROUND='234'
 
 POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='234'
 
@@ -94,6 +97,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=238'
 
 # get_icon_names -> print p9k icons
 POWERLEVEL9K_VCS_GIT_GITHUB_ICON=''
+POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=''
 POWERLEVEL9K_VCS_GIT_ICON=''
 POWERLEVEL9K_VCS_BRANCH_ICON=$'\ue0a0 '
 POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='↓'
@@ -139,6 +143,10 @@ alias speed='speedometer'
 alias mux='tmuxinator'
 alias tree='tree -I .git -I __pycache__'
 alias clock='tty-clock -ctDB'
+alias skype='skypeforlinux'
+alias ls='ls --color=always'
+alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias ack='ack --color'
 # }}}
 
 # help {{{
@@ -188,19 +196,19 @@ export VIRTUALENVWRAPPER_SCRIPT=$(which virtualenvwrapper.sh)
 source virtualenvwrapper.sh
 # }}}
 
-# FIXME: project venv {{{
-function set_project_venv {
-    chdir "$@"
-    if [[ `pwd | cut -d / -f 1-5` == '/home/ketan/.git/superlists' ]]
-    then
-        workon superlists
-    else
-        deactivate >& /dev/null
-        true
-    fi
-}
-alias cd=set_project_venv
-# }}}
+# # FIXME: project venv {{{
+# function set_project_venv {
+#     chdir "$@"
+#     if [[ `pwd | cut -d / -f 1-5` == '/home/ketan/.git/superlists' ]]
+#     then
+#         workon superlists
+#     else
+#         deactivate >& /dev/null
+#         true
+#     fi
+# }
+# alias cd=set_project_venv
+# # }}}
 
 # beep {{{
 function beep {
@@ -218,6 +226,13 @@ function beep {
 
 # fasd {{{
 eval "$(fasd --init auto)"
+# }}}
+
+# ncmpcpp {{{
+function mus {
+    ! pidof /usr/bin/mpd > /dev/null && mpd
+    /usr/bin/ncmpcpp "$@"
+}
 # }}}
 
 # vim: fdm=marker
