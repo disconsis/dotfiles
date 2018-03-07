@@ -20,26 +20,33 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'vim-scripts/SyntaxRange'
 Plugin 'sjl/gundo.vim'
 Plugin 'alvan/vim-closetag'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Konfekt/FastFold'
-Plugin 'Konfekt/vim-zeal'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'Harenome/vim-mipssyntax'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'morhetz/gruvbox'
+Plugin 'chrisbra/unicode.vim'
+Plugin 'junegunn/rainbow_parentheses.vim'
+Plugin 'vim-scripts/Tabmerge'
+
+" Syntax files
+" ============
+Plugin 'gburca/vim-logcat'
+Plugin 'Harenome/vim-mipssyntax'
 
 " Occasional use
 " ==============
 " Plugin 'easymotion/vim-easymotion'
 " Plugin 'chrisbra/NrrwRgn'
 " Plugin 'vim-syntastic/syntastic'
-Plugin 'vim-scripts/DrawIt'
+" Plugin 'vim-scripts/DrawIt'
 " Plugin 'Yggdroot/indentLine'
+Plugin 'junegunn/vader.vim'
+" Plugin 'vim-scripts/SyntaxRange'
 
 " Unused
 " ======
@@ -128,7 +135,7 @@ set number
 set norelativenumber
 " move b/w rel & abs numbering
 nnoremap <silent> <leader>nn :set norelativenumber number<cr>
-" nnoremap <silent> <leader>nr :set relativenumber nonumber<cr>
+nnoremap <silent> <leader>nr :set relativenumber nonumber<cr>
 " }}}
 
 " Search options " {{{
@@ -348,7 +355,9 @@ augroup END
 augroup python_
     autocmd!
     autocmd Syntax python setlocal textwidth=79
-    autocmd Syntax python setlocal colorcolumn=80
+    " autocmd Syntax python setlocal colorcolumn=80
+    autocmd Syntax python call matchadd('ColorColumn', '\%80v')
+    autocmd Syntax python hi ColorColumn ctermbg=88
     autocmd Syntax python inoremap ' ''<esc>i
 augroup END
 " }}}
@@ -367,7 +376,7 @@ let g:livepreview_previewer = 'zathura'
 
 " {{{ vim-markdown settings
 let g:vim_markdown_fenced_languages = ['python=python']
-let g:vim_markdown_new_list_item = 0
+let g:vim_markdown_new_list_item_indent = 0
 " hi htmlLink cterm=underline ctermfg=033
 " }}}
 
@@ -387,7 +396,7 @@ augroup gre_notes_
 augroup END
 
 " drawit
-let g:vimwiki_table_auto_fmt = 0
+" let g:vimwiki_table_auto_fmt = 0
 " }}}
 
 " }}}
