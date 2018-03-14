@@ -8,7 +8,8 @@ export EDITOR='vim'
 export XDG_CONFIG_HOME=$HOME/.config
 export PROJECT_HOME=$HOME/.git
 export WORKON_HOME=$HOME/.virtualenvs
-export PATH=$PATH:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/emulator
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
 # }}}
 
 # powerlevel9k {{{
@@ -26,7 +27,7 @@ source $ZSH/oh-my-zsh.sh
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
 
 if [[ -n $SSH_CONNECTION ]]; then
-    export PATH=/home/ketan/bin
+    export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
 fi
 
 
@@ -141,16 +142,26 @@ alias open='xdg-open'
 alias speed='speedometer'
 alias mux='tmuxinator'
 alias tree='tree -I .git -I __pycache__'
-alias clock='tty-clock -ctDB'
+alias clock='tty-clock -ctB'
 alias skype='skypeforlinux'
 alias ls='ls --color=always'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ack='ack --color'
 alias v='vim'
 function za {
-    zathura $@ 2>/dev/null &!
+    /usr/bin/zathura $@ &>/dev/null &!
 }
-alias q='qutebrowser 2>/dev/null &!'
+alias q='qutebrowser &>/dev/null &!'
+function okular {
+    /usr/bin/okular $@ &>/dev/null &!
+    if [[ $? -ne 0 ]]; then
+        export $(dbus-launch)
+        /usr/bin/okular $@ &>/dev/null &!
+    fi
+}
+function e {
+    /usr/bin/emacs -nw $@
+}
 # }}}
 
 # help {{{
@@ -241,5 +252,14 @@ function mus {
 
 # gruvbox colours
 $HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh
+
+# countdown to GRE {{{
+task calendar rc.monthsperline=2
+echo
+echo 'TODO'
+echo '===='
+cat ~/tmp/todo.wiki
+countdown 2018-04-06 '%d days to the GRE'
+# }}}
 
 # vim: fdm=marker

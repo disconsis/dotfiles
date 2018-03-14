@@ -7,7 +7,6 @@ call vundle#begin()
 " =========
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
@@ -17,7 +16,6 @@ Plugin 'vim-scripts/ZoomWin'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'sjl/gundo.vim'
@@ -32,6 +30,10 @@ Plugin 'morhetz/gruvbox'
 Plugin 'chrisbra/unicode.vim'
 Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'vim-scripts/Tabmerge'
+Plugin 'tpope/vim-endwise'
+Plugin 'roxma/vim-paste-easy'
+Plugin 'tpope/vim-vinegar'
+Plugin 'haya14busa/incsearch.vim'
 
 " Syntax files
 " ============
@@ -47,6 +49,8 @@ Plugin 'Harenome/vim-mipssyntax'
 " Plugin 'Yggdroot/indentLine'
 Plugin 'junegunn/vader.vim'
 " Plugin 'vim-scripts/SyntaxRange'
+" Plugin 'xuhdev/vim-latex-live-preview'
+" Plugin 'scrooloose/nerdtree'
 
 " Unused
 " ======
@@ -378,6 +382,12 @@ let g:livepreview_previewer = 'zathura'
 let g:vim_markdown_fenced_languages = ['python=python']
 let g:vim_markdown_new_list_item_indent = 0
 " hi htmlLink cterm=underline ctermfg=033
+" }}}
+
+" incsearch plugin settings {{{
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 " }}}
 
 " temp {{{
