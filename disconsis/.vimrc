@@ -31,9 +31,10 @@ Plugin 'chrisbra/unicode.vim'
 Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'vim-scripts/Tabmerge'
 Plugin 'tpope/vim-endwise'
-Plugin 'roxma/vim-paste-easy'
 Plugin 'tpope/vim-vinegar'
 Plugin 'haya14busa/incsearch.vim'
+Plugin 'tpope/vim-speeddating'
+
 
 " Syntax files
 " ============
@@ -47,13 +48,15 @@ Plugin 'Harenome/vim-mipssyntax'
 " Plugin 'vim-syntastic/syntastic'
 " Plugin 'vim-scripts/DrawIt'
 " Plugin 'Yggdroot/indentLine'
-Plugin 'junegunn/vader.vim'
+" Plugin 'junegunn/vader.vim'
 " Plugin 'vim-scripts/SyntaxRange'
 " Plugin 'xuhdev/vim-latex-live-preview'
 " Plugin 'scrooloose/nerdtree'
 
 " Unused
 " ======
+" Plugin 'jceb/vim-orgmode'
+" Plugin 'roxma/vim-paste-easy'
 " Plugin 'shougo/vimproc'
 " Plugin 'shougo/vimshell'
 " Plugin 'JamshedVesuna/vim-markdown-preview'
@@ -388,6 +391,10 @@ let g:vim_markdown_new_list_item_indent = 0
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+" }}}
+
+" orgmode {{{
+let g:org_indent = 1
 " }}}
 
 " temp {{{
