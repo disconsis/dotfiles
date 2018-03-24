@@ -34,6 +34,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-vinegar'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'tpope/vim-speeddating'
+Plugin 'vimoutliner/vimoutliner'
 
 
 " Syntax files
@@ -155,11 +156,16 @@ nnoremap <silent> <leader>sn :set nohlsearch<cr>
 
 " Indentation " {{{
 set autoindent
-set wrap
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set list listchars=extends:⇒,precedes:⇒,tab:\ \ ,trail:·
+" }}}
+
+" wrapping {{{
+set wrap
+set linebreak
+set breakindent
 " }}}
 
 " autocomplete options " {{{
@@ -395,6 +401,10 @@ map g/ <Plug>(incsearch-stay)
 
 " orgmode {{{
 let g:org_indent = 1
+" }}}
+
+" vinegar {{{
+nnoremap \ <Plug>VinegarUp
 " }}}
 
 " temp {{{
