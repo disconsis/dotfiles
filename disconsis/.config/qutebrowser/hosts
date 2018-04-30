@@ -1,0 +1,34 @@
+s*.youtube.com
+ad.doubleclick.net
+googleads.g.doubleclick.net
+ssl.google-analytics.com
+www-google-analytics.l.google.com
+stats.g.doubleclick.net
+clients.l.google.com
+pagead.l.doubleclick.net
+www-googletagmanager.l.google.com
+googleadapis.l.google.com
+ads.doubleclick.net
+# s.ytimg.com  # problems?
+ads.youtube.com
+# gstatic.com  # problems?
+clients1.google.com
+dts.innovid.com
+googleads.g.doubleclick.net
+googleads4.g.doubleclick.net
+pagead2.googlesyndication.com
+pixel.moatads.com
+rtd.tubemogul.com
+s.youtube.com
+s.innovid.com
+pubads.g.doubleclick.net
+s0.2mdn.net
+ad.doubledlick.net
+files.adform.net
+secure-ds.serving-sys.com
+securepubads.g.doubleclick.net
+# apis.google.com # problems?
+2975c.v.fwmrm.net
+static.doubleclick.net
+googleadservices.com
+ad-g.doubleclick.net

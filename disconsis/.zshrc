@@ -1,11 +1,15 @@
 # exports {{{
 export TERM=screen-256color
-export TERMINAL=urxvt
+export TERMINAL=st
 export ZSH=$HOME/.oh-my-zsh
 export PYTHONSTARTUP=$HOME/.pythonrc
 export ARCHFLAGS="-arch x86_64"
 export EDITOR='vim'
 export XDG_CONFIG_HOME=$HOME/.config
+export PROJECT_HOME=$HOME/.git
+export WORKON_HOME=$HOME/.virtualenvs
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
 # }}}
 
 # powerlevel9k {{{
@@ -23,7 +27,7 @@ source $ZSH/oh-my-zsh.sh
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
 
 if [[ -n $SSH_CONNECTION ]]; then
-    export PATH=/home/ketan/bin
+    export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
 fi
 
 
@@ -33,15 +37,14 @@ setopt CORRECT
 # custom file count {{{
 zsh_file_count(){
     local signal=$(ls -A1 | wc -l)
-    local color='%F{052}'
-    [[ $signal -eq 0 ]] && color='%F{001}'
+    local color='%F{$FOREGROUND}'
+    [[ $signal -eq 0 ]] && color='%F{124}'
     echo -n "%{$color%}$signal%{%f%}"
 }
 # }}}
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir custom_file_count dir_writable vcs newline vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_alarming background_jobs virtualenv)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=false
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
 POWERLEVEL9K_CUSTOM_FILE_COUNT="zsh_file_count"
 POWERLEVEL9K_DIR_PATH_SEPARATOR=" "$'\uE0B1'" "
@@ -49,51 +52,52 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=5
 POWERLEVEL9K_SHORTEN_STRATEGY="None"
 POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
 
-POWERLEVEL9K_VIRTUALENV_BACKGROUND='066'
 
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND='124'
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND='255'
-POWERLEVEL9K_STATUS_OK_BACKGROUND='220'
-POWERLEVEL9K_STATUS_OK_FOREGROUND='052'
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='235'
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='109'
+POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='235'
 
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='214'
-POWERLEVEL9K_DIR_HOME_BACKGROUND='214'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='214'
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='052'
-POWERLEVEL9K_DIR_HOME_FOREGROUND='052'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='052'
+POWERLEVEL9K_STATUS_ERROR_BACKGROUND='167'
+POWERLEVEL9K_STATUS_OK_BACKGROUND='248'
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='109'
+POWERLEVEL9K_DIR_HOME_BACKGROUND=$POWERLEVEL9K_DIR_DEFAULT_BACKGROUND
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=$POWERLEVEL9K_DIR_DEFAULT_BACKGROUND
+POWERLEVEL9K_CUSTOM_FILE_COUNT_BACKGROUND='108'
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='142'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='175'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='24'
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='167'
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='24'
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='106'
 
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='118'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='093'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='039'
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND='016'
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='016'
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='016'
+FOREGROUND='234'
+POWERLEVEL9K_STATUS_ERROR_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_STATUS_OK_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_DIR_HOME_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=$FOREGROUND
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND=$FOREGROUND
 
-POWERLEVEL9K_CUSTOM_FILE_COUNT_BACKGROUND='208'
-
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='202'
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND='016'
-
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='027'
-POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='255'
-POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='082'
-POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='232'
 POWERLEVEL9K_VI_INSERT_MODE_STRING=''
 POWERLEVEL9K_VI_COMMAND_MODE_STRING=''
 
-POWERLEVEL9K_CUSTOM_TASKWARRIOR="python3 $HOME/p9k_scripts/pltask.py  124 255"
-POWERLEVEL9K_CUSTOM_TASKWARRIOR_BACKGROUND='234'
+# POWERLEVEL9K_CUSTOM_TASKWARRIOR="python3 $HOME/p9k_scripts/pltask.py  124 255"
+# POWERLEVEL9K_CUSTOM_TASKWARRIOR_BACKGROUND='234'
 
-POWERLEVEL9K_CUSTOM_ALARMING="$HOME/p9k_scripts/alarming.sh 124 255"
-POWERLEVEL9K_CUSTOM_ALARMING_BACKGROUND='234'
+# POWERLEVEL9K_CUSTOM_ALARMING="$HOME/p9k_scripts/alarming.sh 124 255"
+# POWERLEVEL9K_CUSTOM_ALARMING_BACKGROUND='234'
 
-POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='234'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=238'
 
 # get_icon_names -> print p9k icons
 POWERLEVEL9K_VCS_GIT_GITHUB_ICON=''
+POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=''
 POWERLEVEL9K_VCS_GIT_ICON=''
 POWERLEVEL9K_VCS_BRANCH_ICON=$'\ue0a0 '
 POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='↓'
@@ -138,7 +142,26 @@ alias open='xdg-open'
 alias speed='speedometer'
 alias mux='tmuxinator'
 alias tree='tree -I .git -I __pycache__'
-alias clock='tty-clock -ctDB'
+alias clock='tty-clock -ctB'
+alias skype='skypeforlinux'
+alias ls='ls --color=always'
+alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias ack='ack --color'
+alias v='vim'
+function za {
+    /usr/bin/zathura $@ &>/dev/null &!
+}
+alias q='qutebrowser &>/dev/null &!'
+function okular {
+    /usr/bin/okular $@ &>/dev/null &!
+    if [[ $? -ne 0 ]]; then
+        export $(dbus-launch)
+        /usr/bin/okular $@ &>/dev/null &!
+    fi
+}
+function e {
+    /usr/bin/emacs -nw $@
+}
 # }}}
 
 # help {{{
@@ -188,19 +211,19 @@ export VIRTUALENVWRAPPER_SCRIPT=$(which virtualenvwrapper.sh)
 source virtualenvwrapper.sh
 # }}}
 
-# FIXME: project venv {{{
-function set_project_venv {
-    chdir "$@"
-    if [[ `pwd | cut -d / -f 1-5` == '/home/ketan/.git/superlists' ]]
-    then
-        workon superlists
-    else
-        deactivate >& /dev/null
-        true
-    fi
-}
-alias cd=set_project_venv
-# }}}
+# # FIXME: project venv {{{
+# function set_project_venv {
+#     chdir "$@"
+#     if [[ `pwd | cut -d / -f 1-5` == '/home/ketan/.git/superlists' ]]
+#     then
+#         workon superlists
+#     else
+#         deactivate >& /dev/null
+#         true
+#     fi
+# }
+# alias cd=set_project_venv
+# # }}}
 
 # beep {{{
 function beep {
@@ -218,6 +241,25 @@ function beep {
 
 # fasd {{{
 eval "$(fasd --init auto)"
+# }}}
+
+# ncmpcpp {{{
+function mus {
+    ! pidof /usr/bin/mpd > /dev/null && mpd
+    /usr/bin/ncmpcpp "$@"
+}
+# }}}
+
+# gruvbox colours
+$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh
+
+# countdown to GRE {{{
+task calendar rc.monthsperline=2
+echo
+echo 'TODO'
+echo '===='
+cat ~/tmp/todo.wiki
+countdown 2018-04-06 '%d days to the GRE'
 # }}}
 
 # vim: fdm=marker

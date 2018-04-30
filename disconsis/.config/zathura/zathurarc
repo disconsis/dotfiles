@@ -1,0 +1,28 @@
+map [normal] l navigate next
+map [fullscreen] l navigate next
+map [normal] h navigate previous
+map [fullscreen] h navigate previous
+
+map [normal] <Left> navigate previous
+map [fullscreen] <Left> navigate previous
+map [normal] <Right> navigate next
+map [fullscreen] <Right> navigate next
+
+map [normal] <C-e> scroll down
+map [fullscreen] <C-e> scroll down
+map [normal] <C-y> scroll up
+map [fullscreen] <C-y> scroll up
+
+set recolor-darkcolor #33333
+set recolor-reverse-video true
+
+set font 'Mononoki Nerd Font 10'
+
+set statusbar-basename false
+set statusbar-home-tilde true
+
+set window-title-basename true
+
+set guioptions 's'  # statusbar
+
+# vim: ft=conf

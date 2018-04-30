@@ -1,11 +1,12 @@
-" Vundle " {{{
+" Vundle {{{
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+" Always on
+" =========
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vimwiki/vimwiki'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
@@ -15,37 +16,88 @@ Plugin 'vim-scripts/ZoomWin'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'xuhdev/vim-latex-live-preview'
-Plugin 'mikewest/vim-markdown'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-Plugin 'vim-scripts/SyntaxRange'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'sjl/gundo.vim'
-Plugin 'shougo/vimproc'
-Plugin 'shougo/vimshell'
 Plugin 'alvan/vim-closetag'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Konfekt/FastFold'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'Konfekt/vim-zeal'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'morhetz/gruvbox'
+Plugin 'chrisbra/unicode.vim'
+Plugin 'junegunn/rainbow_parentheses.vim'
+Plugin 'vim-scripts/Tabmerge'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-vinegar'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'tpope/vim-speeddating'
+
+
+" Syntax files
+" ============
+Plugin 'gburca/vim-logcat'
+Plugin 'Harenome/vim-mipssyntax'
+
+" Occasional use
+" ==============
+" Plugin 'easymotion/vim-easymotion'
+" Plugin 'chrisbra/NrrwRgn'
+" Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-scripts/DrawIt'
+" Plugin 'Yggdroot/indentLine'
+" Plugin 'junegunn/vader.vim'
+" Plugin 'vim-scripts/SyntaxRange'
+" Plugin 'xuhdev/vim-latex-live-preview'
+" Plugin 'scrooloose/nerdtree'
+
+" Unused
+" ======
+" Plugin 'jceb/vim-orgmode'
+" Plugin 'roxma/vim-paste-easy'
+" Plugin 'shougo/vimproc'
+" Plugin 'shougo/vimshell'
+" Plugin 'JamshedVesuna/vim-markdown-preview'
+" Plugin 'mikewest/vim-markdown'
 call vundle#end()
 filetype plugin indent on
 " }}}
 
-" Font options " {{{
+" Font options {{{
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
+set guifont=Mononoki\ Nerd\ Font\ 10
+" for teh italics
+set t_ZH=[3m
+set t_ZR=[23m
 " }}}
 
-" Colours " {{{
+" minimal gui {{{
+set guioptions=agit
+" }}}
+
+" Colours {{{
 set t_Co=256
-colorscheme monokai
-let g:airline_theme = 'dark'
+" Monokai {{{
+    " colorscheme monokai
+    " let g:airline_theme = 'dark'
+" }}}
+" Gruvbox {{{
+    colorscheme gruvbox
+    set background=dark
+    let g:airline_theme = 'gruvbox'
+    let g:gruvbox_contrast_dark = 'hard'
+    let g:gruvbox_italic = 1
+    let g:gruvbox_invert_selection = 0
+    let g:gruvbox_italicize_strings = 1
+" }}}
 " }}}
 
-" Miscellaneous " {{{
+" Miscellaneous {{{
+set mouse=a "enable mouse
+set fillchars=vert:│
 let mapleader = ","
 let maplocalleader = ","
 " restore , functionality
@@ -69,6 +121,7 @@ set backupdir=~/tmp/.vim/swap
 set foldlevelstart=99
 " HTML FTW
 packadd! matchit
+let g:monokai_term_italic = 1
 " }}}
 
 " Gundo settings {{{
@@ -144,6 +197,13 @@ nnoremap ]<space> o<esc>k
 nnoremap [<space> O<esc>j
 " }}}
 
+" Space before nu {{{
+augroup _nu
+    autocmd!
+    autocmd BufRead,BufWritePost * if &number | let &nuw = float2nr(ceil(log10(line('$')))) + 2 | endif
+augroup END
+" }}}
+
 " change case " {{{
 nnoremap <leader>cu mzgUiw`z
 nnoremap <leader>cc mzg~iw`z
@@ -204,6 +264,13 @@ let g:vimshell_prompt="$ "
 " youcompleteme options " {{{
 " let g:ycm_server_python_interpreter = '/usr/bin/python2'
 let g:ycm_server_log_level = 'debug'
+" }}}
+
+" {{{ indentLine settings
+let g:indentLine_setColors = 1 " overwrite default/colorscheme color for conceal
+let g:indentLine_color_term = 235
+let g:indentLine_char = '▏'
+" IndentLinesDisable
 " }}}
 
 " autocorrect " {{{
@@ -295,13 +362,60 @@ augroup END
 augroup python_
     autocmd!
     autocmd Syntax python setlocal textwidth=79
-    autocmd Syntax python setlocal colorcolumn=80
+    " autocmd Syntax python setlocal colorcolumn=80
+    autocmd Syntax python call matchadd('ColorColumn', '\%80v')
+    autocmd Syntax python hi ColorColumn ctermbg=88
     autocmd Syntax python inoremap ' ''<esc>i
 augroup END
 " }}}
 
+" {{{ asm settings
+augroup asm_
+    autocmd!
+    autocmd Syntax asm setlocal commentstring=;\ %s
+    autocmd Syntax mips setlocal commentstring=#\ %s
+augroup END
+" }}}
+
 " {{{ LaTeX settings
-let g:livepreview_previewer = 'okular'
+let g:livepreview_previewer = 'zathura'
+" }}}
+
+" {{{ vim-markdown settings
+let g:vim_markdown_fenced_languages = ['python=python']
+let g:vim_markdown_new_list_item_indent = 0
+" hi htmlLink cterm=underline ctermfg=033
+" }}}
+
+" incsearch plugin settings {{{
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" }}}
+
+" orgmode {{{
+let g:org_indent = 1
+" }}}
+
+" temp {{{
+
+" {{{ GRE notes
+augroup gre_notes_
+    autocmd!
+    autocmd FilterReadPost,FileReadPost,FileReadCmd,BufRead,BufNew,BufEnter GRE\ notes.wiki syntax match String /\v(eg\. )@<=\"\_.{-}\"/
+    autocmd FilterReadPost,FileReadPost,FileReadCmd,BufRead,BufNew,BufEnter GRE\ notes.wiki syntax match Identifier /\v^\S+( \{\{\{\s*$)@=/
+    autocmd FilterReadPost,FileReadPost,FileReadCmd,BufRead,BufNew,BufEnter GRE\ notes.wiki setlocal foldmethod=marker foldtext=WordNameOnly() foldlevel=0
+    function! WordNameOnly()
+        let line = getline(v:foldstart)
+        let sub = substitute(line, '\v\s+.{-}$', '', '')
+        return sub
+    endfunction
+augroup END
+
+" drawit
+" let g:vimwiki_table_auto_fmt = 0
+" }}}
+
 " }}}
 
 " vim: fdm=marker
