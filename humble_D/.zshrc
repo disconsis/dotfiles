@@ -88,3 +88,9 @@ export MANPATH="/usr/local/man:$MANPATH"
 # loading nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# added by Anaconda2 installer
+# export PATH="/home/humble/anaconda2/bin:$PATH"
+
+# mozilla configuration file
+# export MOZCONFIG=~/Projects/collaboration/Firefox_src/mozilla-unified/mozconfig
