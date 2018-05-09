@@ -276,15 +276,15 @@ bar {
 # setting up wallpaper on startup
 exec_always feh --bg-scale ~/custom_wallpapers/hacker.jpg
 
-# lock screen with i3lock
-bindsym $mod+x exec ~/.i3_scripts/lock.sh -n
+# lock screen with i3lock-color
+bindsym $mod+x exec i3lock-color
 
 # enable natural scroll and horizontal scroll
 # synclient
 exec_always --no-startup-id synclient VertScrollDelta=-30 HorizScrollDelta=-30 HorizTwoFingerScroll=1
 # dell client
-exec_always xinput set-prop 11 272 -30, -30
-exec_always xinput set-prop 11 274 1, 1
+exec_always xinput set-prop 11 274 -30, -30
+exec_always xinput set-prop 11 276 1, 1
 
 # brightness controls
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 && pkill -RTMIN+2 i3blocks
