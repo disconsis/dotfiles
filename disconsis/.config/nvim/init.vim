@@ -1,3 +1,11 @@
+" nvim-from-vim {{{
+set rtp^=~/.vim
+set rtp+=~/.vim/after
+set rtp+=/usr/share/vim/vim74
+let &packpath = &rtp
+" }}}
+
+
 " vim-plug {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -8,14 +16,13 @@ endif
 call plug#begin('~/.vim/bundle')
 " Always on
 " =========
-" Plug 'VundleVim/Vundle.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/ZoomWin'
+Plug 'regedarek/ZoomWin'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'michaeljsmith/vim-indent-object'
@@ -30,6 +37,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'chrisbra/unicode.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'vim-scripts/Tabmerge'
@@ -38,6 +46,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'vimoutliner/vimoutliner'
+Plug 'neomake/neomake'
+Plug 'tpope/vim-obsession'
 
 
 " Syntax files
@@ -47,24 +57,24 @@ Plug 'Harenome/vim-mipssyntax'
 
 " Occasional use
 " ==============
-" Plugin 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'chrisbra/NrrwRgn'
-" Plugin 'vim-syntastic/syntastic'
-" Plugin 'vim-scripts/DrawIt'
+" Plug 'vim-syntastic/syntastic'
+" Plug 'vim-scripts/DrawIt'
 Plug 'Yggdroot/indentLine'
-" Plugin 'junegunn/vader.vim'
-" Plugin 'vim-scripts/SyntaxRange'
-" Plugin 'xuhdev/vim-latex-live-preview'
-" Plugin 'scrooloose/nerdtree'
+" Plug 'junegunn/vader.vim'
+" Plug 'vim-scripts/SyntaxRange'
+" Plug 'xuhdev/vim-latex-live-preview'
+" Plug 'scrooloose/nerdtree'
 
 " Unused
 " ======
-" Plugin 'jceb/vim-orgmode'
-" Plugin 'roxma/vim-paste-easy'
-" Plugin 'shougo/vimproc'
-" Plugin 'shougo/vimshell'
-" Plugin 'JamshedVesuna/vim-markdown-preview'
-" Plugin 'mikewest/vim-markdown'
+" Plug 'jceb/vim-orgmode'
+" Plug 'roxma/vim-paste-easy'
+" Plug 'shougo/vimproc'
+" Plug 'shougo/vimshell'
+" Plug 'JamshedVesuna/vim-markdown-preview'
+" Plug 'mikewest/vim-markdown'
 call plug#end()
 " }}}
 
@@ -72,29 +82,35 @@ call plug#end()
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
 set guifont=Mononoki\ Nerd\ Font\ 10
-" for teh italics
-set t_ZH=[3m
-set t_ZR=[23m
 " }}}
 
 " minimal gui {{{
 set guioptions=agit
 " }}}
 
+" cursor shape {{{
+" }}}
+
 " Colours {{{
-set t_Co=256
+" set termguicolors
 " Monokai {{{
     " colorscheme monokai
     " let g:airline_theme = 'dark'
 " }}}
 " Gruvbox {{{
-    colorscheme gruvbox
-    set background=dark
-    let g:airline_theme = 'gruvbox'
+    " colorscheme gruvbox
+    " set background=dark
+    " let g:airline_theme = 'gruvbox'
     let g:gruvbox_contrast_dark = 'hard'
     let g:gruvbox_italic = 1
-    let g:gruvbox_invert_selection = 0
+    " let g:gruvbox_invert_selection = 0
     let g:gruvbox_italicize_strings = 1
+" }}}
+" Gruvbox8 {{{
+    set background=dark
+    let g:gruvbox_transp_bg = 1
+    let g:airline_theme = 'ubaryd'
+    colorscheme gruvbox8_hard
 " }}}
 " }}}
 
@@ -115,6 +131,7 @@ set nohlsearch
 syntax enable
 set noshowmode      " already have a statusline
 set wrap
+set clipboard+=unnamedplus  " use the system clipboard
 " make Y do something actually useful (instead of copying yy)
 nnoremap Y y$
 set undofile        " persistent undo !!!
@@ -409,6 +426,16 @@ let g:org_indent = 1
 " vinegar {{{
 nnoremap \ <Plug>VinegarUp
 " }}}
+
+" neomake {{{
+let g:neomake_python_enabled_makers = ['pylint']
+" call neomake#configure#automake('w')
+" }}}
+"
+" netrw {{{
+let g:netrw_list_hide= ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
+" }}}
+
 
 " temp {{{
 
