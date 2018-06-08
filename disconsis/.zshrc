@@ -4,12 +4,14 @@ export TERMINAL=st
 export ZSH=$HOME/.oh-my-zsh
 export PYTHONSTARTUP=$HOME/.pythonrc
 export ARCHFLAGS="-arch x86_64"
-export EDITOR='vim'
+export EDITOR='nvim'
 export XDG_CONFIG_HOME=$HOME/.config
 export PROJECT_HOME=$HOME/.git
 export WORKON_HOME=$HOME/.virtualenvs
 export ANDROID_HOME=$HOME/Android/Sdk
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
+export MAIL=/var/spool/mail/ketan
 # }}}
 
 # powerlevel9k {{{
@@ -109,11 +111,6 @@ POWERLEVEL9K_FOLDER_ICON=''
 
 POWERLEVEL9K_OK_ICON=$'\uf42e'
 
-local user_symbol="$"
-if [[ $(print -P "%#") =~ "#" ]]; then
-  user_symbol = "#"
-fi
-
 if [[ -r /usr/share/powerline/bindings/zsh/powerline.zsh ]]; then
   source /usr/share/powerline/bindings/zsh/powerline.zsh
 fi
@@ -153,15 +150,17 @@ function za {
 }
 alias q='qutebrowser &>/dev/null &!'
 function okular {
+    export $(dbus-launch)
     /usr/bin/okular $@ &>/dev/null &!
-    if [[ $? -ne 0 ]]; then
-        export $(dbus-launch)
-        /usr/bin/okular $@ &>/dev/null &!
-    fi
 }
 function e {
     /usr/bin/emacs -nw $@
 }
+alias vim='nvim'
+alias feh='/usr/bin/feh -B black -.'
+alias todo='vim ~/tmp/todo.wiki'
+alias sbcl='sbcl --noinform'
+alias doc='zeal nope'
 # }}}
 
 # help {{{
@@ -253,13 +252,10 @@ function mus {
 # gruvbox colours
 $HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh
 
-# countdown to GRE {{{
-task calendar rc.monthsperline=2
-echo
-echo 'TODO'
-echo '===='
-cat ~/tmp/todo.wiki
-countdown 2018-04-06 '%d days to the GRE'
+# display todo {{{
+echo 'TODO' | lolcat -S 15
+echo '====' | lolcat -S 15
+cat ~/tmp/todo.wiki | lolcat -S 40
 # }}}
 
 # vim: fdm=marker

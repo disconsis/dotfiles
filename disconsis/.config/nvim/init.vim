@@ -5,7 +5,6 @@ set rtp+=/usr/share/vim/vim74
 let &packpath = &rtp
 " }}}
 
-
 " vim-plug {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -33,8 +32,12 @@ Plug 'alvan/vim-closetag'
 Plug 'tmhedberg/SimpylFold'
 Plug 'Konfekt/FastFold'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Valloric/YouCompleteMe'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-clang'
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/neco-syntax'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
@@ -48,7 +51,11 @@ Plug 'tpope/vim-speeddating'
 Plug 'vimoutliner/vimoutliner'
 Plug 'neomake/neomake'
 Plug 'tpope/vim-obsession'
-
+Plug 'lervag/vimtex'
+Plug 'mhinz/neovim-remote'
+Plug 'flazz/vim-colorschemes'
+Plug 'nightsense/carbonized'
+Plug 'tpope/vim-unimpaired'
 
 " Syntax files
 " ============
@@ -61,7 +68,7 @@ Plug 'Harenome/vim-mipssyntax'
 Plug 'chrisbra/NrrwRgn'
 " Plug 'vim-syntastic/syntastic'
 " Plug 'vim-scripts/DrawIt'
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 " Plug 'junegunn/vader.vim'
 " Plug 'vim-scripts/SyntaxRange'
 " Plug 'xuhdev/vim-latex-live-preview'
@@ -72,10 +79,23 @@ Plug 'Yggdroot/indentLine'
 " Plug 'jceb/vim-orgmode'
 " Plug 'roxma/vim-paste-easy'
 " Plug 'shougo/vimproc'
+" Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'shougo/vimshell'
 " Plug 'JamshedVesuna/vim-markdown-preview'
 " Plug 'mikewest/vim-markdown'
+" Plug 'Valloric/YouCompleteMe'
 call plug#end()
+" }}}
+
+" AfterPlugin function {{{
+function! AfterPlugin(func)
+  let s:func = function(a:func)
+  if v:vim_did_enter
+    call s:func()
+  else
+    autocmd VimEnter * call s:func()
+  endif
+endfunction
 " }}}
 
 " Font options {{{
@@ -86,9 +106,6 @@ set guifont=Mononoki\ Nerd\ Font\ 10
 
 " minimal gui {{{
 set guioptions=agit
-" }}}
-
-" cursor shape {{{
 " }}}
 
 " Colours {{{
@@ -179,7 +196,10 @@ set autoindent
 set expandtab
 set tabstop=4
 set shiftwidth=4
-set list listchars=extends:⇒,precedes:⇒,tab:\ \ ,trail:·
+set list listchars=extends:⇒,precedes:⇒,tab:\ \ ,trail:∙
+" langugage specific default shiftwidth {{{
+autocmd Syntax ruby,lisp set tabstop=2 shiftwidth=2
+" }}}
 " }}}
 
 " wrapping {{{
@@ -211,6 +231,7 @@ set splitright
 
 " Clear whitespace {{{
 nnoremap <silent> <leader>ew :silent! s/\v\s+$//g<cr>
+nnoremap <silent> <leader>eW :silent! %s/\v\s+$//g<cr>
 " }}}
 
 " Miscellaneous mappings " {{{
@@ -226,7 +247,7 @@ nnoremap [<space> O<esc>j
 " Space before nu {{{
 augroup _nu
     autocmd!
-    autocmd BufRead,BufWritePost * if &number | let &nuw = float2nr(ceil(log10(line('$')))) + 2 | endif
+    autocmd BufRead,BufWritePost * if &number | let &nuw = float2nr(ceil(log10(0.5 + line('$')))) + 2 | endif
 augroup END
 " }}}
 
@@ -292,6 +313,16 @@ let g:vimshell_prompt="$ "
 let g:ycm_server_log_level = 'debug'
 " }}}
 
+" deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" }}}
+
+" language servers {{{
+let g:LanguageClient_serverCommands =  {
+            \ 'sh': ['bash-language-server', 'start']
+            \ }
+" }}}
+
 " {{{ indentLine settings
 let g:indentLine_setColors = 1 " overwrite default/colorscheme color for conceal
 let g:indentLine_color_term = 235
@@ -308,10 +339,24 @@ inorea -> →
 " ↑ add a java exception?
 " }}}
 
-" completion " {{{
+" autopairs {{{
 let g:AutoPairsMapCh = 0
 inoremap <c-h> <esc>i
 inoremap <c-l> <esc>la
+
+function! RubyAutoPairs()
+  let b:AutoPairs = {"'": "'", '''': '''', '`': '`', '"': '"', '{': '}', '(': ')', '[': ']', '|': '|'}
+endfunction
+
+function! LispAutoPairs()
+  let b:AutoPairs = {'"': '"', '{': '}', '(': ')', '[': ']', '|': '|'}
+endfunction
+
+augroup autopairs_
+    autocmd!
+    autocmd Syntax ruby let b:AutoPairs = {'''': '''', '`': '`', '"': '"', '{': '}', '(': ')', '[': ']', '|': '|'}
+    autocmd Syntax lisp let b:AutoPairs = {'"': '"', '{': '}', '(': ')', '[': ']', '|': '|'}
+augroup END
 " }}}
 
 " vimrc settings " {{{
@@ -396,11 +441,6 @@ augroup END
 " }}}
 
 " {{{ asm settings
-augroup asm_
-    autocmd!
-    autocmd Syntax asm setlocal commentstring=;\ %s
-    autocmd Syntax mips setlocal commentstring=#\ %s
-augroup END
 " }}}
 
 " {{{ LaTeX settings
@@ -408,7 +448,7 @@ let g:livepreview_previewer = 'zathura'
 " }}}
 
 " {{{ vim-markdown settings
-let g:vim_markdown_fenced_languages = ['python=python']
+let g:vim_markdown_fenced_languages = ['python=python', 'logcat=logcat']
 let g:vim_markdown_new_list_item_indent = 0
 " hi htmlLink cterm=underline ctermfg=033
 " }}}
@@ -429,13 +469,37 @@ nnoremap \ <Plug>VinegarUp
 
 " neomake {{{
 let g:neomake_python_enabled_makers = ['pylint']
-" call neomake#configure#automake('w')
+call neomake#configure#automake('w')
 " }}}
 "
 " netrw {{{
 let g:netrw_list_hide= ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
 " }}}
 
+" vimtex {{{
+let g:vimtex_compiler_progname = 'nvr'
+" }}}
+
+" fix commentstrings {{{
+augroup commentstring_
+    autocmd!
+    autocmd Syntax asm setlocal commentstring=;\ %s
+    autocmd Syntax mips setlocal commentstring=#\ %s
+    autocmd Syntax php setlocal commentstring=//\ %s
+    autocmd Syntax c setlocal commentstring=//\ %s
+    autocmd Syntax cpp setlocal commentstring=//\ %s
+augroup END
+" }}}
+
+" {{{ rainbow lisp
+let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
+let g:rainbow#blacklist = [255]
+autocmd VimEnter * RainbowParentheses
+" augroup rainbow_parens_
+"     autocmd!
+"     autocmd Syntax python,lisp,clojure,scheme RainbowParentheses
+" augroup END
+" }}}
 
 " temp {{{
 
