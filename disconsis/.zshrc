@@ -10,6 +10,7 @@ export PROJECT_HOME=$HOME/.git
 export WORKON_HOME=$HOME/.virtualenvs
 export ANDROID_HOME=$HOME/Android/Sdk
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
 export MAIL=/var/spool/mail/ketan
 # }}}

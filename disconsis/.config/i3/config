@@ -5,7 +5,8 @@ exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper
 exec_always --no-startup-id python3 ~/.config/i3/find_apps.py 2> /tmp/find_apps.err
 exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
-exec --no-startup-id compton --vsync opengl --dbe
+exec --no-startup-id compton
+# exec --no-startup-id compton --vsync opengl --dbe
 
 # set modifier key
 set $mod Mod1
@@ -13,15 +14,15 @@ set $mod2 Mod4
 floating_modifier $mod
 
 # Font settings
-font pango:FantasqueSansMono Nerd Font 11
+font pango:Mononoki Nerd Font 0
 
 # Misc
 hide_edge_borders both
-# bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
-bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
+bindsym $mod+Return exec "st -t simple-terminal -e tmux"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
-bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
+# bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
+bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -c 000000"
 bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -RTMIN+2 i3blocks"
 
 # Screenshot keybinds
@@ -35,11 +36,11 @@ for_window [class="^.*"] border pixel 2
 new_window pixel 2
 
 # add gaps
-gaps inner 20
-gaps outer 10
+gaps inner 18
+gaps outer 0
 
 # Move workspaces between monitors
-bindsym $mod+x move workspace to output right
+bindsym $mod+u move workspace to output right
 
 # change focus
 focus_follows_mouse no
@@ -79,10 +80,6 @@ bindsym $mod+space focus mode_toggle
 # shift focus b/w parent & child
 bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
-
-# scratchpad settings
-bindsym $mod+u move scratchpad
-bindsym $mod+i scratchpad show
 
 # switch to workspace
 bindsym $mod+1 workspace number 1
@@ -141,11 +138,19 @@ mode "monitor" {
     bindsym $mod+bracketleft mode "default"
 }
 
+bindsym $mod+g mode "gaps"
+mode "gaps" {
+    bindsym $mod+0 gaps outer all set 0;  gaps inner all set 0;
+    bindsym $mod+1 gaps outer all set 2; gaps inner all set 20;
+    bindsym Escape mode "default"
+    bindsym $mod+bracketleft mode "default"
+}
+
 # colours
 set $bg-color                   #ffffff
 set $hl-bg-color                #333333
 set $hl-fg-color                #9575cd
-set $inactive-bg-color          #aaaaaa
+set $inactive-bg-color          #555555
 set $inactive-border            #aaaaaa
 set $text-color                 #222222
 set $inactive-text-color        #444444
@@ -162,15 +167,37 @@ set $bar-urgent-text-color      #00afee
 # window colors
 # element                border              background          text                  indicator
 client.focused           $bg-color           $bg-color           $text-color           $bg-color
-client.unfocused         $inactive-border    $inactive-bg-color  $inactive-text-color  $bg-color
-client.focused_inactive  $bg-color           $inactive-bg-color  $inactive-text-color  $bg-color
+client.unfocused         $inactive-border    $inactive-bg-color  #ffffff  $bg-color
+client.focused_inactive  $bg-color           $inactive-bg-color  #ffffff  $bg-color
 client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color           $bg-color
 
 bar {
         mode dock
         position bottom
-        separator_symbol " ·"
+        font pango:Mononoki Nerd Font 11
+        # separator_symbol " ·"
+        separator_symbol " "
+        status_command i3blocks -c /dev/null
+        colors {
+            background $bar-bg-color
+            # separator #757575
+            separator #00afee
+            #                   border                   bg                       text
+            focused_workspace   $bar-bg-color            $bar-bg-color            $bar-text-color
+            inactive_workspace  $bar-inactive-bg-color   $bar-inactive-bg-color   $bar-inactive-text-color
+            active_workspace    $bg-color                $bar-inactive-bg-color   $bar-inactive-text-color
+            urgent_workspace    $bar-urgent-bg-color     $bar-urgent-bg-color     $bar-urgent-text-color
+        }
+}
+
+bar {
+        mode dock
+        position top
+        font pango:Mononoki Nerd Font 11
+        # separator_symbol " ·"
+        separator_symbol " "
         status_command i3blocks
+        workspace_buttons no
         tray_output primary
         colors {
             background $bar-bg-color
@@ -184,17 +211,25 @@ bar {
         }
 }
 
-# toggle bar
-bindsym $mod+b bar mode toggle
+# # toggle bar
+# bindsym $mod+b bar mode toggle
 
 # rename workspaces
-bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/rename_ws.py rename "%s"'
+# bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/rename_ws.py rename "%s"'
+bindsym $mod+n exec /home/ketan/.config/i3/rename_ws.sh
 bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder
 
 # run applications (rofi)
 bindsym $mod+d exec rofi -show run
+bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu='rofi -dmenu -p "Run: "'
 
 # volume keybinds
 bindsym $mod+minus exec "amixer -D pulse sset Master 5%-; pkill -RTMIN+2 i3blocks"
 bindsym $mod+equal exec "amixer -D pulse sset Master 5%+; pkill -RTMIN+2 i3blocks"
 bindsym $mod+0 exec "amixer -D pulse sset Master toggle; pkill -RTMIN+2 i3blocks"
+
+# float experimental tk windows
+for_window [class="^Tk$"] floating enable
+
+# qtspim
+for_window [class="^QtSpim$" title="^Console$"] floating enable, resize set 272 px 204 px, move position 3568 px 856 px

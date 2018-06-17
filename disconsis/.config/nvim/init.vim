@@ -6,6 +6,7 @@ let &packpath = &rtp
 " }}}
 
 " vim-plug {{{
+" install plug for new install
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -39,8 +40,6 @@ Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'tpope/vim-fugitive'
-Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-gruvbox8'
 Plug 'chrisbra/unicode.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'vim-scripts/Tabmerge'
@@ -53,14 +52,27 @@ Plug 'neomake/neomake'
 Plug 'tpope/vim-obsession'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
-Plug 'flazz/vim-colorschemes'
-Plug 'nightsense/carbonized'
 Plug 'tpope/vim-unimpaired'
+Plug 'rayburgemeestre/phpfolding.vim'
+Plug 'eagletmt/ghcmod-vim'
+Plug 'eagletmt/neco-ghc'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Shougo/vimproc.vim'
+
+" Colorschemes
+" ============
+Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
+Plug 'flazz/vim-colorschemes'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'jacoborus/tender.vim'
 
 " Syntax files
 " ============
 Plug 'gburca/vim-logcat'
 Plug 'Harenome/vim-mipssyntax'
+Plug 'vim-scripts/haskell.vim'
+Plug 'vim-scripts/cabal.vim'
 
 " Occasional use
 " ==============
@@ -78,12 +90,10 @@ Plug 'chrisbra/NrrwRgn'
 " ======
 " Plug 'jceb/vim-orgmode'
 " Plug 'roxma/vim-paste-easy'
-" Plug 'shougo/vimproc'
 " Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'shougo/vimshell'
 " Plug 'JamshedVesuna/vim-markdown-preview'
 " Plug 'mikewest/vim-markdown'
-" Plug 'Valloric/YouCompleteMe'
 call plug#end()
 " }}}
 
@@ -109,7 +119,8 @@ set guioptions=agit
 " }}}
 
 " Colours {{{
-" set termguicolors
+set termguicolors
+set background=dark
 " Monokai {{{
     " colorscheme monokai
     " let g:airline_theme = 'dark'
@@ -118,16 +129,21 @@ set guioptions=agit
     " colorscheme gruvbox
     " set background=dark
     " let g:airline_theme = 'gruvbox'
-    let g:gruvbox_contrast_dark = 'hard'
-    let g:gruvbox_italic = 1
+    " let g:gruvbox_contrast_dark = 'hard'
+    " let g:gruvbox_italic = 1
     " let g:gruvbox_invert_selection = 0
-    let g:gruvbox_italicize_strings = 1
+    " let g:gruvbox_italicize_strings = 1
 " }}}
 " Gruvbox8 {{{
-    set background=dark
-    let g:gruvbox_transp_bg = 1
-    let g:airline_theme = 'ubaryd'
-    colorscheme gruvbox8_hard
+    " set background=dark
+    " let g:gruvbox_transp_bg = 1
+    " let g:airline_theme = 'ubaryd'
+    " colorscheme gruvbox8_hard
+" }}}
+" tender {{{
+    colorscheme tender
+    " let g:airline_theme = 'tender'
+    let g:airline_theme = 'hybridline'
 " }}}
 " }}}
 
@@ -234,16 +250,6 @@ nnoremap <silent> <leader>ew :silent! s/\v\s+$//g<cr>
 nnoremap <silent> <leader>eW :silent! %s/\v\s+$//g<cr>
 " }}}
 
-" Miscellaneous mappings " {{{
-" open tabs faster
-cnorea tnew tabnew
-" find len of visually selected area
-vnoremap <leader>l "cy:echo len(<c-r>c)<cr>
-" insert lines above and below
-nnoremap ]<space> o<esc>k
-nnoremap [<space> O<esc>j
-" }}}
-
 " Space before nu {{{
 augroup _nu
     autocmd!
@@ -331,12 +337,11 @@ let g:indentLine_char = '▏'
 " }}}
 
 " autocorrect " {{{
+cnorea tnew tabnew
 inorea adn and
 inorea tehn then
 inorea intsall install
 inorea reutrn return
-inorea -> →
-" ↑ add a java exception?
 " }}}
 
 " autopairs {{{
@@ -470,6 +475,11 @@ nnoremap \ <Plug>VinegarUp
 " neomake {{{
 let g:neomake_python_enabled_makers = ['pylint']
 call neomake#configure#automake('w')
+" colors
+let g:neomake_error_sign   = { 'text': 'E>', 'texthl': 'ErrorMsg'   }
+let g:neomake_warning_sign = { 'text': 'W>', 'texthl': 'WarningMsg' }
+let g:neomake_message_sign = { 'text': 'M>', 'texthl': 'MessageMsg' }
+let g:neomake_info_sign    = { 'text': 'I>', 'texthl': 'InfoMsg'    }
 " }}}
 "
 " netrw {{{
