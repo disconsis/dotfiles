@@ -476,10 +476,10 @@ nnoremap \ <Plug>VinegarUp
 let g:neomake_python_enabled_makers = ['pylint']
 call neomake#configure#automake('w')
 " colors
-let g:neomake_error_sign   = { 'text': 'E>', 'texthl': 'ErrorMsg'   }
-let g:neomake_warning_sign = { 'text': 'W>', 'texthl': 'WarningMsg' }
-let g:neomake_message_sign = { 'text': 'M>', 'texthl': 'MessageMsg' }
-let g:neomake_info_sign    = { 'text': 'I>', 'texthl': 'InfoMsg'    }
+let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'ErrorMsg'   }
+let g:neomake_warning_sign = { 'text': 'W|', 'texthl': 'WarningMsg' }
+let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'MessageMsg' }
+let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'InfoMsg'    }
 " }}}
 "
 " netrw {{{
@@ -501,14 +501,10 @@ augroup commentstring_
 augroup END
 " }}}
 
-" {{{ rainbow lisp
+" {{{ rainbow parens
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 let g:rainbow#blacklist = [255]
 autocmd VimEnter * RainbowParentheses
-" augroup rainbow_parens_
-"     autocmd!
-"     autocmd Syntax python,lisp,clojure,scheme RainbowParentheses
-" augroup END
 " }}}
 
 " temp {{{
