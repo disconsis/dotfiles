@@ -1,0 +1,18 @@
+[user]
+	email = ketan.kanishka.cse15@iitbhu.ac.in
+	name = disconsis
+[http]
+[ssl]
+[push]
+	default = simple
+[http]
+[merge]
+	tool = vimdiff
+[alias]
+	co = commit
+	ch = checkout
+	br = branch
+    st = status
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[color]
+	ui = auto
