@@ -18,6 +18,7 @@
         - monokai.vim
 - .vimrc
 - .zshrc
+- .gitconfig
 
   
 ### p9k\_scripts  

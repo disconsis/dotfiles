@@ -159,7 +159,7 @@ function e {
 }
 alias vim='nvim'
 alias feh='/usr/bin/feh -B black -.'
-alias todo='vim ~/tmp/todo.wiki'
+alias todo='$EDITOR ~/tmp/todo.wiki'
 alias sbcl='sbcl --noinform'
 alias doc='zeal nope'
 # }}}
@@ -250,13 +250,10 @@ function mus {
 }
 # }}}
 
-# gruvbox colours
-$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh
-
-# display todo {{{
-echo 'TODO' | lolcat -S 15
-echo '====' | lolcat -S 15
-cat ~/tmp/todo.wiki | lolcat -S 40
+# print-todo {{{
+if [ -e "$HOME/tmp/todo.wiki" ]; then
+    cat "$HOME/tmp/todo.wiki" | lolcat
+fi
 # }}}
 
 # vim: fdm=marker

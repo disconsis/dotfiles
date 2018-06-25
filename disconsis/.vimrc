@@ -68,6 +68,9 @@ Plug 'Yggdroot/indentLine'
 call plug#end()
 " }}}
 
+set foldmethod=syntax
+autocmd VimEnter * RainbowParentheses
+
 " Font options {{{
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
@@ -287,8 +290,6 @@ inorea adn and
 inorea tehn then
 inorea intsall install
 inorea reutrn return
-inorea -> →
-" ↑ add a java exception?
 " }}}
 
 " completion " {{{

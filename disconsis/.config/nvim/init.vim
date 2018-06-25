@@ -1,3 +1,5 @@
+set nocompatible
+
 " nvim-from-vim {{{
 set rtp^=~/.vim
 set rtp+=~/.vim/after
@@ -35,13 +37,13 @@ Plug 'Konfekt/FastFold'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-clang'
+" " Plug 'zchee/deoplete-clang' "FIXME
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'tpope/vim-fugitive'
 Plug 'chrisbra/unicode.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/rainbow_parentheses.vim' "FIXME: causes issues with folding
 Plug 'vim-scripts/Tabmerge'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-vinegar'
@@ -124,6 +126,7 @@ set background=dark
 " Monokai {{{
     " colorscheme monokai
     " let g:airline_theme = 'dark'
+    " let g:monokai_term_italic = 1
 " }}}
 " Gruvbox {{{
     " colorscheme gruvbox
@@ -148,7 +151,6 @@ set background=dark
 " }}}
 
 " Miscellaneous {{{
-set nocompatible
 set mouse=a "enable mouse
 set fillchars=vert:│
 let mapleader = ","
@@ -175,7 +177,7 @@ set backupdir=~/tmp/.vim/swap
 set foldlevelstart=99
 " HTML FTW
 packadd! matchit
-let g:monokai_term_italic = 1
+set cursorline
 " }}}
 
 " Gundo settings {{{
@@ -504,7 +506,30 @@ augroup END
 " {{{ rainbow parens
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 let g:rainbow#blacklist = [255]
-autocmd VimEnter * RainbowParentheses
+autocmd VimEnter * RainbowParentheses "FIXME: breaks folding
+" }}}
+
+" bash {{{
+" folding {{{
+augroup _bash
+    autocmd!
+    autocmd FileType,Syntax sh let g:sh_fold_enabled = 4
+    autocmd FileType,Syntax sh let g:is_bash = 1
+    autocmd FileType,Syntax sh setlocal foldmethod=syntax
+augroup END
+" }}}
+" }}}
+
+" folding {{{
+set foldmethod=syntax
+let g:python_folding = 1
+let g:c_folding = 1
+let g:perl_folding = 1
+let g:php_folding = 1
+let g:haskell_folding = 1
+let g:ruby_folding = 1
+let g:vim_folding = 1
+let g:conf_folding = 1
 " }}}
 
 " temp {{{

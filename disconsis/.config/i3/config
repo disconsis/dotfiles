@@ -5,8 +5,8 @@ exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper
 exec_always --no-startup-id python3 ~/.config/i3/find_apps.py 2> /tmp/find_apps.err
 exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
-exec --no-startup-id compton
-# exec --no-startup-id compton --vsync opengl --dbe
+# exec --no-startup-id compton
+exec --no-startup-id compton --vsync opengl --dbe
 
 # set modifier key
 set $mod Mod1
@@ -14,7 +14,7 @@ set $mod2 Mod4
 floating_modifier $mod
 
 # Font settings
-font pango:Mononoki Nerd Font 0
+font pango:ShureTechMono Nerd Font 0
 
 # Misc
 hide_edge_borders both
@@ -174,7 +174,7 @@ client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color    
 bar {
         mode dock
         position bottom
-        font pango:Mononoki Nerd Font 11
+        font pango:ShureTechMono Nerd Font 11
         # separator_symbol " ·"
         separator_symbol " "
         status_command i3blocks -c /dev/null
@@ -193,7 +193,7 @@ bar {
 bar {
         mode dock
         position top
-        font pango:Mononoki Nerd Font 11
+        font pango:ShureTechMono Nerd Font 11
         # separator_symbol " ·"
         separator_symbol " "
         status_command i3blocks
