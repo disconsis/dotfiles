@@ -8,7 +8,6 @@ endif
 call plug#begin('~/.vim/bundle')
 " Always on
 " =========
-" Plug 'VundleVim/Vundle.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -38,6 +37,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'vimoutliner/vimoutliner'
+Plug 'jacoborus/tender.vim'
 
 
 " Syntax files
@@ -76,8 +76,8 @@ set encoding=utf-8
 let g:airline_powerline_fonts = 1
 set guifont=Mononoki\ Nerd\ Font\ 10
 " for teh italics
-set t_ZH=[3m
-set t_ZR=[23m
+" set t_ZH=[3m
+" set t_ZR=[23m
 " }}}
 
 " minimal gui {{{
@@ -91,13 +91,16 @@ set t_Co=256
     " let g:airline_theme = 'dark'
 " }}}
 " Gruvbox {{{
-    colorscheme gruvbox
-    set background=dark
-    let g:airline_theme = 'gruvbox'
-    let g:gruvbox_contrast_dark = 'hard'
-    let g:gruvbox_italic = 1
-    let g:gruvbox_invert_selection = 0
-    let g:gruvbox_italicize_strings = 1
+    " colorscheme gruvbox
+    " set background=dark
+    " let g:airline_theme = 'gruvbox'
+    " let g:gruvbox_contrast_dark = 'hard'
+    " let g:gruvbox_italic = 1
+    " let g:gruvbox_invert_selection = 0
+    " let g:gruvbox_italicize_strings = 1
+" }}}
+" Tender {{{
+    colorscheme tender
 " }}}
 " }}}
 
@@ -128,7 +131,7 @@ set backupdir=~/tmp/.vim/swap
 set foldlevelstart=99
 " HTML FTW
 packadd! matchit
-let g:monokai_term_italic = 1
+" let g:monokai_term_italic = 1
 " }}}
 
 " Gundo settings {{{
@@ -199,7 +202,7 @@ set splitright
 nnoremap <silent> <leader>ew :silent! s/\v\s+$//g<cr>
 " }}}
 
-" Miscellaneous mappings " {{{
+" Miscellaneous mappings {{{
 " open tabs faster
 cnorea tnew tabnew
 " find len of visually selected area

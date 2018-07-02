@@ -8,7 +8,7 @@ let &packpath = &rtp
 " }}}
 
 " vim-plug {{{
-" install plug for new install
+" install `vim-plug` for new install
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -37,7 +37,7 @@ Plug 'Konfekt/FastFold'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
-" " Plug 'zchee/deoplete-clang' "FIXME
+" Plug 'zchee/deoplete-clang' "FIXME
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
@@ -58,8 +58,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'rayburgemeestre/phpfolding.vim'
 Plug 'eagletmt/ghcmod-vim'
 Plug 'eagletmt/neco-ghc'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
 Plug 'Shougo/vimproc.vim'
+Plug 'tpope/vim-abolish'
 
 " Colorschemes
 " ============
@@ -68,6 +69,8 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'flazz/vim-colorschemes'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'jacoborus/tender.vim'
+Plug 'nelstrom/vim-mac-classic-theme'  " decent light theme (still gives me a headache though)
+Plug 'chriskempson/base16-vim'
 
 " Syntax files
 " ============
@@ -82,32 +85,21 @@ Plug 'vim-scripts/cabal.vim'
 Plug 'chrisbra/NrrwRgn'
 " Plug 'vim-syntastic/syntastic'
 " Plug 'vim-scripts/DrawIt'
-" Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 " Plug 'junegunn/vader.vim'
 " Plug 'vim-scripts/SyntaxRange'
 " Plug 'xuhdev/vim-latex-live-preview'
-" Plug 'scrooloose/nerdtree'
+" Plug 'tpope/vim-scriptease'
 
 " Unused
 " ======
 " Plug 'jceb/vim-orgmode'
 " Plug 'roxma/vim-paste-easy'
-" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'shougo/vimshell'
 " Plug 'JamshedVesuna/vim-markdown-preview'
 " Plug 'mikewest/vim-markdown'
 call plug#end()
-" }}}
-
-" AfterPlugin function {{{
-function! AfterPlugin(func)
-  let s:func = function(a:func)
-  if v:vim_did_enter
-    call s:func()
-  else
-    autocmd VimEnter * call s:func()
-  endif
-endfunction
 " }}}
 
 " Font options {{{
@@ -144,15 +136,32 @@ set background=dark
     " colorscheme gruvbox8_hard
 " }}}
 " tender {{{
-    colorscheme tender
-    " let g:airline_theme = 'tender'
-    let g:airline_theme = 'hybridline'
+    " colorscheme tender
+    " let g:airline_theme = 'distinguished'
+" }}}
+" base16-snazzy {{{
+    " colorscheme base16-snazzy
+" }}}
+" onedark {{{
+    colorscheme onedark
+    let g:airline_theme = 'onedark'
 " }}}
 " }}}
 
+" italics {{{
+hi Comment gui=italic
+hi String gui=italic
+augroup italic_
+    autocmd!
+    autocmd Colorscheme * hi Comment gui=italic
+    autocmd Colorscheme * hi String gui=italic
+augroup END
+" }}}
+
 " Miscellaneous {{{
+set noautochdir
 set mouse=a "enable mouse
-set fillchars=vert:│
+set fillchars=vert:│,fold:\ 
 let mapleader = ","
 let maplocalleader = ","
 " restore , functionality
@@ -177,7 +186,7 @@ set backupdir=~/tmp/.vim/swap
 set foldlevelstart=99
 " HTML FTW
 packadd! matchit
-set cursorline
+set nocursorline
 " }}}
 
 " Gundo settings {{{
@@ -196,17 +205,12 @@ nnoremap <silent> gk k
 set ruler
 set number
 set norelativenumber
-" move b/w rel & abs numbering
-" nnoremap <silent> <leader>nn :set norelativenumber number<cr>
-" nnoremap <silent> <leader>nr :set relativenumber nonumber<cr> "resolve conflict with NrrwRgn
 " }}}
 
 " Search options " {{{
 set nohlsearch
 set ignorecase
 set incsearch
-nnoremap <silent> <leader>sh :set hlsearch<cr>
-nnoremap <silent> <leader>sn :set nohlsearch<cr>
 " }}}
 
 " Indentation " {{{
@@ -333,9 +337,9 @@ let g:LanguageClient_serverCommands =  {
 
 " {{{ indentLine settings
 let g:indentLine_setColors = 1 " overwrite default/colorscheme color for conceal
-let g:indentLine_color_term = 235
+let g:indentLine_color_term = 240
 let g:indentLine_char = '▏'
-" IndentLinesDisable
+let g:indentLine_enabled = 0
 " }}}
 
 " autocorrect " {{{
@@ -437,12 +441,17 @@ augroup END
 " }}}
 
 " {{{ python settings
+let g:python_host_prog = '/usr/bin/python3.6'
 augroup python_
     autocmd!
     autocmd Syntax python setlocal textwidth=79
-    " autocmd Syntax python setlocal colorcolumn=80
-    autocmd Syntax python call matchadd('ColorColumn', '\%80v')
-    autocmd Syntax python hi ColorColumn ctermbg=88
+    " autocmd Syntax python setlocal colorcolumn=72,80
+    " autocmd Syntax python call matchadd('ColorColumn', '\%80v')
+    " autocmd Syntax python hi ColorColumn ctermbg=88
+    autocmd Syntax python hi CommentColorColumn ctermbg=236
+    autocmd Syntax python hi CodeColorColumn ctermbg=238
+    autocmd Syntax python call matchadd('CommentColorColumn', '\%72v')
+    autocmd Syntax python call matchadd('CodeColorColumn', '\%80v')
     autocmd Syntax python inoremap ' ''<esc>i
 augroup END
 " }}}
@@ -485,7 +494,8 @@ let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'InfoMsg'    }
 " }}}
 "
 " netrw {{{
-let g:netrw_list_hide= ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
+let g:netrw_list_hide = ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
+let g:netrw_liststyle = 3
 " }}}
 
 " vimtex {{{
@@ -530,27 +540,19 @@ let g:haskell_folding = 1
 let g:ruby_folding = 1
 let g:vim_folding = 1
 let g:conf_folding = 1
-" }}}
-
-" temp {{{
-
-" {{{ GRE notes
-augroup gre_notes_
-    autocmd!
-    autocmd FilterReadPost,FileReadPost,FileReadCmd,BufRead,BufNew,BufEnter GRE\ notes.wiki syntax match String /\v(eg\. )@<=\"\_.{-}\"/
-    autocmd FilterReadPost,FileReadPost,FileReadCmd,BufRead,BufNew,BufEnter GRE\ notes.wiki syntax match Identifier /\v^\S+( \{\{\{\s*$)@=/
-    autocmd FilterReadPost,FileReadPost,FileReadCmd,BufRead,BufNew,BufEnter GRE\ notes.wiki setlocal foldmethod=marker foldtext=WordNameOnly() foldlevel=0
-    function! WordNameOnly()
-        let line = getline(v:foldstart)
-        let sub = substitute(line, '\v\s+.{-}$', '', '')
-        return sub
-    endfunction
-augroup END
-
-" drawit
-" let g:vimwiki_table_auto_fmt = 0
-" }}}
-
+function! NeatFoldText()
+    " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let line = substitute(getline(v:foldstart), '\s*$', '', 'g')
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    " let foldtextstart = strpart(repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextstart = line
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, winwidth(0) - foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
 " }}}
 
 " vim: fdm=marker
