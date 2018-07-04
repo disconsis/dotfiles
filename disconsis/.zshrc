@@ -16,33 +16,9 @@ export MAIL=/var/spool/mail/ketan
 export FZF_DEFAULT_COMMAND='rg --files'
 # }}}
 
-# plugins {{{
-plugins=(zsh-autosuggestions colored-man-pages zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last in the list
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=226'
-# }}}
-
-# misc {{{
-HIST_STAMPS="dd/mm/yyyy"
-DISABLE_AUTO_UPDATE=false
-DISABLE_UPDATE_PROMPT=false
-[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
-
-# if [[ -r /usr/share/powerline/bindings/zsh/powerline.zsh ]]; then
-#   source /usr/share/powerline/bindings/zsh/powerline.zsh
-# fi
-
-source $ZSH/oh-my-zsh.sh
-if [[ -n $SSH_CONNECTION ]]; then
-    export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
-fi
-
-setopt interactivecomments
-setopt CORRECT
-# }}}
-
 # # powerlevel9k {{{
-# ZSH_THEME="powerlevel9k/powerlevel9k"
 # POWERLEVEL9K_MODE='nerdfont-complete'
+# ZSH_THEME="powerlevel9k/powerlevel9k"
 # DISABLE_AUTO_TITLE="true" # Prevent printing of command
 # # custom file count {{{
 # zsh_file_count(){
@@ -147,6 +123,30 @@ setopt CORRECT
 # # }}}
 
 # # }}}
+
+# plugins {{{
+plugins=(zsh-autosuggestions colored-man-pages zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last in the list
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=226'
+# }}}
+
+# misc {{{
+HIST_STAMPS="dd/mm/yyyy"
+DISABLE_AUTO_UPDATE=false
+DISABLE_UPDATE_PROMPT=false
+[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
+
+# if [[ -r /usr/share/powerline/bindings/zsh/powerline.zsh ]]; then
+#   source /usr/share/powerline/bindings/zsh/powerline.zsh
+# fi
+
+source $ZSH/oh-my-zsh.sh
+if [[ -n $SSH_CONNECTION ]]; then
+    export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
+fi
+
+setopt interactivecomments
+setopt CORRECT
+# }}}
 
 # pure prompt {{{
 autoload -Uz promptinit; promptinit
