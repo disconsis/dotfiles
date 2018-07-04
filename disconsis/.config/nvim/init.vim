@@ -1,5 +1,3 @@
-set nocompatible
-
 " nvim-from-vim {{{
 set rtp^=~/.vim
 set rtp+=~/.vim/after
@@ -61,6 +59,14 @@ Plug 'eagletmt/neco-ghc'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
 Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-abolish'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-projectionist'
+Plug 'hsanson/vim-android'
+Plug 'tpope/vim-dispatch'
+Plug 'datanoise/vim-dispatch-neovim'
+Plug 'mhinz/vim-grepper'
+Plug 'janko-m/vim-test'
 
 " Colorschemes
 " ============
@@ -78,6 +84,7 @@ Plug 'gburca/vim-logcat'
 Plug 'Harenome/vim-mipssyntax'
 Plug 'vim-scripts/haskell.vim'
 Plug 'vim-scripts/cabal.vim'
+Plug 'leafgarland/typescript-vim'
 
 " Occasional use
 " ==============
@@ -95,10 +102,14 @@ Plug 'Yggdroot/indentLine'
 " ======
 " Plug 'jceb/vim-orgmode'
 " Plug 'roxma/vim-paste-easy'
-Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'shougo/vimshell'
 " Plug 'JamshedVesuna/vim-markdown-preview'
 " Plug 'mikewest/vim-markdown'
+
+" Experimental
+" ============
+Plug '~/.vim/bundle/tardyscript'
+
 call plug#end()
 " }}}
 
@@ -161,7 +172,7 @@ augroup END
 " Miscellaneous {{{
 set noautochdir
 set mouse=a "enable mouse
-set fillchars=vert:│,fold:\ 
+set fillchars=vert:│,fold:─
 let mapleader = ","
 let maplocalleader = ","
 " restore , functionality
@@ -189,31 +200,39 @@ packadd! matchit
 set nocursorline
 " }}}
 
+" Functions {{{
+function! SetupCommandAlias(input, output)
+    exec 'cabbrev <expr> ' . a:input
+        \ . ' ((getcmdtype() is# ":" && getcmdline() is# "' . a:input . '")'
+        \ . '? ("' . a:output . '") : ("' . a:input . '"))'
+endfunction
+" }}}
+
 " Gundo settings {{{
 let g:gundo_prefer_python3 = 1
 nnoremap <F7> :GundoToggle<cr>
 " }}}
 
-" Swap actual & virtual lines " {{{
+" Swap actual & virtual lines {{{
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 nnoremap <silent> gj j
 nnoremap <silent> gk k
 " }}}
 
-" Line numbering " {{{
+" Line numbering {{{
 set ruler
 set number
 set norelativenumber
 " }}}
 
-" Search options " {{{
+" Search options {{{
 set nohlsearch
 set ignorecase
 set incsearch
 " }}}
 
-" Indentation " {{{
+" Indentation {{{
 set autoindent
 set expandtab
 set tabstop=4
@@ -230,23 +249,13 @@ set linebreak
 set breakindent
 " }}}
 
-" autocomplete options " {{{
+" autocomplete options {{{
 set wildmenu
 set wildmode=full
 set completeopt=menu
 " }}}
 
-" Change cursor in insert and normal modes " {{{
-if exists('$TMUX')
-    let &t_SI="\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    let &t_EI="\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-else
-    let &t_SI="\e[5 q"
-    let &t_EI="\e[2 q"
-endif
-" }}}
-
-" Sensible splits " {{{
+" Sensible splits {{{
 set splitbelow
 set splitright
 " }}}
@@ -263,7 +272,7 @@ augroup _nu
 augroup END
 " }}}
 
-" change case " {{{
+" change case {{{
 nnoremap <leader>cu mzgUiw`z
 nnoremap <leader>cc mzg~iw`z
 nnoremap <leader>cl mzguiw`z
@@ -273,7 +282,13 @@ nnoremap <leader>cl mzguiw`z
 let g:tmux_navigator_disable_when_zoomed = 1
 " }}}
 
-" airline-tabline options " {{{
+" tabline {{{
+let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#tab_nr_type = 2
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = '│'
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = '│'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnamecollapse = 0
@@ -296,10 +311,19 @@ let g:airline_mode_map = {
     \ }
 " }}}
 
-" airline-statusline options " {{{
+" airline-statusline options {{{
+if !exists('g:airline_symbols')
+    " to be able to set airline symbols
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.maxlinenr = ''
 let g:airline_skip_empty_sections = 1
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
-let g:max_cwd_length = 20
+let g:max_cwd_length = 50
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols_ascii = 0
+let g:airline_powerline_fonts = 1
 
 function! GetTruncatedCwd()
     let dirname = fnamemodify(getcwd(), ":~")
@@ -315,12 +339,12 @@ endfunction
 let g:airline_section_b = '%{GetTruncatedCwd()}'
 " }}}
 
-" vimshell options " {{{
+" vimshell options {{{
 let g:vimshell_user_prompt='fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt="$ "
 " }}}
 
-" youcompleteme options " {{{
+" youcompleteme options {{{
 " let g:ycm_server_python_interpreter = '/usr/bin/python2'
 let g:ycm_server_log_level = 'debug'
 " }}}
@@ -335,14 +359,14 @@ let g:LanguageClient_serverCommands =  {
             \ }
 " }}}
 
-" {{{ indentLine settings
+" indentLine settings {{{
 let g:indentLine_setColors = 1 " overwrite default/colorscheme color for conceal
 let g:indentLine_color_term = 240
 let g:indentLine_char = '▏'
 let g:indentLine_enabled = 0
 " }}}
 
-" autocorrect " {{{
+" autocorrect {{{
 cnorea tnew tabnew
 inorea adn and
 inorea tehn then
@@ -370,7 +394,7 @@ augroup autopairs_
 augroup END
 " }}}
 
-" vimrc settings " {{{
+" vimrc settings {{{
 augroup vimrc_
     autocmd!
     " underlining
@@ -390,7 +414,7 @@ nnoremap <silent> <leader>vr :source $MYVIMRC<cr>
 cnorea vrc $MYVIMRC
 " }}}
 
-" vimwiki settings " {{{
+" vimwiki settings {{{
 augroup wikia_
     autocmd!
     " no width restrictions
@@ -404,7 +428,7 @@ nnoremap <silent> <leader>t :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 " }}}
 
-" help settings " {{{
+" help settings {{{
 augroup helptype_
     autocmd!
     " no numbering
@@ -417,7 +441,7 @@ augroup helptype_
 augroup END
 " }}}
 
-" quickfix settings " {{{
+" quickfix settings {{{
 augroup quickfix_
     " no width restrictions
     autocmd Syntax qf setlocal colorcolumn=""
@@ -427,7 +451,7 @@ augroup quickfix_
 augroup END
 " }}}
 
-" {{{ i3config settings
+" i3config settings {{{
 cnorea i3c ~/.config/i3/config
 cnorea i3d ~/.config/i3
 cnorea i3bc ~/.config/i3blocks/config
@@ -440,7 +464,7 @@ augroup config_
 augroup END
 " }}}
 
-" {{{ python settings
+" python settings {{{ 
 let g:python_host_prog = '/usr/bin/python3.6'
 augroup python_
     autocmd!
@@ -456,14 +480,14 @@ augroup python_
 augroup END
 " }}}
 
-" {{{ asm settings
+" asm settings {{{ 
 " }}}
 
-" {{{ LaTeX settings
+" LaTeX settings {{{ 
 let g:livepreview_previewer = 'zathura'
 " }}}
 
-" {{{ vim-markdown settings
+" vim-markdown settings {{{ 
 let g:vim_markdown_fenced_languages = ['python=python', 'logcat=logcat']
 let g:vim_markdown_new_list_item_indent = 0
 " hi htmlLink cterm=underline ctermfg=033
@@ -495,7 +519,7 @@ let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'InfoMsg'    }
 "
 " netrw {{{
 let g:netrw_list_hide = ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
-let g:netrw_liststyle = 3
+let g:netrw_liststyle = 0
 " }}}
 
 " vimtex {{{
@@ -513,7 +537,7 @@ augroup commentstring_
 augroup END
 " }}}
 
-" {{{ rainbow parens
+" rainbow parens {{{ 
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 let g:rainbow#blacklist = [255]
 autocmd VimEnter * RainbowParentheses "FIXME: breaks folding
@@ -541,10 +565,9 @@ let g:ruby_folding = 1
 let g:vim_folding = 1
 let g:conf_folding = 1
 function! NeatFoldText()
-    " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-    let line = substitute(getline(v:foldstart), '\s*$', '', 'g')
+    let line = substitute(getline(v:foldstart), '\v\s*\{(\{\{)?\s*$', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
-    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let lines_count_text = '┨ ' . printf("%10s", lines_count . ' lines') . ' ┠'
     let foldchar = matchstr(&fillchars, 'fold:\zs.')
     " let foldtextstart = strpart(repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
     let foldtextstart = line
@@ -553,6 +576,32 @@ function! NeatFoldText()
     return foldtextstart . repeat(foldchar, winwidth(0) - foldtextlength) . foldtextend
 endfunction
 set foldtext=NeatFoldText()
+" }}}
+
+" fzf {{{
+nnoremap <C-p> :<C-u>FZF<CR>
+" }}}
+
+" android {{{
+let g:android_sdk_path = "~/Android/Sdk"
+" }}}
+
+" grepper {{{
+if !exists('g:grepper')
+    let g:grepper = {}
+endif
+let g:grepper.tools = ['rg', 'git', 'grep']
+" search for current word
+nnoremap <leader>* :Grepper -cword -noprompt<CR>
+" search for current selection
+nmap gs <Plug>(GrepperOperator)
+xmap gs <Plug>(GrepperOperator)
+" set :grep
+set grepprg=rg\ -H\ --no-heading\ --vimgrep
+set grepformat=$f:$l:%c:%m
+call SetupCommandAlias("rg", "GrepperRg")
+call SetupCommandAlias("gitgrep", "GrepperGit")
+call SetupCommandAlias("grep", "GrepperGrep")
 " }}}
 
 " vim: fdm=marker

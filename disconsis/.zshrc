@@ -1,5 +1,5 @@
 # exports {{{
-export TERM=screen-256color
+export TERM=xterm-256color-italic-tc
 export TERMINAL=st
 export ZSH=$HOME/.oh-my-zsh
 export PYTHONSTARTUP=$HOME/.pythonrc
@@ -13,19 +13,159 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
 export MAIL=/var/spool/mail/ketan
+export FZF_DEFAULT_COMMAND='rg --files'
 # }}}
 
-# pure-prompt {{{
-fpath+=('/usr/local/lib/node_modules/pure-prompt/functions')
-autoload -U promptinit
-promptinit
+# plugins {{{
+plugins=(zsh-autosuggestions colored-man-pages zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last in the list
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=226'
+# }}}
+
+# misc {{{
+HIST_STAMPS="dd/mm/yyyy"
+DISABLE_AUTO_UPDATE=false
+DISABLE_UPDATE_PROMPT=false
+[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
+
+# if [[ -r /usr/share/powerline/bindings/zsh/powerline.zsh ]]; then
+#   source /usr/share/powerline/bindings/zsh/powerline.zsh
+# fi
+
+source $ZSH/oh-my-zsh.sh
+if [[ -n $SSH_CONNECTION ]]; then
+    export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
+fi
+
+setopt interactivecomments
+setopt CORRECT
+# }}}
+
+# # powerlevel9k {{{
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+# POWERLEVEL9K_MODE='nerdfont-complete'
+# DISABLE_AUTO_TITLE="true" # Prevent printing of command
+# # custom file count {{{
+# zsh_file_count(){
+#     local signal=$(ls -A1 | wc -l)
+#     local color='%F{$FOREGROUND}'
+#     [[ $signal -eq 0 ]] && color='%F{124}'
+#     echo -n "%{$color%}$signal%{%f%}"
+# }
+# # }}}
+
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir custom_file_count dir_writable vcs newline vi_mode)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_alarming background_jobs virtualenv)
+# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
+# POWERLEVEL9K_CUSTOM_FILE_COUNT="zsh_file_count"
+# POWERLEVEL9K_DIR_PATH_SEPARATOR=" "$'\uE0B1'" "
+# POWERLEVEL9K_SHORTEN_DIR_LENGTH=5
+# POWERLEVEL9K_SHORTEN_STRATEGY="None"
+# POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
+
+
+# POWERLEVEL9K_VIRTUALENV_BACKGROUND='235'
+# POWERLEVEL9K_VIRTUALENV_FOREGROUND='109'
+# POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='235'
+
+# POWERLEVEL9K_STATUS_ERROR_BACKGROUND='167'
+# POWERLEVEL9K_STATUS_OK_BACKGROUND='248'
+# POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='109'
+# POWERLEVEL9K_DIR_HOME_BACKGROUND=$POWERLEVEL9K_DIR_DEFAULT_BACKGROUND
+# POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=$POWERLEVEL9K_DIR_DEFAULT_BACKGROUND
+# POWERLEVEL9K_CUSTOM_FILE_COUNT_BACKGROUND='108'
+# POWERLEVEL9K_VCS_CLEAN_BACKGROUND='142'
+# POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='175'
+# POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='24'
+# POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='167'
+# POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='24'
+# POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='106'
+
+# FOREGROUND='234'
+# POWERLEVEL9K_STATUS_ERROR_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_STATUS_OK_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_DIR_HOME_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=$FOREGROUND
+# POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND=$FOREGROUND
+
+# POWERLEVEL9K_VI_INSERT_MODE_STRING=''
+# POWERLEVEL9K_VI_COMMAND_MODE_STRING=''
+
+# # POWERLEVEL9K_CUSTOM_TASKWARRIOR="python3 $HOME/p9k_scripts/pltask.py  124 255"
+# # POWERLEVEL9K_CUSTOM_TASKWARRIOR_BACKGROUND='234'
+
+# # POWERLEVEL9K_CUSTOM_ALARMING="$HOME/p9k_scripts/alarming.sh 124 255"
+# # POWERLEVEL9K_CUSTOM_ALARMING_BACKGROUND='234'
+
+# # get_icon_names -> print p9k icons
+# POWERLEVEL9K_VCS_GIT_GITHUB_ICON=''
+# POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=''
+# POWERLEVEL9K_VCS_GIT_ICON=''
+# POWERLEVEL9K_VCS_BRANCH_ICON=$'\ue0a0 '
+# POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='↓'
+# POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='↑'
+
+# POWERLEVEL9K_HOME_ICON=''
+# POWERLEVEL9K_HOME_SUB_ICON=''
+# POWERLEVEL9K_FOLDER_ICON=''
+
+# POWERLEVEL9K_OK_ICON=$'\uf42e'
+
+# # fix vi_mode {{{
+# function zle-line-init {
+#   powerlevel9k_prepare_prompts
+#   if (( ${+terminfo[smkx]} )); then
+#     printf '%s' ${terminfo[smkx]}
+#   fi
+#   zle reset-prompt
+#   zle -R
+# }
+
+# function zle-line-finish {
+#   powerlevel9k_prepare_prompts
+#   if (( ${+terminfo[rmkx]} )); then
+#     printf '%s' ${terminfo[rmkx]}
+#   fi
+#   zle reset-prompt
+#   zle -R
+# }
+
+# function zle-keymap-select {
+#   powerlevel9k_prepare_prompts
+#   zle reset-prompt
+#   zle -R
+# }
+
+# zle -N zle-line-init
+# zle -N zle-line-finish
+# zle -N zle-keymap-select
+# # }}}
+
+# # }}}
+
+# pure prompt {{{
+autoload -Uz promptinit; promptinit
+if [[ "$(whoami)" != "root" ]]; then
+    # PURE_PROMPT_SYMBOL="  "
+    # PURE_PROMPT_SYMBOL=""
+    # PURE_PROMPT_SYMBOL="  "
+    PURE_PROMPT_SYMBOL="  "
+else
+    # PURE_PROMPT_SYMBOL="#"
+    PURE_PROMPT_SYMBOL="  "
+fi
 prompt pure
 # }}}
 
 # vim binds {{{
 bindkey -v
 export KEYTIMEOUT=1
-setxkbmap -option ctrl:swapcaps
+# setxkbmap -option ctrl:swapcaps
 # }}}
 
 # misc aliases {{{
@@ -69,10 +209,9 @@ alias doc='zeal nope'
 # }}}
 
 # help {{{
-autoload -Uz run-help
-alias help=run-help
+# autoload -Uz run-help
+# alias help=run-help
 # }}}
-
 
 # dasht {{{
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -115,7 +254,7 @@ function beep {
 # }}}
 
 # fasd {{{
-eval "$(fasd --init auto)"
+# eval "$(fasd --init auto)"
 # }}}
 
 # ncmpcpp {{{
@@ -127,7 +266,7 @@ function mus {
 
 # print-todo {{{
 if [ -e "$HOME/tmp/todo.wiki" ]; then
-    cat "$HOME/tmp/todo.wiki" | sort | lolcat
+    cat "$HOME/tmp/todo.wiki" | lolcat
 fi
 # }}}
 

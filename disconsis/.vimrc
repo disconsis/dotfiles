@@ -102,6 +102,7 @@ set t_Co=256
 " Tender {{{
     colorscheme tender
 " }}}
+"
 " }}}
 
 " Miscellaneous {{{

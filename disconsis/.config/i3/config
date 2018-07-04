@@ -18,7 +18,7 @@ font pango:ShureTechMono Nerd Font 0
 
 # Misc
 hide_edge_borders both
-bindsym $mod+Return exec "st -t simple-terminal -e tmux"
+bindsym $mod+Return exec "st tmux"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
 # bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
