@@ -26,6 +26,7 @@ The user list is as follows:
 ### 1. disconsis
 Terminal-centric config with a focus on avoiding the mouse  
   
+![(neo)vim setup](/images/disconsis/vim.png)
 ![single-monitor setup on disconsis](/images/disconsis/single.png)
 ![multi-monitor setup on disconsis](/images/disconsis/multi.png)
   

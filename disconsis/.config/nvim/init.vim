@@ -62,11 +62,13 @@ Plug 'tpope/vim-abolish'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-projectionist'
-Plug 'hsanson/vim-android'
 Plug 'tpope/vim-dispatch'
 Plug 'datanoise/vim-dispatch-neovim'
 Plug 'mhinz/vim-grepper'
 Plug 'janko-m/vim-test'
+" Plug 'artur-shaik/vim-javacomplete2'
+Plug 'hsanson/vim-android'
+Plug 'othree/xml.vim'
 
 " Colorschemes
 " ============
@@ -126,36 +128,57 @@ set guioptions=agit
 " Colours {{{
 set termguicolors
 set background=dark
+colorscheme onedark
 " Monokai {{{
-    " colorscheme monokai
-    " let g:airline_theme = 'dark'
-    " let g:monokai_term_italic = 1
+augroup monokai_
+    autocmd!
+    autocmd Colorscheme monokai
+                \ let g:airline_theme = 'dark'
+                \| let g:monokai_term_italic = 1
+augroup END
 " }}}
 " Gruvbox {{{
-    " colorscheme gruvbox
-    " set background=dark
-    " let g:airline_theme = 'gruvbox'
-    " let g:gruvbox_contrast_dark = 'hard'
-    " let g:gruvbox_italic = 1
-    " let g:gruvbox_invert_selection = 0
-    " let g:gruvbox_italicize_strings = 1
+augroup gruvbox_
+    autocmd!
+    autocmd Colorscheme gruvbox
+                \ set background=dark
+                \| let g:airline_theme = 'gruvbox'
+                \| let g:gruvbox_contrast_dark = 'hard'
+                \| let g:gruvbox_italic = 1
+                \| let g:gruvbox_invert_selection = 0
+                \| let g:gruvbox_italicize_strings = 1
+augroup END
 " }}}
 " Gruvbox8 {{{
-    " set background=dark
-    " let g:gruvbox_transp_bg = 1
-    " let g:airline_theme = 'ubaryd'
-    " colorscheme gruvbox8_hard
+augroup gruvbox8_
+    autocmd!
+    autocmd Colorscheme gruvbox8_*
+                \ set background=dark
+                \| let g:gruvbox_transp_bg = 1
+                \| let g:airline_theme = 'ubaryd'
+augroup END
 " }}}
 " tender {{{
-    " colorscheme tender
-    " let g:airline_theme = 'distinguished'
-" }}}
-" base16-snazzy {{{
-    " colorscheme base16-snazzy
+augroup tender_
+    autocmd!
+    autocmd Colorscheme tender
+                \ let g:airline_theme = 'distinguished'
+augroup END
 " }}}
 " onedark {{{
-    colorscheme onedark
-    let g:airline_theme = 'onedark'
+augroup onedark_
+    autocmd!
+    autocmd Colorscheme onedark
+                \ let g:airline_theme = 'onedark'
+                \| hi link netrwMarkFile Identifier
+augroup END
+" }}}
+" General {{{
+augroup general_colorscheme_
+    autocmd!
+    autocmd Colorscheme *
+                \ hi Search guifg=NONE guibg=NONE gui=bold,italic,underline
+augroup END
 " }}}
 " }}}
 
@@ -182,7 +205,6 @@ set hidden
 set laststatus=2    " always show statusline
 set ttimeoutlen=10  " reduce latency in leaving insert mode
 set nrformats=      " disable bin/octal/hex number formats
-set nohlsearch
 syntax enable
 set noshowmode      " already have a statusline
 set wrap
@@ -198,6 +220,11 @@ set foldlevelstart=99
 " HTML FTW
 packadd! matchit
 set nocursorline
+" }}}
+
+" providers {{{
+let g:python_host_prog = '/usr/bin/python2.7'
+let g:python3_host_prog = '/usr/bin/python3.6'
 " }}}
 
 " Functions {{{
@@ -227,7 +254,7 @@ set norelativenumber
 " }}}
 
 " Search options {{{
-set nohlsearch
+set hlsearch
 set ignorecase
 set incsearch
 " }}}
@@ -319,7 +346,7 @@ endif
 let g:airline_symbols.maxlinenr = ''
 let g:airline_skip_empty_sections = 1
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
-let g:max_cwd_length = 50
+let g:max_cwd_length = 30
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols_ascii = 0
@@ -464,8 +491,7 @@ augroup config_
 augroup END
 " }}}
 
-" python settings {{{ 
-let g:python_host_prog = '/usr/bin/python3.6'
+" python settings {{{
 augroup python_
     autocmd!
     autocmd Syntax python setlocal textwidth=79
@@ -480,14 +506,14 @@ augroup python_
 augroup END
 " }}}
 
-" asm settings {{{ 
+" asm settings {{{
 " }}}
 
-" LaTeX settings {{{ 
+" LaTeX settings {{{
 let g:livepreview_previewer = 'zathura'
 " }}}
 
-" vim-markdown settings {{{ 
+" vim-markdown settings {{{
 let g:vim_markdown_fenced_languages = ['python=python', 'logcat=logcat']
 let g:vim_markdown_new_list_item_indent = 0
 " hi htmlLink cterm=underline ctermfg=033
@@ -511,10 +537,10 @@ nnoremap \ <Plug>VinegarUp
 let g:neomake_python_enabled_makers = ['pylint']
 call neomake#configure#automake('w')
 " colors
-let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'ErrorMsg'   }
-let g:neomake_warning_sign = { 'text': 'W|', 'texthl': 'WarningMsg' }
-let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'MessageMsg' }
-let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'InfoMsg'    }
+let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'NeomakeErrorSign'   }
+let g:neomake_warning_sign = { 'text': 'W|', 'texthl': 'NeomakeWarningSign' }
+let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'NeomakeMessageSign' }
+let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'NeomakeInfoSign'    }
 " }}}
 "
 " netrw {{{
@@ -537,7 +563,7 @@ augroup commentstring_
 augroup END
 " }}}
 
-" rainbow parens {{{ 
+" rainbow parens {{{
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 let g:rainbow#blacklist = [255]
 autocmd VimEnter * RainbowParentheses "FIXME: breaks folding
@@ -564,6 +590,7 @@ let g:haskell_folding = 1
 let g:ruby_folding = 1
 let g:vim_folding = 1
 let g:conf_folding = 1
+let g:xml_syntax_folding = 1
 function! NeatFoldText()
     let line = substitute(getline(v:foldstart), '\v\s*\{(\{\{)?\s*$', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
@@ -582,10 +609,6 @@ set foldtext=NeatFoldText()
 nnoremap <C-p> :<C-u>FZF<CR>
 " }}}
 
-" android {{{
-let g:android_sdk_path = "~/Android/Sdk"
-" }}}
-
 " grepper {{{
 if !exists('g:grepper')
     let g:grepper = {}
@@ -602,6 +625,10 @@ set grepformat=$f:$l:%c:%m
 call SetupCommandAlias("rg", "GrepperRg")
 call SetupCommandAlias("gitgrep", "GrepperGit")
 call SetupCommandAlias("grep", "GrepperGrep")
+" }}}
+
+" android {{{
+let g:android_sdk_path = "~/Android/Sdk"
 " }}}
 
 " vim: fdm=marker
