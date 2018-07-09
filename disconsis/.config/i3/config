@@ -156,13 +156,14 @@ set $text-color                 #222222
 set $inactive-text-color        #444444
 set $urgent-bg-color            #E53935
 set $indicator-color            #00ff00
-set $bar-bg-color               #1c1c1c
+set $bar-bg-color               #ffffff33
 set $bar-inactive-bg-color      #444444
-set $bar-text-color             #f3f4f5
+set $bar-text-color             #ffffff
 set $bar-inactive-text-color    #999999
 set $active-border              #774077
 set $bar-urgent-bg-color        #eeeeee
 set $bar-urgent-text-color      #00afee
+set $transparent                #00000000
 
 # window colors
 # element                border              background          text                  indicator
@@ -172,24 +173,43 @@ client.focused_inactive  $bg-color           $inactive-bg-color  #ffffff  $bg-co
 client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color           $bg-color
 
 bar {
+        i3bar_command i3bar -t
         mode dock
         position bottom
-        tray_output primary
-        font pango:ShureTechMono Nerd Font 11
+        tray_output none
+        font pango:ShareTechMono Nerd Font 11
         # separator_symbol " ·"
         separator_symbol " "
         status_command i3blocks -c /dev/null
         colors {
-            background $bar-bg-color
+            background "#00000000"
             # separator #757575
             separator #00afee
-            #                   border                   bg                       text
-            focused_workspace   $bar-bg-color            $bar-bg-color            $bar-text-color
-            inactive_workspace  $bar-inactive-bg-color   $bar-inactive-bg-color   $bar-inactive-text-color
-            active_workspace    $bg-color                $bar-inactive-bg-color   $bar-inactive-text-color
-            urgent_workspace    $bar-urgent-bg-color     $bar-urgent-bg-color     $bar-urgent-text-color
+            #                   border                  bg                       text
+            focused_workspace   $transparent            $bar-bg-color            $bar-text-color
+            inactive_workspace  $transparent            $transparent             $bar-inactive-text-color
+            active_workspace    $active-border          $transparent             $bar-inactive-text-color
+            urgent_workspace    $transparent            $bar-urgent-bg-color     $bar-urgent-text-color
         }
 }
+
+set $top-bg-color                   #ffffff
+set $top-hl-bg-color                #333333
+set $top-hl-fg-color                #9575cd
+set $top-inactive-bg-color          #555555
+set $top-inactive-border            #aaaaaa
+set $top-text-color                 #222222
+set $top-inactive-text-color        #444444
+set $top-urgent-bg-color            #E53935
+set $top-indicator-color            #00ff00
+set $top-bar-bg-color               #333333
+set $top-bar-inactive-bg-color      #444444
+set $top-bar-text-color             #333333
+set $top-bar-inactive-text-color    #999999
+set $top-active-border              #774077
+set $top-bar-urgent-bg-color        #eeeeee
+set $top-bar-urgent-text-color      #00afee
+set $top-transparent                #00000000
 
 bar {
         mode dock
@@ -199,16 +219,16 @@ bar {
         separator_symbol " "
         status_command i3blocks
         workspace_buttons no
-        tray_output none
+        tray_output primary
         colors {
-            background $bar-bg-color
+            background $top-bar-bg-color
             # separator #757575
             separator #00afee
-            #                   border                   bg                       text
-            focused_workspace   $bar-bg-color            $bar-bg-color            $bar-text-color
-            inactive_workspace  $bar-inactive-bg-color   $bar-inactive-bg-color   $bar-inactive-text-color
-            active_workspace    $bg-color                $bar-inactive-bg-color   $bar-inactive-text-color
-            urgent_workspace    $bar-urgent-bg-color     $bar-urgent-bg-color     $bar-urgent-text-color
+            #                   border                       bg                           text
+            focused_workspace   $top-bar-bg-color            $top-bar-bg-color            $top-bar-text-color
+            inactive_workspace  $top-bar-inactive-bg-color   $top-bar-inactive-bg-color   $top-bar-inactive-text-color
+            active_workspace    $top-bg-color                $top-bar-inactive-bg-color   $top-bar-inactive-text-color
+            urgent_workspace    $top-bar-urgent-bg-color     $top-bar-urgent-bg-color     $top-bar-urgent-text-color
         }
 }
 
