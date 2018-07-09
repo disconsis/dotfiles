@@ -1,3 +1,11 @@
+" plugins to check out
+" - fzf
+" - ultisnips
+" - abolish
+" - projectionist
+" - vim-test
+" - vim-gitgutter
+
 " nvim-from-vim {{{
 set rtp^=~/.vim
 set rtp+=~/.vim/after
@@ -6,16 +14,17 @@ let &packpath = &rtp
 " }}}
 
 " vim-plug {{{
-" install `vim-plug` for new install
+" install `vim-plug` for new install {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+" }}}
 
 call plug#begin('~/.vim/bundle')
-" Always on
-" =========
+
+" Always on {{{
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -27,14 +36,14 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown'
 Plug 'sjl/gundo.vim'
 Plug 'alvan/vim-closetag'
 Plug 'tmhedberg/SimpylFold'
 Plug 'Konfekt/FastFold'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+" Plug 'zchee/deoplete-jedi' "
 " Plug 'zchee/deoplete-clang' "FIXME
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
@@ -66,12 +75,16 @@ Plug 'tpope/vim-dispatch'
 Plug 'datanoise/vim-dispatch-neovim'
 Plug 'mhinz/vim-grepper'
 Plug 'janko-m/vim-test'
-" Plug 'artur-shaik/vim-javacomplete2'
 Plug 'hsanson/vim-android'
 Plug 'othree/xml.vim'
+Plug 'SirVer/ultisnips'
+Plug '~/.git/vim-snippets'
+Plug 'airblade/vim-gitgutter'
+Plug 'wincent/terminus'
+Plug 'miyakogi/seiya.vim'
+" }}}
 
-" Colorschemes
-" ============
+" Colorschemes {{{
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'flazz/vim-colorschemes'
@@ -79,17 +92,18 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'jacoborus/tender.vim'
 Plug 'nelstrom/vim-mac-classic-theme'  " decent light theme (still gives me a headache though)
 Plug 'chriskempson/base16-vim'
+Plug 'danilo-augusto/vim-afterglow'
+" }}}
 
-" Syntax files
-" ============
+" Syntax files {{{
 Plug 'gburca/vim-logcat'
 Plug 'Harenome/vim-mipssyntax'
 Plug 'vim-scripts/haskell.vim'
 Plug 'vim-scripts/cabal.vim'
 Plug 'leafgarland/typescript-vim'
+" }}}
 
-" Occasional use
-" ==============
+" Occasional use {{{
 " Plug 'easymotion/vim-easymotion'
 Plug 'chrisbra/NrrwRgn'
 " Plug 'vim-syntastic/syntastic'
@@ -99,18 +113,18 @@ Plug 'Yggdroot/indentLine'
 " Plug 'vim-scripts/SyntaxRange'
 " Plug 'xuhdev/vim-latex-live-preview'
 " Plug 'tpope/vim-scriptease'
+" }}}
 
-" Unused
-" ======
+" Unused {{{
 " Plug 'jceb/vim-orgmode'
 " Plug 'roxma/vim-paste-easy'
 " Plug 'shougo/vimshell'
 " Plug 'JamshedVesuna/vim-markdown-preview'
 " Plug 'mikewest/vim-markdown'
+" }}}
 
-" Experimental
-" ============
-Plug '~/.vim/bundle/tardyscript'
+" Experimental {{{
+" }}}
 
 call plug#end()
 " }}}
@@ -128,6 +142,7 @@ set guioptions=agit
 " Colours {{{
 set termguicolors
 set background=dark
+let g:seiya_auto_enable = 1 " transparency
 colorscheme onedark
 " Monokai {{{
 augroup monokai_
@@ -152,7 +167,7 @@ augroup END
 " Gruvbox8 {{{
 augroup gruvbox8_
     autocmd!
-    autocmd Colorscheme gruvbox8_*
+    autocmd Colorscheme gruvbox8*
                 \ set background=dark
                 \| let g:gruvbox_transp_bg = 1
                 \| let g:airline_theme = 'ubaryd'
@@ -171,6 +186,13 @@ augroup onedark_
     autocmd Colorscheme onedark
                 \ let g:airline_theme = 'onedark'
                 \| hi link netrwMarkFile Identifier
+augroup END
+" }}}
+" afterglow {{{
+augroup afterglow_
+    autocmd!
+    autocmd Colorscheme afterglow
+                \ let g:airline_theme = "ubaryd"
 augroup END
 " }}}
 " General {{{
@@ -215,8 +237,6 @@ set undofile        " persistent undo !!!
 " stop vim littering every directory
 set undodir=~/tmp/.vim/undo
 set backupdir=~/tmp/.vim/swap
-" don't fold at start
-set foldlevelstart=99
 " HTML FTW
 packadd! matchit
 set nocursorline
@@ -299,12 +319,6 @@ augroup _nu
 augroup END
 " }}}
 
-" change case {{{
-nnoremap <leader>cu mzgUiw`z
-nnoremap <leader>cc mzg~iw`z
-nnoremap <leader>cl mzguiw`z
-" }}}
-
 " tmux-navigator options {{{
 let g:tmux_navigator_disable_when_zoomed = 1
 " }}}
@@ -349,6 +363,8 @@ let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:max_cwd_length = 30
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+let g:airline_left_alt_sep = '|'
+let g:airline_right_alt_sep = '|'
 let g:airline_symbols_ascii = 0
 let g:airline_powerline_fonts = 1
 
@@ -582,6 +598,8 @@ augroup END
 
 " folding {{{
 set foldmethod=syntax
+" don't fold at start
+set foldlevelstart=99
 let g:python_folding = 1
 let g:c_folding = 1
 let g:perl_folding = 1
@@ -607,6 +625,7 @@ set foldtext=NeatFoldText()
 
 " fzf {{{
 nnoremap <C-p> :<C-u>FZF<CR>
+" TODO: unmap <c-j> and <c-k> for search navigation
 " }}}
 
 " grepper {{{
@@ -627,8 +646,35 @@ call SetupCommandAlias("gitgrep", "GrepperGit")
 call SetupCommandAlias("grep", "GrepperGrep")
 " }}}
 
+" snippets {{{
+let g:UltiSnipsExpandTrigger = "<c-c>"
+let g:UltiSnipsJumpForwardTrigger = "<c-s-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-s-k>"
+let g:UltiSnipsSnippetsDir = '~/.vim/custom_snippets'
+let g:UltiSnipsSnippetDirectories = ['UltiSnips',"custom_snippets"]
+let g:ultisnips_python_style = 'sphinx'
+let g:ultisnips_python_quoting_style = 'double'
+" }}}
+
+" vim-test {{{
+let test#strategy = 'dispatch'
+" }}}
+
+" terminal {{{
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+" }}}
+
+" gitgutter {{{
+set updatetime=500
+" }}}
+
 " android {{{
 let g:android_sdk_path = "~/Android/Sdk"
+" }}}
+
+" tmp {{{
+let g:seiya_target_groups = ['guibg']
 " }}}
 
 " vim: fdm=marker

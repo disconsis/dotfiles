@@ -1,3 +1,8 @@
+" plugins to explore more
+" - fzf
+" - abolish
+" - ultisnips
+
 " vim-plug {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -14,7 +19,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/ZoomWin'
+" Plug 'vim-scripts/ZoomWin'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'michaeljsmith/vim-indent-object'
@@ -26,7 +31,6 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'Konfekt/FastFold'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/YouCompleteMe'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'chrisbra/unicode.vim'
@@ -38,6 +42,8 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'vimoutliner/vimoutliner'
 Plug 'jacoborus/tender.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 
 " Syntax files
@@ -413,6 +419,15 @@ let g:org_indent = 1
 
 " vinegar {{{
 nnoremap \ <Plug>VinegarUp
+" }}}
+"
+" snippets {{{
+let g:UltiSnipsExpandTrigger = "<c-c>"
+let g:UltiSnipsJumpForwardTrigger = "<c-s-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-s-k>"
+let g:UltiSnipsSnippetsDir = '/home/ketan/.vim/custom_snippets'
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', "bundle/vim-snippets/UltiSnips"]
+set rtp+=/home/ketan/.vim/custom_snippets
 " }}}
 
 " temp {{{
