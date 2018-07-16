@@ -2,7 +2,8 @@
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
 exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper
-exec_always --no-startup-id python3 ~/.config/i3/find_apps.py 2> /tmp/find_apps.err
+# exec_always --no-startup-id python3 ~/.config/i3blocks/scripts/ssid.py
+exec_always --no-startup-id python3 ~/.git/i3-app-list/src/i3_app_list.py 2>/tmp/app.log
 exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
 # exec --no-startup-id compton
@@ -152,17 +153,17 @@ mode "gaps" {
 }
 
 mode "gaps-inner" {
-    bindsym $mod+k gaps inner all plus 1;
-    bindsym $mod+j gaps inner all minus 1;
-    bindsym $mod+e gaps inner all set $inner_gap;
+    bindsym $mod+plus gaps inner all plus 1;
+    bindsym $mod+minus gaps inner all minus 1;
+    bindsym $mod+equals gaps inner all set $inner_gap;
     bindsym Escape mode "gaps"
     bindsym $mod+bracketleft mode "gaps"
 }
 
 mode "gaps-outer" {
-    bindsym $mod+k gaps outer all plus 1;
-    bindsym $mod+j gaps outer all minus 1;
-    bindsym $mod+e gaps outer all set $outer_gap;
+    bindsym $mod+plus gaps outer all plus 1;
+    bindsym $mod+minus gaps outer all minus 1;
+    bindsym $mod+equals gaps outer all set $outer_gap;
     bindsym Escape mode "gaps"
     bindsym $mod+bracketleft mode "gaps"
 }
@@ -185,20 +186,26 @@ set $active-border              #774077
 set $bar-urgent-bg-color        #eeeeee
 set $bar-urgent-text-color      #00afee
 set $transparent                #00000000
+set $red                        #ff4230
+set $darkred                    #9b281b
+set $orange                     #ffe533
+set $darkorange                 #ffc523
+set $yellow                     #ffe563
+set $grey                       #555555
 
 # window colors
-# element                border              background          text                  indicator
-client.focused           $bg-color           $bg-color           $text-color           $bg-color
-client.unfocused         $inactive-border    $inactive-bg-color  #ffffff  $bg-color
-client.focused_inactive  $bg-color           $inactive-bg-color  #ffffff  $bg-color
-client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color           $bg-color
+# element                border             background          text                   indicator
+client.focused           $red               $red                $text-color            $bg-color
+client.unfocused         $yellow            $yellow             #ffffff                $bg-color
+client.focused_inactive  $orange            $orange             #ffffff                $bg-color
+client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color            $bg-color
 
 bar {
         i3bar_command i3bar -t
         mode dock
         position bottom
         tray_output none
-        font pango:Mononoki Nerd Font 11
+        font pango:Mononoki Nerd Font 10
         # separator_symbol " ·"
         separator_symbol " "
         status_command i3blocks
@@ -207,9 +214,9 @@ bar {
             # separator #757575
             separator #00afee
             #                   border                  bg                       text
-            focused_workspace   $transparent            $bar-bg-color            $bar-text-color
-            inactive_workspace  $transparent            $transparent             $bar-inactive-text-color
-            active_workspace    $active-border          $transparent             $bar-inactive-text-color
+            focused_workspace   $transparent            $transparent             $yellow
+            inactive_workspace  $transparent            $transparent             $grey
+            active_workspace    $transparent            $transparent             $bar-inactive-text-color
             urgent_workspace    $transparent            $bar-urgent-bg-color     $bar-urgent-text-color
             binding_mode        $transparent            $transparent             $bar-urgent-text-color
         }
@@ -221,8 +228,9 @@ bar {
 
 # rename workspaces
 # bindsym $mod+n exec i3-input -F 'exec python3 /home/ketan/.config/i3/rename_ws.py rename "%s"'
-bindsym $mod+n exec /home/ketan/.config/i3/rename_ws.sh
-bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder
+# bindsym $mod+n exec /home/ketan/.config/i3/rename_ws.sh
+bindsym $mod+n exec i3-msg "rename workspace to \"$(echo | rofi -dmenu -p 'workspace name: ')\""
+# bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder
 
 # run applications (rofi)
 bindsym $mod+d exec rofi -show run

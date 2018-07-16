@@ -82,6 +82,9 @@ Plug '~/.git/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'wincent/terminus'
 Plug 'miyakogi/seiya.vim'
+Plug '~/tmp/scientifica-ligatures.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'lucapette/vim-textobj-underscore'
 " }}}
 
 " Colorschemes {{{
@@ -93,6 +96,9 @@ Plug 'jacoborus/tender.vim'
 Plug 'nelstrom/vim-mac-classic-theme'  " decent light theme (still gives me a headache though)
 Plug 'chriskempson/base16-vim'
 Plug 'danilo-augusto/vim-afterglow'
+Plug 'kaicataldo/material.vim'
+Plug 'rakr/vim-two-firewatch'
+Plug 'keith/parsec.vim'
 " }}}
 
 " Syntax files {{{
@@ -143,7 +149,7 @@ set guioptions=agit
 set termguicolors
 set background=dark
 let g:seiya_auto_enable = 1 " transparency
-colorscheme onedark
+colorscheme afterglow
 " Monokai {{{
 augroup monokai_
     autocmd!
@@ -193,6 +199,7 @@ augroup afterglow_
     autocmd!
     autocmd Colorscheme afterglow
                 \ let g:airline_theme = "ubaryd"
+                \| hi markdownCode guifg=#e5b567
 augroup END
 " }}}
 " General {{{
@@ -205,12 +212,15 @@ augroup END
 " }}}
 
 " italics {{{
-hi Comment gui=italic
-hi String gui=italic
 augroup italic_
     autocmd!
-    autocmd Colorscheme * hi Comment gui=italic
-    autocmd Colorscheme * hi String gui=italic
+    autocmd Colorscheme *
+                \ hi Comment gui=italic
+                " \| hi pythonComment gui=italic
+                \| hi pythonDoctest gui=italic
+    autocmd Colorscheme * 
+                \ hi String gui=italic
+                \| hi pythonString gui=italic
 augroup END
 " }}}
 
@@ -244,7 +254,7 @@ set nocursorline
 
 " providers {{{
 let g:python_host_prog = '/usr/bin/python2.7'
-let g:python3_host_prog = '/usr/bin/python3.6'
+let g:python3_host_prog = '/usr/bin/python3.5'
 " }}}
 
 " Functions {{{
@@ -514,8 +524,8 @@ augroup python_
     " autocmd Syntax python setlocal colorcolumn=72,80
     " autocmd Syntax python call matchadd('ColorColumn', '\%80v')
     " autocmd Syntax python hi ColorColumn ctermbg=88
-    autocmd Syntax python hi CommentColorColumn ctermbg=236
-    autocmd Syntax python hi CodeColorColumn ctermbg=238
+    autocmd Syntax python hi CommentColorColumn ctermbg=236 guibg=gray16
+    autocmd Syntax python hi CodeColorColumn ctermbg=238 guibg=gray20
     autocmd Syntax python call matchadd('CommentColorColumn', '\%72v')
     autocmd Syntax python call matchadd('CodeColorColumn', '\%80v')
     autocmd Syntax python inoremap ' ''<esc>i
@@ -667,6 +677,11 @@ tnoremap <C-v><Esc> <Esc>
 
 " gitgutter {{{
 set updatetime=500
+let g:gitgutter_sign_added              = '+'
+let g:gitgutter_sign_modified           = '~'
+let g:gitgutter_sign_removed            = '-'
+let g:gitgutter_sign_removed_first_line = '='
+let g:gitgutter_sign_modified_removed   = '≃'
 " }}}
 
 " android {{{

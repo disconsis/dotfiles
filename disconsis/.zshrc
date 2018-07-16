@@ -17,117 +17,145 @@ export MAIL=/var/spool/mail/ketan
 export FZF_DEFAULT_COMMAND='rg --files'
 # }}}
 
-# # powerlevel9k {{{
-# POWERLEVEL9K_MODE='nerdfont-complete'
-# ZSH_THEME="powerlevel9k/powerlevel9k"
-# DISABLE_AUTO_TITLE="true" # Prevent printing of command
-# # custom file count {{{
-# zsh_file_count(){
-#     local signal=$(ls -A1 | wc -l)
-#     local color='%F{$FOREGROUND}'
-#     [[ $signal -eq 0 ]] && color='%F{124}'
-#     echo -n "%{$color%}$signal%{%f%}"
-# }
-# # }}}
+# powerlevel9k {{{
+POWERLEVEL9K_MODE='nerdfont-complete'
+ZSH_THEME="powerlevel9k/powerlevel9k"
+DISABLE_AUTO_TITLE="true" # Prevent printing of command
 
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir custom_file_count dir_writable vcs newline vi_mode)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_alarming background_jobs virtualenv)
-# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
-# POWERLEVEL9K_CUSTOM_FILE_COUNT="zsh_file_count"
-# POWERLEVEL9K_DIR_PATH_SEPARATOR=" "$'\uE0B1'" "
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=5
-# POWERLEVEL9K_SHORTEN_STRATEGY="None"
-# POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
-
-
-# POWERLEVEL9K_VIRTUALENV_BACKGROUND='235'
-# POWERLEVEL9K_VIRTUALENV_FOREGROUND='109'
-# POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='235'
-
-# POWERLEVEL9K_STATUS_ERROR_BACKGROUND='167'
-# POWERLEVEL9K_STATUS_OK_BACKGROUND='248'
-# POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='109'
-# POWERLEVEL9K_DIR_HOME_BACKGROUND=$POWERLEVEL9K_DIR_DEFAULT_BACKGROUND
-# POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=$POWERLEVEL9K_DIR_DEFAULT_BACKGROUND
-# POWERLEVEL9K_CUSTOM_FILE_COUNT_BACKGROUND='108'
-# POWERLEVEL9K_VCS_CLEAN_BACKGROUND='142'
-# POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='175'
-# POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='24'
-# POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='167'
-# POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='24'
-# POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='106'
-
-# FOREGROUND='234'
-# POWERLEVEL9K_STATUS_ERROR_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_STATUS_OK_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_DIR_HOME_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=$FOREGROUND
-# POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND=$FOREGROUND
-
-# POWERLEVEL9K_VI_INSERT_MODE_STRING=''
-# POWERLEVEL9K_VI_COMMAND_MODE_STRING=''
-
-# # POWERLEVEL9K_CUSTOM_TASKWARRIOR="python3 $HOME/p9k_scripts/pltask.py  124 255"
-# # POWERLEVEL9K_CUSTOM_TASKWARRIOR_BACKGROUND='234'
-
-# # POWERLEVEL9K_CUSTOM_ALARMING="$HOME/p9k_scripts/alarming.sh 124 255"
-# # POWERLEVEL9K_CUSTOM_ALARMING_BACKGROUND='234'
-
-# # get_icon_names -> print p9k icons
-# POWERLEVEL9K_VCS_GIT_GITHUB_ICON=''
-# POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=''
-# POWERLEVEL9K_VCS_GIT_ICON=''
-# POWERLEVEL9K_VCS_BRANCH_ICON=$'\ue0a0 '
-# POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='↓'
-# POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='↑'
-
-# POWERLEVEL9K_HOME_ICON=''
-# POWERLEVEL9K_HOME_SUB_ICON=''
-# POWERLEVEL9K_FOLDER_ICON=''
-
-# POWERLEVEL9K_OK_ICON=$'\uf42e'
-
-# # fix vi_mode {{{
-# function zle-line-init {
-#   powerlevel9k_prepare_prompts
-#   if (( ${+terminfo[smkx]} )); then
-#     printf '%s' ${terminfo[smkx]}
-#   fi
-#   zle reset-prompt
-#   zle -R
-# }
-
-# function zle-line-finish {
-#   powerlevel9k_prepare_prompts
-#   if (( ${+terminfo[rmkx]} )); then
-#     printf '%s' ${terminfo[rmkx]}
-#   fi
-#   zle reset-prompt
-#   zle -R
-# }
-
-# function zle-keymap-select {
-#   powerlevel9k_prepare_prompts
-#   zle reset-prompt
-#   zle -R
-# }
-
-# zle -N zle-line-init
-# zle -N zle-line-finish
-# zle -N zle-keymap-select
-# # }}}
-
-# # }}}
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(newline status dir vcs virtualenv background_jobs newline vi_mode)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
 
 # plugins {{{
 plugins=(zsh-autosuggestions colored-man-pages zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last in the list
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=226'
+# }}}
+
+BACKGROUND='clear'
+
+# note: get_icon_names -> print p9k icons
+
+
+# separators {{{
+POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''
+POWERLEVEL9K_LEFT_SEGMENT_END_SEPARATOR=''
+POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=''
+POWERLEVEL9K_RIGHT_SEGMENT_END_SEPARATOR=''
+# }}}
+
+# status_ok {{{
+POWERLEVEL9K_STATUS_CROSS=false
+POWERLEVEL9K_STATUS_OK=false
+POWERLEVEL9K_STATUS_SHOW_PIPESTATUS=false
+POWERLEVEL9K_HIDE_SIGNAME=true
+
+POWERLEVEL9K_STATUS_ERROR_FOREGROUND='009'
+
+POWERLEVEL9K_STATUS_ERROR_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_STATUS_OK_BACKGROUND=$BACKGROUND
+# }}}
+
+# virtualenv {{{
+POWERLEVEL9K_PYTHON_ICON=''
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='166'
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='256'
+# }}}
+
+# dir {{{
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+POWERLEVEL9K_FOLDER_ICON=''
+POWERLEVEL9K_DIR_PATH_SEPARATOR="/"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=5
+POWERLEVEL9K_SHORTEN_STRATEGY="None"
+
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='009'
+POWERLEVEL9K_DIR_HOME_FOREGROUND=$POWERLEVEL9K_DIR_DEFAULT_FOREGROUND
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=$POWERLEVEL9K_DIR_DEFAULT_FOREGROUND
+
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_DIR_HOME_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND=$BACKGROUND
+# }}}
+
+# background jobs {{{
+POWERLEVEL9K_BACKGROUND_JOBS_ICON="\b&"
+POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=false
+POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='003'
+POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=$BACKGROUND
+# }}}
+
+# vcs {{{
+POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
+
+POWERLEVEL9K_VCS_GIT_GITHUB_ICON=''
+POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=''
+POWERLEVEL9K_VCS_GIT_ICON=''
+POWERLEVEL9K_VCS_BRANCH_ICON="\b"
+POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='↓'
+POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='↑'
+POWERLEVEL9K_VCS_STAGED_ICON="\b+"
+POWERLEVEL9K_VCS_UNTRACKED_ICON="\b?"
+POWERLEVEL9K_VCS_UNSTAGED_ICON="\b!"
+POWERLEVEL9K_VCS_STASH_ICON="[]"
+POWERLEVEL9K_VCS_TAG_ICON="#"
+
+
+POWERLEVEL9K_HIDE_BRANCH_ICON=false
+
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND='008'
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='008'
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='008'
+
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$BACKGROUND
+# }}}
+
+# vi-mode {{{
+POWERLEVEL9K_VI_INSERT_MODE_STRING=">"
+POWERLEVEL9K_VI_COMMAND_MODE_STRING="»"
+
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='007'
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='007'
+
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=$BACKGROUND
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND=$BACKGROUND
+
+# fix vi_mode {{{
+function zle-line-init {
+  powerlevel9k_prepare_prompts
+  if (( ${+terminfo[smkx]} )); then
+    printf '%s' ${terminfo[smkx]}
+  fi
+  zle reset-prompt
+  zle -R
+}
+
+function zle-line-finish {
+  powerlevel9k_prepare_prompts
+  if (( ${+terminfo[rmkx]} )); then
+    printf '%s' ${terminfo[rmkx]}
+  fi
+  zle reset-prompt
+  zle -R
+}
+
+function zle-keymap-select {
+  powerlevel9k_prepare_prompts
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
+# }}}
+
+# }}}
+
 # }}}
 
 # misc {{{
@@ -149,19 +177,21 @@ setopt interactivecomments
 setopt CORRECT
 # }}}
 
-# pure prompt {{{
-autoload -Uz promptinit; promptinit
-if [[ "$(whoami)" != "root" ]]; then
-    # PURE_PROMPT_SYMBOL="  "
-    # PURE_PROMPT_SYMBOL=""
-    # PURE_PROMPT_SYMBOL="  "
-    PURE_PROMPT_SYMBOL="  "
-else
-    # PURE_PROMPT_SYMBOL="#"
-    PURE_PROMPT_SYMBOL="  "
-fi
-prompt pure
-# }}}
+# # pure prompt {{{
+# autoload -Uz promptinit; promptinit
+# if [[ "$(whoami)" != "root" ]]; then
+#     # PURE_PROMPT_SYMBOL="  "
+#     # PURE_PROMPT_SYMBOL=""
+#     # PURE_PROMPT_SYMBOL="  "
+#     # PURE_PROMPT_SYMBOL="  "
+#     # PURE_PROMPT_SYMBOL=" >"
+#     PURE_PROMPT_SYMBOL=" »"
+# else
+#     PURE_PROMPT_SYMBOL=" #"
+#     # PURE_PROMPT_SYMBOL="  "
+# fi
+# prompt pure
+# # }}}
 
 # vim binds {{{
 bindkey -v
@@ -266,9 +296,9 @@ function mus {
 # }}}
 
 # print-todo {{{
-if [ -e "$HOME/tmp/todo.wiki" ]; then
-    cat "$HOME/tmp/todo.wiki" | rg -v '^\s*%%' | lolcat
-fi
+# if [ -e "$HOME/tmp/todo.wiki" ]; then
+#     cat "$HOME/tmp/todo.wiki" | rg -v '^\s*%%' | lolcat
+# fi
 # }}}
 
 # vim: fdm=marker
