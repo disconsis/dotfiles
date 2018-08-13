@@ -450,5 +450,11 @@ augroup END
 " }}}
 
 " }}}
+"
+" tmp {{{
+set showtabline=0 laststatus=0
+let g:airline#extensions#tabline#enabled = 0
+nnoremap <leader>r :redraw!<CR>
+" }}}
 
 " vim: fdm=marker

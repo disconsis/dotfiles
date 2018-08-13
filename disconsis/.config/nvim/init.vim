@@ -36,7 +36,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 Plug 'sjl/gundo.vim'
 Plug 'alvan/vim-closetag'
 Plug 'tmhedberg/SimpylFold'
@@ -46,7 +46,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'zchee/deoplete-jedi' "
 " Plug 'zchee/deoplete-clang' "FIXME
 Plug 'Shougo/neco-vim'
-Plug 'Shougo/neco-syntax'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'tpope/vim-fugitive'
 Plug 'chrisbra/unicode.vim'
@@ -61,7 +60,7 @@ Plug 'neomake/neomake'
 Plug 'tpope/vim-obsession'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
-Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired' " overrides >.. - causes delays while indenting
 Plug 'rayburgemeestre/phpfolding.vim'
 Plug 'eagletmt/ghcmod-vim'
 Plug 'eagletmt/neco-ghc'
@@ -82,9 +81,9 @@ Plug '~/.git/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'wincent/terminus'
 Plug 'miyakogi/seiya.vim'
-Plug '~/tmp/scientifica-ligatures.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'lucapette/vim-textobj-underscore'
+Plug 'dag/vim-fish'
 " }}}
 
 " Colorschemes {{{
@@ -99,6 +98,7 @@ Plug 'danilo-augusto/vim-afterglow'
 Plug 'kaicataldo/material.vim'
 Plug 'rakr/vim-two-firewatch'
 Plug 'keith/parsec.vim'
+Plug '~/vim-colorschemes/spacedust'
 " }}}
 
 " Syntax files {{{
@@ -107,6 +107,8 @@ Plug 'Harenome/vim-mipssyntax'
 Plug 'vim-scripts/haskell.vim'
 Plug 'vim-scripts/cabal.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'vim-scripts/Io-programming-language-syntax'
+Plug 'Shougo/neco-syntax'
 " }}}
 
 " Occasional use {{{
@@ -130,6 +132,8 @@ Plug 'Yggdroot/indentLine'
 " }}}
 
 " Experimental {{{
+Plug '~/vim-plugins/neatfold.vim'
+Plug '~/vim-plugins/synstack.vim'
 " }}}
 
 call plug#end()
@@ -148,8 +152,8 @@ set guioptions=agit
 " Colours {{{
 set termguicolors
 set background=dark
-let g:seiya_auto_enable = 1 " transparency
-colorscheme afterglow
+" let g:seiya_auto_enable = 1 " transparency
+colorscheme tender
 " Monokai {{{
 augroup monokai_
     autocmd!
@@ -167,7 +171,7 @@ augroup gruvbox_
                 \| let g:gruvbox_contrast_dark = 'hard'
                 \| let g:gruvbox_italic = 1
                 \| let g:gruvbox_invert_selection = 0
-                \| let g:gruvbox_italicize_strings = 1
+                " \| let g:gruvbox_italicize_strings = 1
 augroup END
 " }}}
 " Gruvbox8 {{{
@@ -202,11 +206,18 @@ augroup afterglow_
                 \| hi markdownCode guifg=#e5b567
 augroup END
 " }}}
+" Spacedust {{{
+augroup Spacedust_
+    autocmd!
+    autocmd Colorscheme Spacedust
+                \ let g:airline_theme = "base16_harmonic16"
+" }}}
 " General {{{
 augroup general_colorscheme_
     autocmd!
     autocmd Colorscheme *
                 \ hi Search guifg=NONE guibg=NONE gui=bold,italic,underline
+                \| hi Normal guibg=NONE ctermbg=NONE  " remove window bg for all colorschemes
 augroup END
 " }}}
 " }}}
@@ -217,10 +228,10 @@ augroup italic_
     autocmd Colorscheme *
                 \ hi Comment gui=italic
                 " \| hi pythonComment gui=italic
-                \| hi pythonDoctest gui=italic
+                \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
     autocmd Colorscheme * 
                 \ hi String gui=italic
-                \| hi pythonString gui=italic
+                \| if hlexists("pythonString") | normal! hi pythonString gui=italic | endif
 augroup END
 " }}}
 
@@ -334,6 +345,7 @@ let g:tmux_navigator_disable_when_zoomed = 1
 " }}}
 
 " tabline {{{
+set showtabline=1
 let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_sep = ''
@@ -407,9 +419,9 @@ let g:deoplete#enable_at_startup = 1
 " }}}
 
 " language servers {{{
-let g:LanguageClient_serverCommands =  {
-            \ 'sh': ['bash-language-server', 'start']
-            \ }
+" let g:LanguageClient_serverCommands =  {
+"             \ 'sh': ['bash-language-server', 'start']
+"             \ }
 " }}}
 
 " indentLine settings {{{
@@ -429,8 +441,8 @@ inorea reutrn return
 
 " autopairs {{{
 let g:AutoPairsMapCh = 0
-inoremap <c-h> <esc>i
-inoremap <c-l> <esc>la
+inoremap <c-h> <left>
+inoremap <c-l> <right>
 
 function! RubyAutoPairs()
   let b:AutoPairs = {"'": "'", '''': '''', '`': '`', '"': '"', '{': '}', '(': ')', '[': ']', '|': '|'}
@@ -540,7 +552,7 @@ let g:livepreview_previewer = 'zathura'
 " }}}
 
 " vim-markdown settings {{{
-let g:vim_markdown_fenced_languages = ['python=python', 'logcat=logcat']
+let g:vim_markdown_fenced_languages = ['python=python', 'logcat=logcat', 'javascript=javascript']
 let g:vim_markdown_new_list_item_indent = 0
 " hi htmlLink cterm=underline ctermfg=033
 " }}}
@@ -560,7 +572,7 @@ nnoremap \ <Plug>VinegarUp
 " }}}
 
 " neomake {{{
-let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_python_enabled_makers = ['pylint', 'pycodestyle']
 call neomake#configure#automake('w')
 " colors
 let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'NeomakeErrorSign'   }
@@ -575,7 +587,11 @@ let g:netrw_liststyle = 0
 " }}}
 
 " vimtex {{{
-let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_compiler_method = "latexmk"
+let g:vimtex_view_method = "zathura"
+let g:ycm_semantic_triggers = {
+            \ 'tex': g:vimtex#re#youcompleteme,
+            \ }
 " }}}
 
 " fix commentstrings {{{
@@ -619,18 +635,18 @@ let g:ruby_folding = 1
 let g:vim_folding = 1
 let g:conf_folding = 1
 let g:xml_syntax_folding = 1
-function! NeatFoldText()
-    let line = substitute(getline(v:foldstart), '\v\s*\{(\{\{)?\s*$', '', 'g') . ' '
-    let lines_count = v:foldend - v:foldstart + 1
-    let lines_count_text = '┨ ' . printf("%10s", lines_count . ' lines') . ' ┠'
-    let foldchar = matchstr(&fillchars, 'fold:\zs.')
-    " let foldtextstart = strpart(repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-    let foldtextstart = line
-    let foldtextend = lines_count_text . repeat(foldchar, 8)
-    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-    return foldtextstart . repeat(foldchar, winwidth(0) - foldtextlength) . foldtextend
-endfunction
-set foldtext=NeatFoldText()
+" function! NeatFoldText()
+"     let line = substitute(getline(v:foldstart), '\v\s*\{(\{\{)?\s*$', '', 'g') . ' '
+"     let lines_count = v:foldend - v:foldstart + 1
+"     let lines_count_text = '┨ ' . printf("%10s", lines_count . ' lines') . ' ┠'
+"     let foldchar = matchstr(&fillchars, 'fold:\zs.')
+"     " let foldtextstart = strpart(repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+"     let foldtextstart = line
+"     let foldtextend = lines_count_text . repeat(foldchar, 8)
+"     let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+"     return foldtextstart . repeat(foldchar, winwidth(0) - foldtextlength) . foldtextend
+" endfunction
+" set foldtext=NeatFoldText()
 " }}}
 
 " fzf {{{
@@ -686,6 +702,29 @@ let g:gitgutter_sign_modified_removed   = '≃'
 
 " android {{{
 let g:android_sdk_path = "~/Android/Sdk"
+" }}}
+
+" io {{{
+autocmd BufRead *.io set filetype=io
+" }}}
+
+" minimal ui {{{
+function! MinimalUi()
+    set showtabline=1
+    set laststatus=0
+    set norelativenumber
+endfunction
+function! CompleteUi()
+    set showtabline=1
+    set laststatus=2
+    set number
+endfunction
+command! MinimalUi execute "call MinimalUi()"
+command! CompleteUi execute "call CompleteUi()"
+" }}}
+
+" markdown {{{
+autocmd Syntax markdown set tabstop=2 shiftwidth=2
 " }}}
 
 " tmp {{{

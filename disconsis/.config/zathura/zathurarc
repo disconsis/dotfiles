@@ -16,7 +16,7 @@ map [fullscreen] <C-y> scroll up
 set recolor-darkcolor #33333
 set recolor-reverse-video true
 
-set font 'Mononoki Nerd Font 10'
+set font 'Operator Mono Light 10'
 
 set statusbar-basename false
 set statusbar-home-tilde true
