@@ -10,6 +10,7 @@ export PROJECT_HOME=$HOME/.git
 export WORKON_HOME=$HOME/.virtualenvs
 export ANDROID_HOME=$HOME/Android/Sdk
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+export PATH=$PATH:$HOME/ctftools
 export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
@@ -240,6 +241,10 @@ alias feh='/usr/bin/feh -B black -.'
 alias todo='$EDITOR ~/tmp/todo.wiki'
 alias sbcl='sbcl --noinform'
 alias doc='zeal nope'
+function mkcd {
+    /bin/mkdir $@
+    cd $@
+}
 # }}}
 
 # help {{{
@@ -300,8 +305,8 @@ function mus {
 
 # print-todo {{{
 # if [ -e "$HOME/tmp/todo.wiki" ]; then
-#     cat "$HOME/tmp/todo.wiki" | rg -v '^\s*%%' | lolcat
+#     cat "$HOME/tmp/todo.wiki" | rg '^- \[ \]'
 # fi
-# }}}
+# # }}}
 
 # vim: fdm=marker

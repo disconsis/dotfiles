@@ -84,6 +84,7 @@ Plug 'miyakogi/seiya.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'lucapette/vim-textobj-underscore'
 Plug 'dag/vim-fish'
+Plug 'kassio/neoterm'
 " }}}
 
 " Colorschemes {{{
@@ -134,6 +135,7 @@ Plug 'Yggdroot/indentLine'
 " Experimental {{{
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
+" Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 " }}}
 
 call plug#end()
@@ -410,7 +412,7 @@ let g:vimshell_prompt="$ "
 " }}}
 
 " youcompleteme options {{{
-" let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
 let g:ycm_server_log_level = 'debug'
 " }}}
 
@@ -425,10 +427,10 @@ let g:deoplete#enable_at_startup = 1
 " }}}
 
 " indentLine settings {{{
+let g:indentLine_enabled = 0
 let g:indentLine_setColors = 1 " overwrite default/colorscheme color for conceal
 let g:indentLine_color_term = 240
 let g:indentLine_char = '▏'
-let g:indentLine_enabled = 0
 " }}}
 
 " autocorrect {{{
