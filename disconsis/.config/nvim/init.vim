@@ -135,6 +135,9 @@ Plug 'Yggdroot/indentLine'
 " Experimental {{{
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'roxma/vim-window-resize-easy'
+" Plug 'kana/vim-filetype-haskell'
 " Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 " }}}
 
@@ -729,8 +732,19 @@ command! CompleteUi execute "call CompleteUi()"
 autocmd Syntax markdown set tabstop=2 shiftwidth=2
 " }}}
 
-" tmp {{{
+" seiya {{{
 let g:seiya_target_groups = ['guibg']
+" }}}
+
+" droidplugin-log-files {{{
+function! CleanLogFile()
+    g/GCoreUlr/d
+    g/audio_hw_primary/d
+    g/Icing/d
+    g/InputDispatcher/d
+    g/PlatformStatusUtil/d
+endfunction
+command! CleanLogFile silent execute "call CleanLogFile()"
 " }}}
 
 " vim: fdm=marker

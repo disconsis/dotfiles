@@ -267,7 +267,7 @@ c.auto_save.session = True
 ## Background color of the statusbar in insert mode.
 ## Type: QssColor
 # c.colors.statusbar.insert.bg = 'darkgreen'
-c.colors.statusbar.insert.bg = '#002500'
+c.colors.statusbar.insert.bg = '#000025'
 
 ## Foreground color of the statusbar in insert mode.
 ## Type: QssColor
@@ -374,7 +374,7 @@ c.colors.tabs.selected.even.bg = 'darkcyan'
 
 ## Foreground color of selected even tabs.
 ## Type: QtColor
-# c.colors.tabs.selected.even.fg = 'white'
+c.colors.tabs.selected.even.fg = 'black'
 
 ## Background color of selected odd tabs.
 ## Type: QtColor
@@ -382,7 +382,7 @@ c.colors.tabs.selected.odd.bg = c.colors.tabs.selected.even.bg
 
 ## Foreground color of selected odd tabs.
 ## Type: QtColor
-# c.colors.tabs.selected.odd.fg = 'white'
+c.colors.tabs.selected.odd.fg = c.colors.tabs.selected.even.fg
 
 ## Background color for webpages if unset (or empty to use the theme's
 ## color).
@@ -805,7 +805,7 @@ c.fonts.messages.warning = '10pt Consolas'
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
 # c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
-c.fonts.monospace = 'Consolas'
+c.fonts.monospace = 'Operator Mono Light'
 
 ## Font used for prompts.
 ## Type: Font
@@ -815,12 +815,12 @@ c.fonts.prompts = '10pt Consolas'
 ## Font used in the statusbar.
 ## Type: Font
 # c.fonts.statusbar = '10pt monospace'
-c.fonts.statusbar = '10pt Consolas'
+c.fonts.statusbar = '10pt monospace'
 
 ## Font used in the tab bar.
 ## Type: QtFont
 # c.fonts.tabs = '10pt monospace'
-c.fonts.tabs = '10pt Consolas'
+c.fonts.tabs = '10pt Operator Mono Light'
 
 ## Font family for cursive fonts.
 ## Type: FontFamily
@@ -832,19 +832,19 @@ c.fonts.tabs = '10pt Consolas'
 
 ## Font family for fixed fonts.
 ## Type: FontFamily
-# c.fonts.web.family.fixed = ''
+c.fonts.web.family.fixed = 'Operator Mono Light'
 
 ## Font family for sans-serif fonts.
 ## Type: FontFamily
-# c.fonts.web.family.sans_serif = ''
+c.fonts.web.family.sans_serif = 'Operator Mono Light'
 
 ## Font family for serif fonts.
 ## Type: FontFamily
-# c.fonts.web.family.serif = ''
+c.fonts.web.family.serif = 'Operator Mono Light'
 
 ## Font family for standard fonts.
 ## Type: FontFamily
-# c.fonts.web.family.standard = ''
+c.fonts.web.family.standard = 'Operator Mono Light'
 
 ## Default font size (in pixels) for regular text.
 ## Type: Int
@@ -1087,6 +1087,7 @@ c.hints.mode = 'number'
 ## Load a restored tab as soon as it takes focus.
 ## Type: Bool
 # c.session.lazy_restore = False
+c.session.lazy_restore = True
 
 ## Languages to use for spell checking. You can check for available
 ## languages and install dictionaries using scripts/dictcli.py. Run the
@@ -1200,6 +1201,7 @@ c.tabs.close_mouse_button_on_bar = 'close-current'
 ##   - default-page: Load the default page.
 ##   - close: Close the window.
 # c.tabs.last_close = 'ignore'
+c.tabs.last_close = 'close'
 
 ## Switch between tabs using the mouse wheel.
 ## Type: Bool
@@ -1343,7 +1345,7 @@ c.url.searchengines = {
     'urban': 'https://urbandictionary.com/define.php?term={}',
     'scholar': 'https://scholar.google.co.in/scholar?hl=en&q={}',
     'google': 'https://www.google.co.in/search?q={}',
-    'youtube': 'https://www.youtube.com/results?search_query={}',
+    'y': 'https://www.youtube.com/results?search_query={}',
 }
 
 ## Page(s) to open at the start.
@@ -1615,6 +1617,7 @@ config.bind(',s', 'spawn --userscript ' + USERSCRIPT_DIR + 'add_stylesheets')
 # config.bind('<Return>', 'follow-hint', mode='hint')
 
 ## Bindings for insert mode
+# config.bind('<Ctrl-E>', 'open-editor', mode='insert')
 # config.bind('<Ctrl-E>', 'open-editor', mode='insert')
 # config.bind('<Escape>', 'leave-mode', mode='insert')
 # config.bind('<Shift-Ins>', 'insert-text {primary}', mode='insert')

@@ -133,13 +133,16 @@ mode "resize" {
     bindsym $mod+bracketleft mode "default"
 }
 
-bindsym $mod+m mode "monitor"
+bindsym $mod+m exec i3-input -F 'mark %s' -P "mark: "
+bindsym $mod+apostrophe exec i3-input -F '[con_mark="%s"] focus' -P "goto mark: "
+
+bindsym $mod+Shift+m mode "monitor"
 mode "monitor" {
     bindsym $mod+Shift+h exec "xrandr --output eDP1 --auto; xrandr --output HDMI2 --off;"
     bindsym $mod+Shift+l exec "xrandr --output HDMI2 --auto; xrandr --output eDP1 --off;"
     bindsym $mod+Shift+k exec "xrandr --output eDP1 --auto; sleep 2; xrandr --output HDMI2 --auto --right-of eDP1"
 
-    bindsym $mod+m mode "default"
+    bindsym $mod+Shift+m mode "default"
     bindsym Escape mode "default"
     bindsym $mod+bracketleft mode "default"
 }
@@ -218,7 +221,7 @@ bar {
         mode dock
         position bottom
         tray_output primary
-        font pango:TerminessTTF Nerd Font 11
+        font pango:Scientifica 8
         # separator_symbol " ·"
         separator_symbol " "
         status_command i3blocks
