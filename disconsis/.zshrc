@@ -242,7 +242,7 @@ alias todo='$EDITOR ~/tmp/todo.wiki'
 alias sbcl='sbcl --noinform'
 alias doc='zeal nope'
 function mkcd {
-    /bin/mkdir $@
+    /bin/mkdir $@ 2>/dev/null
     cd $@
 }
 # }}}

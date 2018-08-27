@@ -1,11 +1,13 @@
 # Startup settings
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
-exec --no-startup-id feh --bg-fill ~/.config/i3/wallpaper
+exec --no-startup-id bash ~/.fehbg
 exec_always --no-startup-id python3 ~/.git/i3-app-list/src/i3_app_list.py 2>/tmp/app.log
 exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
-exec --no-startup-id compton --vsync opengl --dbe
+exec --no-startup-id compton
+exec_always --no-startup-id configure_monitors.sh
+# exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # set modifier key
 set $mod Mod1

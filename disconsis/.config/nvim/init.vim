@@ -85,6 +85,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'lucapette/vim-textobj-underscore'
 Plug 'dag/vim-fish'
 Plug 'kassio/neoterm'
+Plug 'roxma/vim-window-resize-easy'
 " }}}
 
 " Colorschemes {{{
@@ -136,7 +137,7 @@ Plug 'Yggdroot/indentLine'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'roxma/vim-window-resize-easy'
+Plug 'matze/vim-ini-fold'
 " Plug 'kana/vim-filetype-haskell'
 " Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 " }}}
@@ -193,6 +194,7 @@ augroup tender_
     autocmd!
     autocmd Colorscheme tender
                 \ let g:airline_theme = 'distinguished'
+                \| hi Visual guibg=grey
 augroup END
 " }}}
 " onedark {{{
@@ -221,7 +223,7 @@ augroup Spacedust_
 augroup general_colorscheme_
     autocmd!
     autocmd Colorscheme *
-                \ hi Search guifg=NONE guibg=NONE gui=bold,italic,underline
+                \ hi Search guifg=NONE guibg=NONE gui=bold,underline
                 \| hi Normal guibg=NONE ctermbg=NONE  " remove window bg for all colorschemes
 augroup END
 " }}}
@@ -493,11 +495,6 @@ augroup wikia_
 augroup END
 " }}}
 
-" nerdtree settings {{{
-nnoremap <silent> <leader>t :NERDTreeToggle<CR>
-let NERDTreeMinimalUI = 1
-" }}}
-
 " help settings {{{
 augroup helptype_
     autocmd!
@@ -607,6 +604,7 @@ augroup commentstring_
     autocmd Syntax php setlocal commentstring=//\ %s
     autocmd Syntax c setlocal commentstring=//\ %s
     autocmd Syntax cpp setlocal commentstring=//\ %s
+    autocmd Syntax dosini setlocal commentstring=;\ %s
 augroup END
 " }}}
 
@@ -743,6 +741,15 @@ function! CleanLogFile()
     g/Icing/d
     g/InputDispatcher/d
     g/PlatformStatusUtil/d
+    g/EGL-DRI2/d
+    g/ art /d
+    g/Finsky/d
+    g/OpenGLRenderer/d
+    g/GooglePlayServicesUtil/d
+    g/PlayCommon/d
+    g/KernelCpuSpeedReader/d
+    g/Conscrypt/d
+    g/axzt/d
 endfunction
 command! CleanLogFile silent execute "call CleanLogFile()"
 " }}}
