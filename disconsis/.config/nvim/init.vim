@@ -86,6 +86,7 @@ Plug 'lucapette/vim-textobj-underscore'
 Plug 'dag/vim-fish'
 Plug 'kassio/neoterm'
 Plug 'roxma/vim-window-resize-easy'
+Plug 'matze/vim-ini-fold'
 " }}}
 
 " Colorschemes {{{
@@ -137,7 +138,7 @@ Plug 'Yggdroot/indentLine'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'matze/vim-ini-fold'
+Plug 'enomsg/vim-haskellConcealPlus'
 " Plug 'kana/vim-filetype-haskell'
 " Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 " }}}
@@ -195,6 +196,7 @@ augroup tender_
     autocmd Colorscheme tender
                 \ let g:airline_theme = 'distinguished'
                 \| hi Visual guibg=grey
+                \| hi Conceal guifg=orange
 augroup END
 " }}}
 " onedark {{{
@@ -223,7 +225,7 @@ augroup Spacedust_
 augroup general_colorscheme_
     autocmd!
     autocmd Colorscheme *
-                \ hi Search guifg=NONE guibg=NONE gui=bold,underline
+                \ hi Search guifg=NONE guibg=NONE gui=bold,underline,italic
                 \| hi Normal guibg=NONE ctermbg=NONE  " remove window bg for all colorschemes
 augroup END
 " }}}
@@ -750,8 +752,19 @@ function! CleanLogFile()
     g/KernelCpuSpeedReader/d
     g/Conscrypt/d
     g/axzt/d
+    g/ProxyAndroidLoggerBackend/d
+    g/PhenotypeFlagCommitter/d
+    g/dex2oat/d
 endfunction
 command! CleanLogFile silent execute "call CleanLogFile()"
+" }}}
+
+" haskell {{{
+augroup haskell_
+    autocmd!
+    autocmd Syntax haskell
+                \ set concealcursor=nvic
+augroup END
 " }}}
 
 " vim: fdm=marker

@@ -18,6 +18,11 @@ export MAIL=/var/spool/mail/ketan
 export FZF_DEFAULT_COMMAND='rg --files'
 # }}}
 
+# limit {{{
+ulimit -m 8192000
+ulimit -v 8192000
+# }}}
+
 # powerlevel9k {{{
 POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel9k/powerlevel9k"
@@ -308,5 +313,11 @@ function mus {
 #     cat "$HOME/tmp/todo.wiki" | rg '^- \[ \]'
 # fi
 # # }}}
+
+# fzf {{{
+# export FZF_DEFAULT_COMMAND='cd'
+export FZF_COMPLETION_TRIGGER='.'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# }}}
 
 # vim: fdm=marker

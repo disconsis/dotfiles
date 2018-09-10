@@ -7,7 +7,7 @@ exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
 exec --no-startup-id xset s off
 exec --no-startup-id compton
 exec_always --no-startup-id configure_monitors.sh
-# exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # set modifier key
 set $mod Mod1
@@ -218,27 +218,27 @@ client.unfocused         $lightgrey         $lightgrey          #ffffff         
 client.focused_inactive  $lightblue         $lightblue          #ffffff                $lightblue
 client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color            $bg-color
 
-bar {
-        i3bar_command i3bar -t
-        mode dock
-        position bottom
-        tray_output primary
-        font pango:Scientifica 8
-        # separator_symbol " ·"
-        separator_symbol " "
-        status_command i3blocks
-        colors {
-            background "#00000000"
-            # separator #757575
-            separator #00afee
-            #                   border                  bg                       text
-            focused_workspace   $blackish               $blackish                $yellow
-            inactive_workspace  $blackish               $blackish                $grey
-            active_workspace    $blackish               $blackish                $lightgrey
-            urgent_workspace    $blackish               $bar-urgent-bg-color     $bar-urgent-text-color
-            binding_mode        $blackish               $blackish                $bar-urgent-text-color
-        }
-}
+# bar {
+#         i3bar_command i3bar -t
+#         mode dock
+#         position bottom
+#         tray_output primary
+#         font pango:Scientifica 8
+#         # separator_symbol " ·"
+#         separator_symbol " "
+#         status_command i3blocks
+#         colors {
+#             background "#00000000"
+#             # separator #757575
+#             separator #00afee
+#             #                   border                  bg                       text
+#             focused_workspace   $blackish               $blackish                $yellow
+#             inactive_workspace  $blackish               $blackish                $grey
+#             active_workspace    $blackish               $blackish                $lightgrey
+#             urgent_workspace    $blackish               $bar-urgent-bg-color     $bar-urgent-text-color
+#             binding_mode        $blackish               $blackish                $bar-urgent-text-color
+#         }
+# }
 
 
 # # toggle bar

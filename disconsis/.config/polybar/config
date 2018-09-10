@@ -9,6 +9,7 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 red = #ff4230
+yellow = #f6d75b
 
 [bar/main]
 monitor = ${env:MONITOR:HDMI2}
@@ -99,18 +100,19 @@ label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
 label-focused = %name%
-label-focused-background = ${colors.background-alt}
+; label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.yellow}
 label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
 label-unfocused-foreground = #777
-label-unfocused-background = #333
+; label-unfocused-background = #333
 label-unfocused-padding = 2
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %name%
-label-visible-background = ${self.label-focused-background}
+; label-visible-background = ${self.label-focused-background}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
