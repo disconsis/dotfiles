@@ -20,7 +20,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 
 # limit {{{
 ulimit -m 8192000
-ulimit -v 8192000
+# ulimit -v 8192000
 # }}}
 
 # powerlevel9k {{{
@@ -234,6 +234,7 @@ alias ls='ls --color=always'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ack='ack --color'
 alias v='vim'
+alias xclip='xclip -selection clipboard'
 function za {
     /usr/bin/zathura $@ &>/dev/null &!
 }

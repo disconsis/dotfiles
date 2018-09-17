@@ -160,7 +160,7 @@ set guioptions=agit
 set termguicolors
 set background=dark
 " let g:seiya_auto_enable = 1 " transparency
-colorscheme tender
+colorscheme gruvbox
 " Monokai {{{
 augroup monokai_
     autocmd!
@@ -178,6 +178,7 @@ augroup gruvbox_
                 \| let g:gruvbox_contrast_dark = 'hard'
                 \| let g:gruvbox_italic = 1
                 \| let g:gruvbox_invert_selection = 0
+                \| hi SignColumn guibg=NONE
                 " \| let g:gruvbox_italicize_strings = 1
 augroup END
 " }}}
@@ -755,6 +756,7 @@ function! CleanLogFile()
     g/ProxyAndroidLoggerBackend/d
     g/PhenotypeFlagCommitter/d
     g/dex2oat/d
+    g/cutils-trace/d
 endfunction
 command! CleanLogFile silent execute "call CleanLogFile()"
 " }}}
@@ -763,7 +765,7 @@ command! CleanLogFile silent execute "call CleanLogFile()"
 augroup haskell_
     autocmd!
     autocmd Syntax haskell
-                \ set concealcursor=nvic
+                \ hi! link Conceal Operator
 augroup END
 " }}}
 
