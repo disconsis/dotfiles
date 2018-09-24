@@ -160,90 +160,95 @@ set guioptions=agit
 set termguicolors
 set background=dark
 " let g:seiya_auto_enable = 1 " transparency
-colorscheme gruvbox
-" Monokai {{{
-augroup monokai_
-    autocmd!
-    autocmd Colorscheme monokai
-                \ let g:airline_theme = 'dark'
-                \| let g:monokai_term_italic = 1
-augroup END
-" }}}
-" Gruvbox {{{
-augroup gruvbox_
-    autocmd!
-    autocmd Colorscheme gruvbox
-                \ set background=dark
-                \| let g:airline_theme = 'gruvbox'
-                \| let g:gruvbox_contrast_dark = 'hard'
-                \| let g:gruvbox_italic = 1
-                \| let g:gruvbox_invert_selection = 0
-                \| hi SignColumn guibg=NONE
-                " \| let g:gruvbox_italicize_strings = 1
-augroup END
-" }}}
-" Gruvbox8 {{{
-augroup gruvbox8_
-    autocmd!
-    autocmd Colorscheme gruvbox8*
-                \ set background=dark
-                \| let g:gruvbox_transp_bg = 1
-                \| let g:airline_theme = 'ubaryd'
-augroup END
-" }}}
-" tender {{{
-augroup tender_
-    autocmd!
-    autocmd Colorscheme tender
-                \ let g:airline_theme = 'distinguished'
-                \| hi Visual guibg=grey
-                \| hi Conceal guifg=orange
-augroup END
-" }}}
-" onedark {{{
-augroup onedark_
-    autocmd!
-    autocmd Colorscheme onedark
-                \ let g:airline_theme = 'onedark'
-                \| hi link netrwMarkFile Identifier
-augroup END
-" }}}
-" afterglow {{{
-augroup afterglow_
-    autocmd!
-    autocmd Colorscheme afterglow
-                \ let g:airline_theme = "ubaryd"
-                \| hi markdownCode guifg=#e5b567
-augroup END
-" }}}
-" Spacedust {{{
-augroup Spacedust_
-    autocmd!
-    autocmd Colorscheme Spacedust
-                \ let g:airline_theme = "base16_harmonic16"
-" }}}
-" General {{{
-augroup general_colorscheme_
-    autocmd!
-    autocmd Colorscheme *
-                \ hi Search guifg=NONE guibg=NONE gui=bold,underline,italic
-                \| hi Normal guibg=NONE ctermbg=NONE  " remove window bg for all colorschemes
-augroup END
-" }}}
+colorscheme gruvbox8_hard
+let g:airline_theme = 'gruvbox'
+" " Monokai {{{
+" augroup monokai_
+"     autocmd!
+"     autocmd Colorscheme monokai
+"                 \ let g:airline_theme = 'dark'
+"                 \| let g:monokai_term_italic = 1
+" augroup END
+" " }}}
+" " Gruvbox {{{
+" augroup gruvbox_
+"     autocmd!
+"     autocmd Colorscheme gruvbox
+"                 \ set background=dark
+"                 \| let g:airline_theme = 'gruvbox'
+"                 \| let g:gruvbox_contrast_dark = 'hard'
+"                 \| let g:gruvbox_italic = 1
+"                 \| let g:gruvbox_invert_selection = 0
+"                 \| hi SignColumn guibg=NONE
+"                 \| hi link GitGutterAdd GruvboxGreen
+"                 \| hi link GitGutterDelete GruvboxRed
+"                 \| hi link GitGutterChange GruvboxYellow
+"                 \| hi link GitGutterChangeDelete GruvboxOrange
+"                 " \| let g:gruvbox_italicize_strings = 1
+" augroup END
+" " }}}
+" " Gruvbox8 {{{
+" augroup gruvbox8_
+"     autocmd!
+"     autocmd Colorscheme gruvbox8*
+"                 \ set background=dark
+"                 \| let g:gruvbox_transp_bg = 1
+"                 \| let g:airline_theme = 'ubaryd'
+" augroup END
+" " }}}
+" " tender {{{
+" augroup tender_
+"     autocmd!
+"     autocmd Colorscheme tender
+"                 \ let g:airline_theme = 'distinguished'
+"                 \| hi Visual guibg=grey
+"                 \| hi Conceal guifg=orange
+" augroup END
+" " }}}
+" " onedark {{{
+" augroup onedark_
+"     autocmd!
+"     autocmd Colorscheme onedark
+"                 \ let g:airline_theme = 'onedark'
+"                 \| hi link netrwMarkFile Identifier
+" augroup END
+" " }}}
+" " afterglow {{{
+" augroup afterglow_
+"     autocmd!
+"     autocmd Colorscheme afterglow
+"                 \ let g:airline_theme = "ubaryd"
+"                 \| hi markdownCode guifg=#e5b567
+" augroup END
+" " }}}
+" " Spacedust {{{
+" augroup Spacedust_
+"     autocmd!
+"     autocmd Colorscheme Spacedust
+"                 \ let g:airline_theme = "base16_harmonic16"
+" " }}}
+" " General {{{
+" augroup general_colorscheme_
+"     autocmd!
+"     autocmd Colorscheme *
+"                 \ hi Search guifg=NONE guibg=NONE gui=bold,underline,italic
+"                 \| hi Normal guibg=NONE ctermbg=NONE  " remove window bg for all colorschemes
+" augroup END
+" " }}}
 " }}}
 
-" italics {{{
-augroup italic_
-    autocmd!
-    autocmd Colorscheme *
-                \ hi Comment gui=italic
-                " \| hi pythonComment gui=italic
-                \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
-    autocmd Colorscheme * 
-                \ hi String gui=italic
-                \| if hlexists("pythonString") | normal! hi pythonString gui=italic | endif
-augroup END
-" }}}
+" " italics {{{
+" augroup italic_
+"     autocmd!
+"     autocmd Colorscheme *
+"                 \ hi Comment gui=italic
+"                 " \| hi pythonComment gui=italic
+"                 \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
+"     autocmd Colorscheme * 
+"                 \ hi String gui=italic
+"                 \| if hlexists("pythonString") | normal! hi pythonString gui=italic | endif
+" augroup END
+" " }}}
 
 " Miscellaneous {{{
 set noautochdir
@@ -270,7 +275,8 @@ set undodir=~/tmp/.vim/undo
 set backupdir=~/tmp/.vim/swap
 " HTML FTW
 packadd! matchit
-set nocursorline
+set cursorline
+hi CursorLine guibg=NONE
 " }}}
 
 " providers {{{
@@ -757,6 +763,7 @@ function! CleanLogFile()
     g/PhenotypeFlagCommitter/d
     g/dex2oat/d
     g/cutils-trace/d
+    g/ColorFade/d
 endfunction
 command! CleanLogFile silent execute "call CleanLogFile()"
 " }}}

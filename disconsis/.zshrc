@@ -236,7 +236,10 @@ alias ack='ack --color'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
 function za {
-    /usr/bin/zathura $@ &>/dev/null &!
+    /usr/bin/mupdf $@ &>/dev/null &!
+}
+function mu {
+    /usr/bin/mupdf $@ &>/dev/null &!
 }
 alias q='qutebrowser &>/dev/null &!'
 function e {
