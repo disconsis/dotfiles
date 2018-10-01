@@ -122,7 +122,7 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'Yggdroot/indentLine'
 " Plug 'junegunn/vader.vim'
 " Plug 'vim-scripts/SyntaxRange'
-" Plug 'xuhdev/vim-latex-live-preview'
+Plug 'xuhdev/vim-latex-live-preview'
 " Plug 'tpope/vim-scriptease'
 " }}}
 
@@ -139,6 +139,7 @@ Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'enomsg/vim-haskellConcealPlus'
+Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'kana/vim-filetype-haskell'
 " Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 " }}}
@@ -160,8 +161,11 @@ set guioptions=agit
 set termguicolors
 set background=dark
 " let g:seiya_auto_enable = 1 " transparency
-colorscheme gruvbox8_hard
-let g:airline_theme = 'gruvbox'
+colorscheme base16-tomorrow-night
+
+autocmd Colorscheme * hi LineNr guibg=NONE
+
+let g:airline_theme = 'tomorrow'
 " " Monokai {{{
 " augroup monokai_
 "     autocmd!
@@ -251,6 +255,8 @@ let g:airline_theme = 'gruvbox'
 " " }}}
 
 " Miscellaneous {{{
+set inccommand=nosplit
+set scrolloff=1
 set noautochdir
 set mouse=a "enable mouse
 set fillchars=vert:│,fold:─
@@ -590,6 +596,10 @@ let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'NeomakeErrorSign'   }
 let g:neomake_warning_sign = { 'text': 'W|', 'texthl': 'NeomakeWarningSign' }
 let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'NeomakeMessageSign' }
 let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'NeomakeInfoSign'    }
+augroup java_disable_neomake_
+    autocmd!
+    autocmd Syntax java NeomakeDisableBuffer
+augroup END
 " }}}
 "
 " netrw {{{
@@ -694,6 +704,10 @@ let g:ultisnips_python_style = 'sphinx'
 let g:ultisnips_python_quoting_style = 'double'
 " }}}
 
+" neoterm {{{
+let g:neoterm_autoscroll = '1'
+" }}}
+
 " vim-test {{{
 let test#strategy = 'dispatch'
 " }}}
@@ -725,11 +739,15 @@ function! MinimalUi()
     set showtabline=1
     set laststatus=0
     set norelativenumber
+    set nonumber
+    hi NonText guifg=bg guibg=NONE
+    set noruler
 endfunction
 function! CompleteUi()
-    set showtabline=1
+    set showtabline=2
     set laststatus=2
     set number
+    set ruler
 endfunction
 command! MinimalUi execute "call MinimalUi()"
 command! CompleteUi execute "call CompleteUi()"
@@ -773,7 +791,15 @@ augroup haskell_
     autocmd!
     autocmd Syntax haskell
                 \ hi! link Conceal Operator
+                \| nnoremap <leader>h :hi! link Conceal Operator<CR>
 augroup END
+" }}}
+
+" tabular {{{
+nnoremap <leader>a= :Tabularize /=<CR>
+vnoremap <leader>a= :Tabularize /=<CR>
+nnoremap <leader>a: :Tabularize /:\zs<CR>
+vnoremap <leader>a: :Tabularize /:\zs<CR>
 " }}}
 
 " vim: fdm=marker

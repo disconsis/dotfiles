@@ -1,6 +1,7 @@
 [colors]
 ;background = ${xrdb:color0:#222}
 background = #222
+transparent-background= #0000
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
@@ -10,6 +11,7 @@ secondary = #e60053
 alert = #bd2c40
 red = #ff4230
 yellow = #f6d75b
+light-grey = #aaa
 
 [bar/main]
 monitor = ${env:MONITOR:HDMI2}
@@ -37,12 +39,12 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = Scientifica:pixelsize=8
-font-1 = siji:pixelsize=10;1
-font-2 = FuraCode Nerd Font:pixelsize=8
+font-1 = FuraCode Nerd Font:pixelsize=8
+font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = xwindow
-modules-right = papers battery wifi volume time date
+modules-right = memory battery wifi volume time date
 
 tray-position = right
 tray-padding = 2
@@ -106,7 +108,7 @@ label-focused-padding = 2
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
-label-unfocused-foreground = #777
+label-unfocused-foreground = ${colors.light-grey}
 ; label-unfocused-background = #333
 label-unfocused-padding = 2
 
@@ -174,7 +176,7 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
 label = %percentage_used%%
 

@@ -40,7 +40,6 @@ BACKGROUND='clear'
 
 # note: get_icon_names -> print p9k icons
 
-
 # separators {{{
 POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
 POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''
@@ -123,10 +122,10 @@ POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$BACKGROUND
 # vi-mode {{{
 if [[ "$(whoami)" != "root" ]]; then
     POWERLEVEL9K_VI_INSERT_MODE_STRING=">"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING="»"
+    POWERLEVEL9K_VI_COMMAND_MODE_STRING="<"
 else
     POWERLEVEL9K_VI_INSERT_MODE_STRING="#"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING="#!"
+    POWERLEVEL9K_VI_COMMAND_MODE_STRING="##"
 fi
 
 POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='005'
@@ -177,11 +176,8 @@ DISABLE_AUTO_UPDATE=false
 DISABLE_UPDATE_PROMPT=false
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
 
-# if [[ -r /usr/share/powerline/bindings/zsh/powerline.zsh ]]; then
-#   source /usr/share/powerline/bindings/zsh/powerline.zsh
-# fi
-
 source $ZSH/oh-my-zsh.sh
+
 if [[ -n $SSH_CONNECTION ]]; then
     export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
 fi
@@ -190,21 +186,9 @@ setopt interactivecomments
 setopt CORRECT
 # }}}
 
-# # pure prompt {{{
-# autoload -Uz promptinit; promptinit
-# if [[ "$(whoami)" != "root" ]]; then
-#     # PURE_PROMPT_SYMBOL="  "
-#     # PURE_PROMPT_SYMBOL=""
-#     # PURE_PROMPT_SYMBOL="  "
-#     # PURE_PROMPT_SYMBOL="  "
-#     # PURE_PROMPT_SYMBOL=" >"
-#     PURE_PROMPT_SYMBOL=" »"
-# else
-#     PURE_PROMPT_SYMBOL=" #"
-#     # PURE_PROMPT_SYMBOL="  "
-# fi
-# prompt pure
-# # }}}
+# zsh autosuggestions {{{
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=4"
+# }}}
 
 # vim binds {{{
 bindkey -v
@@ -236,7 +220,7 @@ alias ack='ack --color'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
 function za {
-    /usr/bin/mupdf $@ &>/dev/null &!
+    /usr/bin/zathura $@ &>/dev/null &!
 }
 function mu {
     /usr/bin/mupdf $@ &>/dev/null &!
@@ -301,22 +285,12 @@ function beep {
 }
 # }}}
 
-# fasd {{{
-# eval "$(fasd --init auto)"
-# }}}
-
 # ncmpcpp {{{
 function mus {
     ! pidof /usr/bin/mpd > /dev/null && mpd
     /usr/bin/ncmpcpp "$@"
 }
 # }}}
-
-# print-todo {{{
-# if [ -e "$HOME/tmp/todo.wiki" ]; then
-#     cat "$HOME/tmp/todo.wiki" | rg '^- \[ \]'
-# fi
-# # }}}
 
 # fzf {{{
 # export FZF_DEFAULT_COMMAND='cd'
