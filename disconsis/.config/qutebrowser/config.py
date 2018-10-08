@@ -1340,13 +1340,15 @@ c.tabs.width = '11%'
 ## `:open google qutebrowser`.
 ## Type: Dict
 c.url.searchengines = {
-    'DEFAULT': 'https://duckduckgo.com/?q={}',
+    'DEFAULT': '{}',
+    'ddg': 'https://duckduckgo.com/?q={}',
     'wiki': 'https://en.wikipedia.org/wiki/Special:Search?search={}',
     'urban': 'https://urbandictionary.com/define.php?term={}',
     'scholar': 'https://scholar.google.co.in/scholar?hl=en&q={}',
     'google': 'https://www.google.co.in/search?q={}',
     'y': 'https://www.youtube.com/results?search_query={}',
 }
+c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
@@ -1536,7 +1538,7 @@ c.url.searchengines = {
 config.bind(',o', 'download-open;;download-clear')
 config.bind('sd', 'spawn --userscript ' + USERSCRIPT_DIR + 'open_download')
 config.bind('E', 'set-cmd-text :open {url}')
-config.bind(',t', 'config-cycle --temp tabs.show always switching')
+config.bind(',t', 'config-cycle --temp tabs.show switching always')
 config.bind('j', 'scroll-px 0 23')
 config.bind('<ctrl+e>', 'scroll-px 0 23')
 config.bind('k', 'scroll-px 0 -23')

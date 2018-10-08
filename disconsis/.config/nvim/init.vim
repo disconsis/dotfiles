@@ -1,10 +1,10 @@
 " plugins to check out
 " - fzf
-" - ultisnips
 " - abolish
 " - projectionist
 " - vim-test
-" - vim-gitgutter
+" - tagbar
+" - dispatch
 
 " nvim-from-vim {{{
 set rtp^=~/.vim
@@ -87,6 +87,7 @@ Plug 'dag/vim-fish'
 Plug 'kassio/neoterm'
 Plug 'roxma/vim-window-resize-easy'
 Plug 'matze/vim-ini-fold'
+Plug 'ticki/rust-cute-vim'
 " }}}
 
 " Colorschemes {{{
@@ -112,6 +113,7 @@ Plug 'vim-scripts/cabal.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'vim-scripts/Io-programming-language-syntax'
 Plug 'Shougo/neco-syntax'
+Plug 'vim-python/python-syntax'
 " }}}
 
 " Occasional use {{{
@@ -135,6 +137,14 @@ Plug 'xuhdev/vim-latex-live-preview'
 " }}}
 
 " Experimental {{{
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'NLKNguyen/c-syntax.vim'
+Plug 'mhinz/vim-startify'
+Plug 'kshenoy/vim-signature'
+Plug 'thaerkh/vim-workspace'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'majutsushi/tagbar'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
@@ -164,6 +174,7 @@ set background=dark
 colorscheme base16-tomorrow-night
 
 autocmd Colorscheme * hi LineNr guibg=NONE
+autocmd Colorscheme * hi! link MatchParen ErrorMsg
 
 let g:airline_theme = 'tomorrow'
 " " Monokai {{{
@@ -459,6 +470,9 @@ inorea adn and
 inorea tehn then
 inorea intsall install
 inorea reutrn return
+inorea teh the
+inorea hte the
+inorea maliciuos malicious
 " }}}
 
 " autopairs {{{
@@ -598,7 +612,7 @@ let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'NeomakeMessageSign' }
 let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'NeomakeInfoSign'    }
 augroup java_disable_neomake_
     autocmd!
-    autocmd Syntax java NeomakeDisableBuffer
+    autocmd Syntax java silent NeomakeDisableBuffer
 augroup END
 " }}}
 "
@@ -786,13 +800,34 @@ endfunction
 command! CleanLogFile silent execute "call CleanLogFile()"
 " }}}
 
+" ligatures-color {{{
+augroup ligatures_
+    autocmd!
+    autocmd Syntax haskell
+                \ autocmd OptionSet * hi! link Conceal Operator
+    autocmd Syntax rust
+                \ autocmd OptionSet * hi! link Conceal Operator
+augroup END
+" }}}
+
 " haskell {{{
 augroup haskell_
     autocmd!
-    autocmd Syntax haskell
-                \ hi! link Conceal Operator
-                \| nnoremap <leader>h :hi! link Conceal Operator<CR>
+    autocmd Syntax haskell setlocal textwidth=79
+    autocmd Syntax haskell setlocal colorcolumn=+1
 augroup END
+" }}}
+
+" run-prog {{{
+function! RunProg()
+    if &syntax == "rust"
+        T cargo build; cargo run
+    elseif (&syntax == "haskell" || &syntax == "lhaskell")
+        T runghc  %
+    endif
+endfunction
+
+nnoremap <leader>r :call RunProg()<CR>
 " }}}
 
 " tabular {{{
@@ -800,6 +835,18 @@ nnoremap <leader>a= :Tabularize /=<CR>
 vnoremap <leader>a= :Tabularize /=<CR>
 nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
+" }}}
+
+" python-syntax {{{
+let g:python_highlight_all = 1
+" }}}
+
+" tagbar {{{
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+" }}}
+
+" vim-workspace {{{
+let g:workspace_undodir = "/home/ketan/tmp/.vim/undodir"
 " }}}
 
 " vim: fdm=marker
