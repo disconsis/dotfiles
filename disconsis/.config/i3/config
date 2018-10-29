@@ -200,7 +200,7 @@ set $bar-urgent-bg-color        #eeeeee
 set $bar-urgent-text-color      #00afee
 set $transparent                #00000000
 set $red                        #ff4230
-set $darkred                    #9b281b
+set $darkred                    #8b0000
 set $orange                     #ffe533
 set $darkorange                 #ffc523
 set $yellow                     #ffe563
@@ -213,9 +213,9 @@ set $blackish                   #333333
 
 # window colors
 # element                border             background          text                   indicator
-client.focused           $blue            $blue             $text-color            $blue
-client.unfocused         $lightgrey         $lightgrey          #ffffff                $lightgrey
-client.focused_inactive  $lightblue         $lightblue          #ffffff                $lightblue
+client.focused           $darkred            $darkred             $text-color            $darkred
+client.unfocused         $grey         $grey          #ffffff                $grey
+client.focused_inactive  $blue         $blue          #ffffff                $blue
 client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color            $bg-color
 
 # bar {

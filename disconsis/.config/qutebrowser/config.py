@@ -832,19 +832,19 @@ c.fonts.tabs = '10pt Scientifica'
 
 ## Font family for fixed fonts.
 ## Type: FontFamily
-c.fonts.web.family.fixed = 'Scientifica'
+# c.fonts.web.family.fixed = 'Scientifica'
 
 ## Font family for sans-serif fonts.
 ## Type: FontFamily
-c.fonts.web.family.sans_serif = 'Scientifica'
+# c.fonts.web.family.sans_serif = 'Scientifica'
 
 ## Font family for serif fonts.
 ## Type: FontFamily
-c.fonts.web.family.serif = 'Scientifica'
+# c.fonts.web.family.serif = 'Scientifica'
 
 ## Font family for standard fonts.
 ## Type: FontFamily
-c.fonts.web.family.standard = 'Scientifica'
+# c.fonts.web.family.standard = 'Scientifica'
 
 ## Default font size (in pixels) for regular text.
 ## Type: Int
@@ -883,7 +883,7 @@ c.fonts.web.family.standard = 'Scientifica'
 
 ## Characters used for hint strings.
 ## Type: UniqueCharString
-# c.hints.chars = 'asdfghjkl'
+c.hints.chars = 'asdfghjkl;'
 
 ## Dictionary file to be used by the word hints.
 ## Type: File
@@ -910,7 +910,7 @@ c.fonts.web.family.standard = 'Scientifica'
 ##   - number: Use numeric hints. (In this mode you can also type letters from the hinted element to filter and reduce the number of elements that are hinted.)
 ##   - letter: Use the characters in the `hints.chars` setting.
 ##   - word: Use hints words based on the html elements and the extra words.
-c.hints.mode = 'number'
+c.hints.mode = 'letter'
 
 ## Comma-separated list of regular expressions to use for 'next' links.
 ## Type: List of Regex
@@ -1318,7 +1318,7 @@ c.tabs.width = '11%'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-# c.url.default_page = 'https://start.duckduckgo.com/'
+c.url.default_page = 'about:blank'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1445,7 +1445,7 @@ c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 # config.bind('=', 'zoom')
 # config.bind('?', 'set-cmd-text ?')
 # config.bind('@', 'run-macro')
-# config.bind('B', 'set-cmd-text -s :quickmark-load -t')
+config.bind('B', 'bookmark-add')
 # config.bind('D', 'tab-close -o')
 # config.bind('F', 'hint all tab')
 # config.bind('G', 'scroll-to-perc')
@@ -1453,7 +1453,7 @@ c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 # config.bind('J', 'tab-next')
 # config.bind('K', 'tab-prev')
 # config.bind('L', 'forward')
-# config.bind('M', 'bookmark-add')
+config.bind('M', 'quickmark-save')
 # config.bind('N', 'search-prev')
 # config.bind('O', 'set-cmd-text -s :open -t')
 # config.bind('PP', 'open -t -- {primary}')
@@ -1498,7 +1498,7 @@ c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 # config.bind('j', 'scroll down')
 # config.bind('k', 'scroll up')
 # config.bind('l', 'scroll right')
-# config.bind('m', 'quickmark-save')
+config.bind('m', 'enter-mode set_mark')
 # config.bind('n', 'search-next')
 # config.bind('o', 'set-cmd-text -s :open')
 # config.bind('pP', 'open -- {primary}')

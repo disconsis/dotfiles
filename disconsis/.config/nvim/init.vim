@@ -103,6 +103,8 @@ Plug 'kaicataldo/material.vim'
 Plug 'rakr/vim-two-firewatch'
 Plug 'keith/parsec.vim'
 Plug '~/vim-colorschemes/spacedust'
+Plug 'wimstefan/vim-artesanal'
+Plug 'nightsense/vimspectr'
 " }}}
 
 " Syntax files {{{
@@ -137,12 +139,15 @@ Plug 'xuhdev/vim-latex-live-preview'
 " }}}
 
 " Experimental {{{
+Plug 'bitc/lushtags'
+Plug '~/vim-plugins/tagbar-haskell'
+Plug '~/vim-plugins/synstack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'NLKNguyen/c-syntax.vim'
 Plug 'mhinz/vim-startify'
 Plug 'kshenoy/vim-signature'
 Plug 'thaerkh/vim-workspace'
-Plug 'yuttie/comfortable-motion.vim'
+" Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'majutsushi/tagbar'
 Plug '~/vim-plugins/neatfold.vim'
@@ -174,7 +179,7 @@ set background=dark
 colorscheme base16-tomorrow-night
 
 autocmd Colorscheme * hi LineNr guibg=NONE
-autocmd Colorscheme * hi! link MatchParen ErrorMsg
+autocmd Colorscheme * hi! link MatchParen IncSearch
 
 let g:airline_theme = 'tomorrow'
 " " Monokai {{{
@@ -253,16 +258,17 @@ let g:airline_theme = 'tomorrow'
 " }}}
 
 " " italics {{{
-" augroup italic_
-"     autocmd!
-"     autocmd Colorscheme *
-"                 \ hi Comment gui=italic
-"                 " \| hi pythonComment gui=italic
-"                 \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
-"     autocmd Colorscheme * 
-"                 \ hi String gui=italic
-"                 \| if hlexists("pythonString") | normal! hi pythonString gui=italic | endif
-" augroup END
+augroup italic_
+    autocmd!
+    autocmd Colorscheme *
+                \ hi Comment gui=italic
+                " \| hi pythonComment gui=italic
+                \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
+                \| hi htmlItalic gui=italic
+    autocmd Colorscheme * 
+                \ hi String gui=italic
+                \| if hlexists("pythonString") | hi pythonString gui=italic | endif
+augroup END
 " " }}}
 
 " Miscellaneous {{{
@@ -733,11 +739,23 @@ tnoremap <C-v><Esc> <Esc>
 
 " gitgutter {{{
 set updatetime=500
-let g:gitgutter_sign_added              = '+'
-let g:gitgutter_sign_modified           = '~'
-let g:gitgutter_sign_removed            = '-'
-let g:gitgutter_sign_removed_first_line = '='
-let g:gitgutter_sign_modified_removed   = '≃'
+" let g:gitgutter_sign_added              = '+'
+" let g:gitgutter_sign_modified           = '~'
+" let g:gitgutter_sign_removed            = '-'
+" let g:gitgutter_sign_removed_first_line = '='
+" let g:gitgutter_sign_modified_removed   = '≃'
+
+let g:gitgutter_sign_added='┃'
+let g:gitgutter_sign_modified='┃'
+let g:gitgutter_sign_removed='◢'
+let g:gitgutter_sign_removed_first_line='◥'
+let g:gitgutter_sign_modified_removed='◢'
+
+let g:gitgutter_override_sign_column_highlight = 1
+hi GitGutterAdd guibg=NONE
+hi GitGutterDelete guibg=NONE
+hi GitGutterChange guibg=NONE
+hi GitGutterChangeDelete guibg=NONE
 " }}}
 
 " android {{{
@@ -831,8 +849,8 @@ nnoremap <leader>r :call RunProg()<CR>
 " }}}
 
 " tabular {{{
-nnoremap <leader>a= :Tabularize /=<CR>
-vnoremap <leader>a= :Tabularize /=<CR>
+nnoremap <leader>a= :Tabularize /\V\ \zs=\ze\ <CR>
+vnoremap <leader>a= :Tabularize /\V\ \zs=\ze\ <CR>
 nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
 " }}}
