@@ -1318,7 +1318,7 @@ c.tabs.width = '11%'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = 'about:blank'
+# c.url.default_page = 'about:blank'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1347,6 +1347,7 @@ c.url.searchengines = {
     'scholar': 'https://scholar.google.co.in/scholar?hl=en&q={}',
     'google': 'https://www.google.co.in/search?q={}',
     'y': 'https://www.youtube.com/results?search_query={}',
+    'thesaurus': 'https://www.thesaurus.com/browse/{}',
 }
 c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 
