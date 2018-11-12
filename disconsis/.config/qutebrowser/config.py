@@ -779,7 +779,7 @@ c.fonts.downloads = '10pt Scientifica'
 ## Font used for the hints.
 ## Type: Font
 # c.fonts.hints = 'bold 10pt monospace'
-c.fonts.hints = 'bold 10pt Scientifica'
+c.fonts.hints = '12pt Monaco'
 
 ## Font used in the keyhint widget.
 ## Type: Font
@@ -883,7 +883,7 @@ c.fonts.tabs = '10pt Scientifica'
 
 ## Characters used for hint strings.
 ## Type: UniqueCharString
-c.hints.chars = 'asdfghjkl;'
+c.hints.chars = 'asdfghjkl'
 
 ## Dictionary file to be used by the word hints.
 ## Type: File
@@ -1318,7 +1318,7 @@ c.tabs.width = '11%'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-# c.url.default_page = 'about:blank'
+c.url.default_page = 'file:///home/ketan/Pictures/simple-desktops/oragami_s.png'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1347,7 +1347,8 @@ c.url.searchengines = {
     'scholar': 'https://scholar.google.co.in/scholar?hl=en&q={}',
     'google': 'https://www.google.co.in/search?q={}',
     'y': 'https://www.youtube.com/results?search_query={}',
-    'thesaurus': 'https://www.thesaurus.com/browse/{}',
+    'words': 'https://www.thesaurus.com/browse/{}',
+    'hoogle': 'https://www.haskell.org/hoogle/?hoogle={}',
 }
 c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 

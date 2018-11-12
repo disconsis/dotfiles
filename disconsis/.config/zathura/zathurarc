@@ -1,86 +1,28 @@
-# map [normal] l navigate next
-# map [fullscreen] l navigate next
-# map [normal] h navigate previous
-# map [fullscreen] h navigate previous
+map [normal] l navigate next
+map [fullscreen] l navigate next
+map [normal] h navigate previous
+map [fullscreen] h navigate previous
 
-# map [normal] <Left> navigate previous
-# map [fullscreen] <Left> navigate previous
-# map [normal] <Right> navigate next
-# map [fullscreen] <Right> navigate next
+map [normal] <Left> navigate previous
+map [fullscreen] <Left> navigate previous
+map [normal] <Right> navigate next
+map [fullscreen] <Right> navigate next
 
-# map [normal] <C-e> scroll down
-# map [fullscreen] <C-e> scroll down
-# map [normal] <C-y> scroll up
-# map [fullscreen] <C-y> scroll up
+map [normal] <C-e> scroll down
+map [fullscreen] <C-e> scroll down
+map [normal] <C-y> scroll up
+map [fullscreen] <C-y> scroll up
 
-# set recolor-darkcolor #33333
-# set recolor-reverse-video true
+set recolor-darkcolor #33333
+set recolor-reverse-video true
 
-# set font 'Scientifica'
+set font 'Operator Mono Light 9'
 
-# set statusbar-basename false
-# set statusbar-home-tilde true
-
-# set window-title-basename true
-
-# set guioptions 's'  # statusbar
-
-# gruvbox
-
-set font                        "monospace 11"
-set default-bg                  "#282828"
-set default-fg                  "#fbf1c7"
-
-set statusbar-bg                "#282828"
-set statusbar-fg                "#ebdbb2"
-
-set inputbar-bg                 "#282828"
-set inputbar-fg                 "#ebdbb2"
-
-set notification-error-bg       "#fb4934"
-set notification-error-fg       "#282828"
-
-set notification-warning-bg     "#d3869b"
-set notification-warning-fg     "#282828"
-
-set highlight-color             "#fabd2f"
-set highlight-active-color      "#fe8019"
-
-set completion-highlight-bg     "#3c3836"
-set completion-highlight-fg     "#fb4934"
-
-set completion-bg               "#282828"
-set completion-fg               "#ebdbb2"
-
-set notification-bg             "#282828"
-set notification-fg             "#ebdbb2"
-
-set recolor-lightcolor          "#282828"
-set recolor-darkcolor           "#fbf1c7"
-set recolor                     "false"
-
-# Setting recolor-keep true will keep any color your pdf has.
-# If it is false, it'll just be black and white.
-set recolor-keephue             "false"
-
-# Rest of your configs go here:
-
-set adjust-open width
-set pages-per-row 1
-set smooth-scroll true
-set selection-clipboard clipboard
-set incremental-search true
-set guioptions ""
-
-set window-title-home-tilde true
-set window-title-basename true
+set statusbar-basename false
 set statusbar-home-tilde true
-set show-hidden true
 
-map d scroll half-down
-map u scroll half-up
-map x toggle_page_mode
-map <C-r> rotate
-map r recolor
-map <S-Up> zoom in
-map <S-Down> zoom out # vim: ft=conf
+set window-title-basename true
+
+set guioptions 's'  # statusbar
+
+# vim: ft=conf

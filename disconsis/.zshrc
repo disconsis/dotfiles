@@ -121,11 +121,11 @@ POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$BACKGROUND
 
 # vi-mode {{{
 if [[ "$(whoami)" != "root" ]]; then
-    POWERLEVEL9K_VI_INSERT_MODE_STRING="$"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING=".$"
+    POWERLEVEL9K_VI_INSERT_MODE_STRING=">"
+    POWERLEVEL9K_VI_COMMAND_MODE_STRING="|>"
 else
     POWERLEVEL9K_VI_INSERT_MODE_STRING="#"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING=".#"
+    POWERLEVEL9K_VI_COMMAND_MODE_STRING="|#"
 fi
 
 POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='005'
@@ -242,6 +242,9 @@ function rgless {
     /usr/bin/rg --color=always --line-number --heading $@ | less
 }
 alias ghci="ghci -v0"
+function bright {
+    /usr/bin/brightnessctl set $@
+}
 # }}}
 
 # help {{{

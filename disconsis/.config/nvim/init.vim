@@ -6,6 +6,9 @@
 " - tagbar
 " - dispatch
 
+" features to check out
+" - tags (tselect, tjump...)
+
 " nvim-from-vim {{{
 set rtp^=~/.vim
 set rtp+=~/.vim/after
@@ -105,6 +108,7 @@ Plug 'keith/parsec.vim'
 Plug '~/vim-colorschemes/spacedust'
 Plug 'wimstefan/vim-artesanal'
 Plug 'nightsense/vimspectr'
+Plug 'majutsushi/tagbar'
 " }}}
 
 " Syntax files {{{
@@ -139,24 +143,23 @@ Plug 'xuhdev/vim-latex-live-preview'
 " }}}
 
 " Experimental {{{
+Plug 'Twinside/vim-haskellFold'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'bitc/lushtags'
 Plug '~/vim-plugins/tagbar-haskell'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'NLKNguyen/c-syntax.vim'
 Plug 'mhinz/vim-startify'
-Plug 'kshenoy/vim-signature'
-Plug 'thaerkh/vim-workspace'
+" Plug 'kshenoy/vim-signature'
+" Plug 'thaerkh/vim-workspace'
 " Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'majutsushi/tagbar'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'enomsg/vim-haskellConcealPlus'
 Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'kana/vim-filetype-haskell'
-" Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 " }}}
 
 call plug#end()
@@ -271,7 +274,13 @@ augroup italic_
 augroup END
 " " }}}
 
+" fast exit {{{
+command! Wq wq
+" }}}
+
 " Miscellaneous {{{
+" FIXME: causes problems with 'roxma/vim-window-resize-easy'
+set lazyredraw " speed up macros by not redrawing
 set inccommand=nosplit
 set scrolloff=1
 set noautochdir
@@ -410,6 +419,7 @@ let g:airline_mode_map = {
     \ 's' : 'S',
     \ 'S' : 'S',
     \ '': 'S',
+    \ 't' : 'T',
     \ }
 " }}}
 
@@ -621,7 +631,7 @@ augroup java_disable_neomake_
     autocmd Syntax java silent NeomakeDisableBuffer
 augroup END
 " }}}
-"
+
 " netrw {{{
 let g:netrw_list_hide = ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
 let g:netrw_liststyle = 0
@@ -733,8 +743,13 @@ let test#strategy = 'dispatch'
 " }}}
 
 " terminal {{{
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
+" go into normal mode
+tnoremap <C-v><Esc> <C-\><C-n>
+" unhindered navigation
+tnoremap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+tnoremap <C-j> <C-\><C-n>:TmuxNavigateDown<CR>
+tnoremap <C-k> <C-\><C-n>:TmuxNavigateUp<CR>
+tnoremap <C-l> <C-\><C-n>:TmuxNavigateRight<CR>
 " }}}
 
 " gitgutter {{{
@@ -772,14 +787,16 @@ function! MinimalUi()
     set laststatus=0
     set norelativenumber
     set nonumber
-    hi NonText guifg=bg guibg=NONE
     set noruler
+    SeiyaEnable
+    hi NonText guifg=bg guibg=NONE
 endfunction
 function! CompleteUi()
     set showtabline=2
     set laststatus=2
     set number
     set ruler
+    SeiyaDisable
 endfunction
 command! MinimalUi execute "call MinimalUi()"
 command! CompleteUi execute "call CompleteUi()"

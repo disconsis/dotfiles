@@ -262,10 +262,13 @@ full-at = 98
 
 time-format = %H:%M
 
-format-charging = <animation-charging> <label-charging>
+; format-charging = <animation-charging> <label-charging>
+format-charging-prefix = ""
+format-charging = <ramp-capacity> <label-charging>
 label-charging = %percentage%% [%time%]
+format-charging-prefix-foreground = ${colors.red}
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%% [%time%]
 
 format-full-prefix = ""

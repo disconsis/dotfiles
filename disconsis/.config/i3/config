@@ -181,6 +181,9 @@ mode "gaps-outer" {
     bindsym $mod+bracketleft mode "gaps"
 }
 
+# sticky
+bindsym $mod+p sticky toggle
+
 # colours
 set $bg-color                   #ffffff
 set $hl-bg-color                #333333
