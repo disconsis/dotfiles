@@ -1,5 +1,6 @@
 # Startup settings
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
+exec --no-startup-id TapToClick.hs
 exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
 exec --no-startup-id bash ~/.fehbg
 exec_always --no-startup-id python3 ~/.git/i3-app-list/src/i3_app_list.py 2>/tmp/app.log
@@ -11,7 +12,6 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # set modifier key
 set $mod Mod1
-set $mod2 Mod4
 floating_modifier $mod
 
 # Font settings
@@ -23,7 +23,7 @@ bindsym $mod+Return exec "st tmux"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
 # bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
-bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -c 000000"
+bindsym $mod+shift+o exec "i3lock-clock -p win -t -e -f -c 000000"
 bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -RTMIN+2 i3blocks"
 
 # Screenshot keybinds

@@ -23,7 +23,7 @@ height = 24
 radius = 0.0
 fixed-center = true
 
-background = ${colors.background}
+background = ${colors.transparent-background}
 foreground = ${colors.foreground}
 
 line-size = 3
@@ -44,7 +44,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = xwindow
-modules-right = memory battery wifi volume time date
+modules-right = cpu memory filesystem separator battery wifi volume separator time date
 
 tray-position = right
 tray-padding = 2
@@ -65,6 +65,11 @@ tray-padding = 2
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[module/separator]
+type = custom/text
+content = "|"
+content-foreground = ${colors.light-grey}
+
 [module/papers]
 type = custom/script
 exec = find ~/papers -type f ! -executable | wc -l | tr -d "\n"; echo " papers"
@@ -79,12 +84,13 @@ label = %title:0:130:...%
 [module/filesystem]
 type = internal/fs
 interval = 25
+fixed-values = true
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+format-mounted-prefix = " "
+format-mounted-prefix-foreground = ${colors.red}
+label-mounted = %free%
 
 [module/i3]
 type = internal/i3
@@ -169,7 +175,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = ""
 format-prefix-foreground = ${colors.red}
 label = %percentage:2%%
 

@@ -5,6 +5,7 @@
 " - vim-test
 " - tagbar
 " - dispatch
+" - vim-sexp
 
 " features to check out
 " - tags (tselect, tjump...)
@@ -143,6 +144,9 @@ Plug 'xuhdev/vim-latex-live-preview'
 " }}}
 
 " Experimental {{{
+Plug 'lilydjwg/colorizer'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'Twinside/vim-haskellFold'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'bitc/lushtags'
@@ -863,6 +867,8 @@ function! RunProg()
 endfunction
 
 nnoremap <leader>r :call RunProg()<CR>
+
+nnoremap <leader>cl :Tclear<CR>
 " }}}
 
 " tabular {{{
@@ -882,6 +888,10 @@ nnoremap <silent> <leader>t :TagbarToggle<CR>
 
 " vim-workspace {{{
 let g:workspace_undodir = "/home/ketan/tmp/.vim/undodir"
+" }}}
+
+" colorizer {{{
+let g:colorizer_maxlines = 1000
 " }}}
 
 " vim: fdm=marker

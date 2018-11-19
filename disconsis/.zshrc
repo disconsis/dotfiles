@@ -184,6 +184,7 @@ fi
 
 setopt interactivecomments
 setopt CORRECT
+setopt hist_ignore_space
 # }}}
 
 # zsh autosuggestions {{{
@@ -219,6 +220,8 @@ alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ack='ack --color'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
+alias ls=' ls --color=always'
+alias cd=' cd'
 function za {
     /usr/bin/zathura $@ &>/dev/null &!
 }
@@ -235,7 +238,7 @@ alias todo='$EDITOR ~/tmp/todo.wiki'
 alias sbcl='sbcl --noinform'
 alias doc='zeal nope'
 function mkcd {
-    /bin/mkdir $@ 2>/dev/null
+    /bin/mkdir -p $@ 2>/dev/null
     cd $@
 }
 function rgless {
