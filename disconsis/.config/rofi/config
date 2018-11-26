@@ -4,7 +4,7 @@ rofi.width:             100
 rofi.lines:             10
 rofi.padding:           200
 rofi.bw:                0
-rofi.font:              Scientifica 11
+rofi.font:              envypn 15
 rofi.color-window:      #1c1c1c,#002b36
 !                       bg      fg      bgalt   hlbg    hlfg
 rofi.color-normal:      #1c1c1c,#f3f4f5,#1c1c1c,#586e75,#eee8d5

@@ -66,7 +66,6 @@ Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
 Plug 'tpope/vim-unimpaired' " overrides >.. - causes delays while indenting
 Plug 'rayburgemeestre/phpfolding.vim'
-Plug 'eagletmt/ghcmod-vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
 Plug 'Shougo/vimproc.vim'
@@ -92,6 +91,8 @@ Plug 'kassio/neoterm'
 Plug 'roxma/vim-window-resize-easy'
 Plug 'matze/vim-ini-fold'
 Plug 'ticki/rust-cute-vim'
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/goyo.vim'
 " }}}
 
 " Colorschemes {{{
@@ -110,6 +111,7 @@ Plug '~/vim-colorschemes/spacedust'
 Plug 'wimstefan/vim-artesanal'
 Plug 'nightsense/vimspectr'
 Plug 'majutsushi/tagbar'
+Plug 'lilydjwg/colorizer'
 " }}}
 
 " Syntax files {{{
@@ -144,7 +146,6 @@ Plug 'xuhdev/vim-latex-live-preview'
 " }}}
 
 " Experimental {{{
-Plug 'lilydjwg/colorizer'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'Twinside/vim-haskellFold'
@@ -154,7 +155,6 @@ Plug '~/vim-plugins/tagbar-haskell'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'NLKNguyen/c-syntax.vim'
-Plug 'mhinz/vim-startify'
 " Plug 'kshenoy/vim-signature'
 " Plug 'thaerkh/vim-workspace'
 " Plug 'yuttie/comfortable-motion.vim'
@@ -162,7 +162,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'enomsg/vim-haskellConcealPlus'
+" Plug 'enomsg/vim-haskellConcealPlus'
 Plug 'nathanaelkane/vim-indent-guides'
 " }}}
 
@@ -183,7 +183,8 @@ set guioptions=agit
 set termguicolors
 set background=dark
 " let g:seiya_auto_enable = 1 " transparency
-colorscheme base16-tomorrow-night
+" colorscheme base16-tomorrow-night
+colorscheme madeofcode
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
@@ -854,6 +855,7 @@ augroup haskell_
     autocmd!
     autocmd Syntax haskell setlocal textwidth=79
     autocmd Syntax haskell setlocal colorcolumn=+1
+    autocmd Syntax haskell setlocal formatprg=stylish-haskell
 augroup END
 " }}}
 

@@ -220,8 +220,6 @@ alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ack='ack --color'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
-alias ls=' ls --color=always'
-alias cd=' cd'
 function za {
     /usr/bin/zathura $@ &>/dev/null &!
 }
