@@ -6,6 +6,7 @@
 " - tagbar
 " - dispatch
 " - vim-sexp
+" - vimtex
 
 " features to check out
 " - tags (tselect, tjump...)
@@ -88,11 +89,12 @@ Plug 'kana/vim-textobj-user'
 Plug 'lucapette/vim-textobj-underscore'
 Plug 'dag/vim-fish'
 Plug 'kassio/neoterm'
-Plug 'roxma/vim-window-resize-easy'
 Plug 'matze/vim-ini-fold'
 Plug 'ticki/rust-cute-vim'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
+Plug 'enomsg/vim-haskellConcealPlus'
+Plug 'simeji/winresizer'
 " }}}
 
 " Colorschemes {{{
@@ -101,7 +103,7 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'flazz/vim-colorschemes'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'jacoborus/tender.vim'
-Plug 'nelstrom/vim-mac-classic-theme'  " decent light theme (still gives me a headache though)
+Plug 'nelstrom/vim-mac-classic-theme'
 Plug 'chriskempson/base16-vim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'kaicataldo/material.vim'
@@ -133,16 +135,13 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'Yggdroot/indentLine'
 " Plug 'junegunn/vader.vim'
 " Plug 'vim-scripts/SyntaxRange'
-Plug 'xuhdev/vim-latex-live-preview'
+" Plug 'xuhdev/vim-latex-live-preview'
 " Plug 'tpope/vim-scriptease'
 " }}}
 
 " Unused {{{
 " Plug 'jceb/vim-orgmode'
 " Plug 'roxma/vim-paste-easy'
-" Plug 'shougo/vimshell'
-" Plug 'JamshedVesuna/vim-markdown-preview'
-" Plug 'mikewest/vim-markdown'
 " }}}
 
 " Experimental {{{
@@ -155,14 +154,10 @@ Plug '~/vim-plugins/tagbar-haskell'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'NLKNguyen/c-syntax.vim'
-" Plug 'kshenoy/vim-signature'
-" Plug 'thaerkh/vim-workspace'
-" Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
 Plug 'neovimhaskell/haskell-vim'
-" Plug 'enomsg/vim-haskellConcealPlus'
 Plug 'nathanaelkane/vim-indent-guides'
 " }}}
 
@@ -183,8 +178,7 @@ set guioptions=agit
 set termguicolors
 set background=dark
 " let g:seiya_auto_enable = 1 " transparency
-" colorscheme base16-tomorrow-night
-colorscheme madeofcode
+colorscheme base16-tomorrow-night
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
@@ -498,7 +492,7 @@ inorea maliciuos malicious
 
 " autopairs {{{
 let g:AutoPairsMapCh = 0
-inoremap <c-h> <left>
+" inoremap <c-h> <left>
 inoremap <c-l> <right>
 
 function! RubyAutoPairs()
@@ -597,10 +591,6 @@ augroup END
 " }}}
 
 " asm settings {{{
-" }}}
-
-" LaTeX settings {{{
-let g:livepreview_previewer = 'zathura'
 " }}}
 
 " vim-markdown settings {{{

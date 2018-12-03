@@ -36,15 +36,15 @@ padding-left = 0
 padding-right = 2
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
-font-0 = Scientifica:pixelsize=8
+font-0 = envypn:pixelsize=13
 font-1 = FuraCode Nerd Font:pixelsize=8
 font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = xwindow
-modules-right = cpu memory filesystem separator battery wifi volume separator time date
+modules-right = cpu memory filesystem battery wifi volume time date
 
 tray-position = right
 tray-padding = 2
