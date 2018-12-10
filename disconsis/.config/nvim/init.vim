@@ -1,12 +1,12 @@
 " plugins to check out
-" - fzf
 " - abolish
 " - projectionist
 " - vim-test
 " - tagbar
 " - dispatch
 " - vim-sexp
-" - vimtex
+" - vim-multiple-cursors
+" - neoterm -> fix issue with terminal normal mode
 
 " features to check out
 " - tags (tselect, tjump...)
@@ -81,7 +81,6 @@ Plug 'janko-m/vim-test'
 Plug 'hsanson/vim-android'
 Plug 'othree/xml.vim'
 Plug 'SirVer/ultisnips'
-Plug '~/.git/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'wincent/terminus'
 Plug 'miyakogi/seiya.vim'
@@ -93,11 +92,40 @@ Plug 'matze/vim-ini-fold'
 Plug 'ticki/rust-cute-vim'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
-Plug 'enomsg/vim-haskellConcealPlus'
+Plug 'enomsg/vim-haskellConcealPlus' " TODO: figure out font synergy
 Plug 'simeji/winresizer'
+Plug '~/vim-plugins/neatfold.vim'
+Plug '~/vim-plugins/synstack.vim'
+Plug '~/vim-plugins/tagbar-haskell'
+Plug 'Twinside/vim-haskellFold'
+" }}}
+
+" Occasional use {{{
+" Plug 'easymotion/vim-easymotion'
+Plug 'chrisbra/NrrwRgn'
+" Plug 'vim-syntastic/syntastic'
+" Plug 'vim-scripts/DrawIt'
+Plug 'Yggdroot/indentLine'
+" Plug 'junegunn/vader.vim'
+" Plug 'vim-scripts/SyntaxRange'
+" Plug 'tpope/vim-scriptease'
+" }}}
+
+" Experimental {{{
+Plug 'equalsraf/neovim-gui-shim'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'bitc/lushtags'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'NLKNguyen/c-syntax.vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'nathanaelkane/vim-indent-guides'
 " }}}
 
 " Colorschemes {{{
+Plug 'connorholyday/vim-snazzy'
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'flazz/vim-colorschemes'
@@ -127,40 +155,6 @@ Plug 'Shougo/neco-syntax'
 Plug 'vim-python/python-syntax'
 " }}}
 
-" Occasional use {{{
-" Plug 'easymotion/vim-easymotion'
-Plug 'chrisbra/NrrwRgn'
-" Plug 'vim-syntastic/syntastic'
-" Plug 'vim-scripts/DrawIt'
-Plug 'Yggdroot/indentLine'
-" Plug 'junegunn/vader.vim'
-" Plug 'vim-scripts/SyntaxRange'
-" Plug 'xuhdev/vim-latex-live-preview'
-" Plug 'tpope/vim-scriptease'
-" }}}
-
-" Unused {{{
-" Plug 'jceb/vim-orgmode'
-" Plug 'roxma/vim-paste-easy'
-" }}}
-
-" Experimental {{{
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'Twinside/vim-haskellFold'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'bitc/lushtags'
-Plug '~/vim-plugins/tagbar-haskell'
-Plug '~/vim-plugins/synstack.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'NLKNguyen/c-syntax.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug '~/vim-plugins/neatfold.vim'
-Plug '~/vim-plugins/synstack.vim'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'nathanaelkane/vim-indent-guides'
-" }}}
-
 call plug#end()
 " }}}
 
@@ -182,82 +176,11 @@ colorscheme base16-tomorrow-night
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
+" make spelling errors more noticeable
+autocmd Colorscheme * hi! link SpellBad Error
+hi CursorLine guibg=NONE
 
-let g:airline_theme = 'tomorrow'
-" " Monokai {{{
-" augroup monokai_
-"     autocmd!
-"     autocmd Colorscheme monokai
-"                 \ let g:airline_theme = 'dark'
-"                 \| let g:monokai_term_italic = 1
-" augroup END
-" " }}}
-" " Gruvbox {{{
-" augroup gruvbox_
-"     autocmd!
-"     autocmd Colorscheme gruvbox
-"                 \ set background=dark
-"                 \| let g:airline_theme = 'gruvbox'
-"                 \| let g:gruvbox_contrast_dark = 'hard'
-"                 \| let g:gruvbox_italic = 1
-"                 \| let g:gruvbox_invert_selection = 0
-"                 \| hi SignColumn guibg=NONE
-"                 \| hi link GitGutterAdd GruvboxGreen
-"                 \| hi link GitGutterDelete GruvboxRed
-"                 \| hi link GitGutterChange GruvboxYellow
-"                 \| hi link GitGutterChangeDelete GruvboxOrange
-"                 " \| let g:gruvbox_italicize_strings = 1
-" augroup END
-" " }}}
-" " Gruvbox8 {{{
-" augroup gruvbox8_
-"     autocmd!
-"     autocmd Colorscheme gruvbox8*
-"                 \ set background=dark
-"                 \| let g:gruvbox_transp_bg = 1
-"                 \| let g:airline_theme = 'ubaryd'
-" augroup END
-" " }}}
-" " tender {{{
-" augroup tender_
-"     autocmd!
-"     autocmd Colorscheme tender
-"                 \ let g:airline_theme = 'distinguished'
-"                 \| hi Visual guibg=grey
-"                 \| hi Conceal guifg=orange
-" augroup END
-" " }}}
-" " onedark {{{
-" augroup onedark_
-"     autocmd!
-"     autocmd Colorscheme onedark
-"                 \ let g:airline_theme = 'onedark'
-"                 \| hi link netrwMarkFile Identifier
-" augroup END
-" " }}}
-" " afterglow {{{
-" augroup afterglow_
-"     autocmd!
-"     autocmd Colorscheme afterglow
-"                 \ let g:airline_theme = "ubaryd"
-"                 \| hi markdownCode guifg=#e5b567
-" augroup END
-" " }}}
-" " Spacedust {{{
-" augroup Spacedust_
-"     autocmd!
-"     autocmd Colorscheme Spacedust
-"                 \ let g:airline_theme = "base16_harmonic16"
-" " }}}
-" " General {{{
-" augroup general_colorscheme_
-"     autocmd!
-"     autocmd Colorscheme *
-"                 \ hi Search guifg=NONE guibg=NONE gui=bold,underline,italic
-"                 \| hi Normal guibg=NONE ctermbg=NONE  " remove window bg for all colorschemes
-" augroup END
-" " }}}
-" }}}
+let g:airline_theme = 'base16_tomorrow'
 
 " " italics {{{
 augroup italic_
@@ -267,10 +190,11 @@ augroup italic_
                 " \| hi pythonComment gui=italic
                 \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
                 \| hi htmlItalic gui=italic
-    autocmd Colorscheme * 
+    autocmd Colorscheme *
                 \ hi String gui=italic
                 \| if hlexists("pythonString") | hi pythonString gui=italic | endif
 augroup END
+" " }}}
 " " }}}
 
 " fast exit {{{
@@ -307,7 +231,6 @@ set backupdir=~/tmp/.vim/swap
 " HTML FTW
 packadd! matchit
 set cursorline
-hi CursorLine guibg=NONE
 " }}}
 
 " providers {{{
@@ -638,6 +561,24 @@ let g:vimtex_view_method = "zathura"
 let g:ycm_semantic_triggers = {
             \ 'tex': g:vimtex#re#youcompleteme,
             \ }
+let g:vimtex_quickfix_latexlog = {
+      \ 'default':    1,
+      \ 'general':    1,
+      \ 'references': 1,
+      \ 'overfull':   0,
+      \ 'underfull':  0,
+      \ 'font':       1,
+      \ 'packages': {
+      \   'default':  1,
+      \   'natbib':   1,
+      \   'biblatex': 1,
+      \   'babel':    1,
+      \   'hyperref': 1,
+      \   'scrreprt': 1,
+      \   'fixltx2e': 1,
+      \   'titlesec': 1,
+      \ },
+      \}
 " }}}
 
 " fix commentstrings {{{
@@ -682,23 +623,17 @@ let g:ruby_folding = 1
 let g:vim_folding = 1
 let g:conf_folding = 1
 let g:xml_syntax_folding = 1
-" function! NeatFoldText()
-"     let line = substitute(getline(v:foldstart), '\v\s*\{(\{\{)?\s*$', '', 'g') . ' '
-"     let lines_count = v:foldend - v:foldstart + 1
-"     let lines_count_text = '┨ ' . printf("%10s", lines_count . ' lines') . ' ┠'
-"     let foldchar = matchstr(&fillchars, 'fold:\zs.')
-"     " let foldtextstart = strpart(repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-"     let foldtextstart = line
-"     let foldtextend = lines_count_text . repeat(foldchar, 8)
-"     let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-"     return foldtextstart . repeat(foldchar, winwidth(0) - foldtextlength) . foldtextend
-" endfunction
-" set foldtext=NeatFoldText()
 " }}}
 
 " fzf {{{
 nnoremap <C-p> :<C-u>FZF<CR>
 " TODO: unmap <c-j> and <c-k> for search navigation
+
+let g:fzf_action= {
+    \ 'ctrl-t': 'tab-split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \ }
 " }}}
 
 " grepper {{{
@@ -721,8 +656,8 @@ call SetupCommandAlias("grep", "GrepperGrep")
 
 " snippets {{{
 let g:UltiSnipsExpandTrigger = "<c-c>"
-let g:UltiSnipsJumpForwardTrigger = "<c-s-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-s-k>"
+let g:UltiSnipsJumpForwardTrigger = "<c-l>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
 let g:UltiSnipsSnippetsDir = '~/.vim/custom_snippets'
 let g:UltiSnipsSnippetDirectories = ['UltiSnips',"custom_snippets"]
 let g:ultisnips_python_style = 'sphinx'
@@ -731,6 +666,9 @@ let g:ultisnips_python_quoting_style = 'double'
 
 " neoterm {{{
 let g:neoterm_autoscroll = '1'
+let g:neoterm_automap_keys = mapleader . "tr"
+let g:neoterm_autoinsert = 1
+nnoremap <silent> <leader>tt :TtoggleAll<CR>
 " }}}
 
 " vim-test {{{
@@ -884,6 +822,58 @@ let g:workspace_undodir = "/home/ketan/tmp/.vim/undodir"
 
 " colorizer {{{
 let g:colorizer_maxlines = 1000
+" }}}
+
+" win-resizer {{{
+" nunmap <C-e>
+" silent nnoremap <C-w>e :WinResizerStartResize<CR>
+let g:winresizer_start_key = "<C-w><C-e>"
+" }}}
+
+" haskell-concealPlus {{{
+"'q' option to disable concealing of scientific constants (e.g. π)
+" ℘' option to disable concealing of powerset function
+"'𝐒' option to disable String type to 𝐒 concealing
+"'𝐓' option to disable Text type to 𝐓 concealing
+"'𝐄' option to disable Either/Right/Left to 𝐄/𝑅/𝐿 concealing
+"'𝐌' option to disable Maybe/Just/Nothing to 𝐌/𝐽/𝑁 concealing
+"'A' option to not try to preserve indentation
+"'s' option to disable space consumption after ∑,∏,√ and ¬ functions
+"'*' option to enable concealing of asterisk with '⋅' sign
+"'x' option to disable default concealing of asterisk with '×' sign
+"'E' option to enable ellipsis concealing with ‥  (two dot leader)
+"'e' option to disable ellipsis concealing with … (ellipsis sign)
+"'⇒' option to disable `implies` concealing with ⇒
+"'⇔' option to disable `iff` concealing with ⇔
+"'r' option to disable return (η) and join (µ) concealing
+"'b' option to disable bind (left and right) concealing
+"'f' option to enable formal (★) right bind concealing
+"'c' option to enable encircled b/d (ⓑ/ⓓ) for right and left binds
+"'h' option to enable partial concealing of binds (e.g. »=)
+"'C' option to enable encircled 'm' letter ⓜ concealing for fmap
+"'l' option to disable fmap/lift concealing with ↥
+"'↱' option to disable mapM/forM concealing with ↱/↰
+"'w' option to disable 'where' concealing with 'due to'/∵ symbol
+"'-' option to disable subtract/(-) concealing with ⊟
+"'I' option to enable alternative ':+' concealing with with ⨢
+"'i' option to disable default concealing of ':+' with ⅈ
+"'R' option to disable realPart/imagPart concealing with ℜ/ℑ
+"'T' option to enable True/False constants concealing with bold 𝐓/𝐅
+"'t' option to disable True/False constants concealing with italic 𝑇/𝐹
+"'B' option to disable Bool type to 𝔹 concealing
+"'Q' option to disable Rational type to ℚ concealing
+"'Z' option to disable Integer type to ℤ concealing
+"'N' option to disable Natural, Nat types to ℕ concealing
+"'D' option to disable Double type to 𝔻 concealing
+"'C' option to disable Complex type to ℂ concealing
+"'1' option to disable numeric superscripts concealing, e.g. x²
+"'a' option to disable alphabet superscripts concealing, e.g. xⁿ
+let hscoptions = "*x↱⇒⇔"
+" }}}
+
+" augment unimpaired {{{
+nnoremap <silent> ]h :set hlsearch<CR>
+nnoremap <silent> [h :set nohlsearch<CR>
 " }}}
 
 " vim: fdm=marker

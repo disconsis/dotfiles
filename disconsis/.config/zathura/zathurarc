@@ -1,3 +1,6 @@
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+
 map [normal] l navigate next
 map [fullscreen] l navigate next
 map [normal] h navigate previous
@@ -24,5 +27,7 @@ set statusbar-home-tilde true
 set window-title-basename true
 
 set guioptions 's'  # statusbar
+
+set clipboard "clipboard"
 
 # vim: ft=conf

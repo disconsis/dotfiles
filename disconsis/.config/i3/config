@@ -19,7 +19,7 @@ font pango:ShureTechMono Nerd Font 0
 
 # Misc
 hide_edge_borders both
-bindsym $mod+Return exec "st tmux"
+bindsym $mod+Return exec "kitty tmux"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
 # bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
@@ -28,14 +28,13 @@ bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -
 
 # Screenshot keybinds
 ## focused monitor only
-bindsym Print exec scrot -q 100 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
+bindsym Print exec scrot -q 100 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures/scrots'
 ## both monitors
-bindsym Shift+Print exec scrot -q 100 -m 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures'
+bindsym Shift+Print exec scrot -q 100 -m 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures/scrots'
 
 # remove borders for i3-gaps
-for_window [class="^.*"] border pixel 4
+for_window [class="^.*"] border pixel 2
 new_window pixel 2
-
 
 # Move workspaces between monitors
 bindsym $mod+u move workspace to output right
@@ -202,11 +201,12 @@ set $active-border              #774077
 set $bar-urgent-bg-color        #eeeeee
 set $bar-urgent-text-color      #00afee
 set $transparent                #00000000
+set $white                      #ffffff
 set $red                        #ff4230
 set $darkred                    #8b0000
 set $orange                     #ffe533
 set $darkorange                 #ffc523
-set $yellow                     #ffe563
+set $yellow                     #f4e587
 set $grey                       #777777
 set $lightgrey                  #abb2bf
 set $purple                     #8300ff
@@ -215,37 +215,11 @@ set $blue                       #485eef
 set $blackish                   #333333
 
 # window colors
-# element                border             background          text                   indicator
-client.focused           $darkred            $darkred             $text-color            $darkred
-client.unfocused         $grey         $grey          #ffffff                $grey
-client.focused_inactive  $blue         $blue          #ffffff                $blue
-client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color            $bg-color
-
-# bar {
-#         i3bar_command i3bar -t
-#         mode dock
-#         position bottom
-#         tray_output primary
-#         font pango:Scientifica 8
-#         # separator_symbol " ·"
-#         separator_symbol " "
-#         status_command i3blocks
-#         colors {
-#             background "#00000000"
-#             # separator #757575
-#             separator #00afee
-#             #                   border                  bg                       text
-#             focused_workspace   $blackish               $blackish                $yellow
-#             inactive_workspace  $blackish               $blackish                $grey
-#             active_workspace    $blackish               $blackish                $lightgrey
-#             urgent_workspace    $blackish               $bar-urgent-bg-color     $bar-urgent-text-color
-#             binding_mode        $blackish               $blackish                $bar-urgent-text-color
-#         }
-# }
-
-
-# # toggle bar
-# bindsym $mod+b bar mode toggle
+# element                border             background          text            indicator
+client.focused           $yellow            $yellow             $text-color     $yellow
+client.unfocused         $blackish       $blackish        $white          $blackish
+client.focused_inactive  $grey             $grey              $grey          $grey
+client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color     $bg-color
 
 # rename workspaces
 # bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder

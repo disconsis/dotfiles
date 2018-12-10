@@ -38,8 +38,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = envypn:pixelsize=13
-font-1 = FuraCode Nerd Font:pixelsize=8
+font-0 = Operator Mono Book:pixelsize=11
+font-1 = FuraCode Nerd Font:pixelsize=10
 font-2 = siji:pixelsize=10;1
 
 modules-left = i3
@@ -79,7 +79,7 @@ interval = 1
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:130:...%
+label = %title:0:80:...%
 
 [module/filesystem]
 type = internal/fs
@@ -231,7 +231,7 @@ interval = 5
 time = "%I:%M %p"
 label = %time%
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
 
 
@@ -252,10 +252,10 @@ format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = ﱝ
+label-muted = 婢
 label-muted-foreground = ${colors.red}
 
-ramp-volume-0 = 
+ramp-volume-0 = 奔
 ramp-volume-1 = 墳
 ramp-volume-2 = 
 ramp-volume-foreground = ${colors.red}

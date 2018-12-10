@@ -10,6 +10,7 @@ export PROJECT_HOME=$HOME/.git
 export WORKON_HOME=$HOME/.virtualenvs
 export ANDROID_HOME=$HOME/Android/Sdk
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+export PATH=$PATH:$HOME/bin/jar
 export PATH=$PATH:$HOME/ctftools
 export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:/usr/local/go/bin
@@ -121,8 +122,8 @@ POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$BACKGROUND
 
 # vi-mode {{{
 if [[ "$(whoami)" != "root" ]]; then
-    POWERLEVEL9K_VI_INSERT_MODE_STRING=">"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING="|>"
+    POWERLEVEL9K_VI_INSERT_MODE_STRING="->"
+    POWERLEVEL9K_VI_COMMAND_MODE_STRING="->>"
 else
     POWERLEVEL9K_VI_INSERT_MODE_STRING="#"
     POWERLEVEL9K_VI_COMMAND_MODE_STRING="|#"
@@ -188,7 +189,7 @@ setopt hist_ignore_space
 # }}}
 
 # zsh autosuggestions {{{
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=4"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=237"
 # }}}
 
 # vim binds {{{
@@ -220,6 +221,9 @@ alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ack='ack --color'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
+function ord() {
+    LC_TYPE=C printf '%x' "'$1'"
+}
 function za {
     /usr/bin/zathura $@ &>/dev/null &!
 }
