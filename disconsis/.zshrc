@@ -100,8 +100,8 @@ POWERLEVEL9K_VCS_GIT_GITHUB_ICON=''
 POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=''
 POWERLEVEL9K_VCS_GIT_ICON=''
 POWERLEVEL9K_VCS_BRANCH_ICON="\b"
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='∇ '
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='∆ '
+POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='↓ '
+POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='↑ '
 POWERLEVEL9K_VCS_STAGED_ICON="\b+"
 POWERLEVEL9K_VCS_UNTRACKED_ICON="\b?"
 POWERLEVEL9K_VCS_UNSTAGED_ICON="\b!"
@@ -162,18 +162,18 @@ function zle-keymap-select {
   zle -R
 }
 
+# cause problems with emacs shell
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
-# }}}
+# # }}}
 
-# }}}
+# # }}}
 
-# }}}
+# # }}}
 
-# misc {{{
-HIST_STAMPS="dd/mm/yyyy"
-DISABLE_AUTO_UPDATE=false
+# # misc {{{
+HIST_STAMPS="dd/mm/yyyy" DISABLE_AUTO_UPDATE=false
 DISABLE_UPDATE_PROMPT=false
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
 
@@ -186,11 +186,11 @@ fi
 setopt interactivecomments
 setopt CORRECT
 setopt hist_ignore_space
-# }}}
+# # }}}
 
-# zsh autosuggestions {{{
+# # zsh autosuggestions {{{
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=237"
-# }}}
+# # }}}
 
 # vim binds {{{
 bindkey -v
@@ -227,6 +227,9 @@ function ord() {
 function za {
     /usr/bin/zathura $@ &>/dev/null &!
 }
+function ev {
+    /usr/bin/evince $@ &>/dev/null &!
+}
 function mu {
     /usr/bin/mupdf $@ &>/dev/null &!
 }
@@ -250,11 +253,14 @@ alias ghci="ghci -v0"
 function bright {
     /usr/bin/brightnessctl set $@
 }
+function spacemacs {
+    emacs25 --with-profile spacemacs $@
+}
 # }}}
 
 # help {{{
-# autoload -Uz run-help
-# alias help=run-help
+autoload -Uz run-help
+alias help=run-help
 # }}}
 
 # dasht {{{

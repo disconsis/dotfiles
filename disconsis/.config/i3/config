@@ -1,6 +1,6 @@
 # Startup settings
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
-exec --no-startup-id TapToClick.hs
+exec --no-startup-id /home/ketan/bin/TapToClick.hs
 exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
 exec --no-startup-id bash ~/.fehbg
 exec_always --no-startup-id python3 ~/.git/i3-app-list/src/i3_app_list.py 2>/tmp/app.log
@@ -9,6 +9,8 @@ exec --no-startup-id xset s off
 exec --no-startup-id compton
 exec_always --no-startup-id configure_monitors.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id emacs25 --daemon
+exec --no-startup-id sleep 10 && /home/ketan/bin/notes.sh
 
 # set modifier key
 set $mod Mod1
@@ -109,6 +111,9 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 # scratchpad
 bindsym $mod+comma move scratchpad
 bindsym $mod+period scratchpad show
+
+# notes
+bindsym $mod+backslash [title="^notes$"] scratchpad show
 
 # # dropdown terminal
 # exec --no-startup-id st -n st-dropdown tmux

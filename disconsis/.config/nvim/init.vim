@@ -92,7 +92,7 @@ Plug 'matze/vim-ini-fold'
 Plug 'ticki/rust-cute-vim'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
-Plug 'enomsg/vim-haskellConcealPlus' " TODO: figure out font synergy
+" Plug 'enomsg/vim-haskellConcealPlus' " TODO: figure out font synergy
 Plug 'simeji/winresizer'
 Plug '~/vim-plugins/neatfold.vim'
 Plug '~/vim-plugins/synstack.vim'
@@ -124,7 +124,7 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'nathanaelkane/vim-indent-guides'
 " }}}
 
-" Colorschemes {{{
+" ColorSchemes {{{
 Plug 'connorholyday/vim-snazzy'
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
@@ -172,7 +172,7 @@ set guioptions=agit
 set termguicolors
 set background=dark
 " let g:seiya_auto_enable = 1 " transparency
-colorscheme base16-tomorrow-night
+colorscheme base16-onedark
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
@@ -180,20 +180,20 @@ autocmd Colorscheme * hi! link MatchParen IncSearch
 autocmd Colorscheme * hi! link SpellBad Error
 hi CursorLine guibg=NONE
 
-let g:airline_theme = 'base16_tomorrow'
+let g:airline_theme = 'onedark'
 
 " " italics {{{
-augroup italic_
-    autocmd!
-    autocmd Colorscheme *
-                \ hi Comment gui=italic
-                " \| hi pythonComment gui=italic
-                \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
-                \| hi htmlItalic gui=italic
-    autocmd Colorscheme *
-                \ hi String gui=italic
-                \| if hlexists("pythonString") | hi pythonString gui=italic | endif
-augroup END
+" augroup italic_
+"     autocmd!
+"     autocmd Colorscheme *
+"                 \ hi Comment gui=italic
+"                 " \| hi pythonComment gui=italic
+"                 \| if hlexists("pythonDoctest") | hi pythonDoctest gui=italic | endif
+"                 \| hi htmlItalic gui=italic
+"     autocmd Colorscheme *
+"                 \ hi String gui=italic
+"                 \| if hlexists("pythonString") | hi pythonString gui=italic | endif
+" augroup END
 " " }}}
 " " }}}
 
@@ -202,17 +202,19 @@ command! Wq wq
 " }}}
 
 " Miscellaneous {{{
-" FIXME: causes problems with 'roxma/vim-window-resize-easy'
 set lazyredraw " speed up macros by not redrawing
 set inccommand=nosplit
+" auto-enter terminal mode when entering a terminal window
+augroup _term_enter
+	autocmd!
+	autocmd WinEnter term://* :normal! A
+augroup END
 set scrolloff=1
 set noautochdir
 set mouse=a "enable mouse
 set fillchars=vert:│,fold:─
 let mapleader = ","
-let maplocalleader = ","
-" restore , functionality
-nnoremap <space> ,
+let maplocalleader = "," | nnoremap <space> ,
 set showcmd
 set hidden
 set laststatus=2    " always show statusline
@@ -230,7 +232,7 @@ set undodir=~/tmp/.vim/undo
 set backupdir=~/tmp/.vim/swap
 " HTML FTW
 packadd! matchit
-set cursorline
+set nocursorline
 " }}}
 
 " providers {{{
@@ -415,8 +417,6 @@ inorea maliciuos malicious
 
 " autopairs {{{
 let g:AutoPairsMapCh = 0
-" inoremap <c-h> <left>
-inoremap <c-l> <right>
 
 function! RubyAutoPairs()
   let b:AutoPairs = {"'": "'", '''': '''', '`': '`', '"': '"', '{': '}', '(': ')', '[': ']', '|': '|'}
@@ -460,6 +460,7 @@ augroup wikia_
     autocmd Syntax vimwiki setlocal colorcolumn=""
     autocmd Syntax vimwiki setlocal textwidth=0
 augroup END
+let g:vimwiki_folding = 'list'
 " }}}
 
 " help settings {{{
@@ -556,6 +557,7 @@ let g:netrw_liststyle = 0
 " }}}
 
 " vimtex {{{
+let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_method = "latexmk"
 let g:vimtex_view_method = "zathura"
 let g:ycm_semantic_triggers = {
@@ -579,6 +581,7 @@ let g:vimtex_quickfix_latexlog = {
       \   'titlesec': 1,
       \ },
       \}
+autocmd VimLeavePre *.tex VimtexClean
 " }}}
 
 " fix commentstrings {{{
@@ -669,6 +672,9 @@ let g:neoterm_autoscroll = '1'
 let g:neoterm_automap_keys = mapleader . "tr"
 let g:neoterm_autoinsert = 1
 nnoremap <silent> <leader>tt :TtoggleAll<CR>
+" DEBUG
+" FIXME
+tnoremap <leader>cl <C-\><C-n>:Tclear<CR>A
 " }}}
 
 " vim-test {{{
@@ -784,6 +790,7 @@ augroup haskell_
     autocmd Syntax haskell setlocal textwidth=79
     autocmd Syntax haskell setlocal colorcolumn=+1
     autocmd Syntax haskell setlocal formatprg=stylish-haskell
+    nnoremap <silent> <leader>p V:!pointless<CR>
 augroup END
 " }}}
 
@@ -875,5 +882,6 @@ let hscoptions = "*x↱⇒⇔"
 nnoremap <silent> ]h :set hlsearch<CR>
 nnoremap <silent> [h :set nohlsearch<CR>
 " }}}
+
 
 " vim: fdm=marker
