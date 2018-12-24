@@ -250,6 +250,9 @@
 ;; TODO: vim-vinegar? or just fuzzy finding
 ;; TODO: fix folding so that it doesn't have to be on the brace
 ;; TODO: exchange lines
+;; TODO: global eyebrowse mode
+;; TODO: focus follows split
+
 
 ;; (defun my/evil-meta ()
 ;;   (interactive)

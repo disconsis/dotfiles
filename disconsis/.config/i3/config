@@ -140,7 +140,8 @@ mode "resize" {
 }
 
 bindsym $mod+m exec i3-input -F 'mark %s' -P "mark: "
-bindsym $mod+apostrophe exec i3-input -F '[con_mark="%s"] focus' -P "goto mark: "
+# bindsym $mod+apostrophe exec i3-input -F '[con_mark="%s"] focus' -P "goto mark: "
+bindsym $mod+apostrophe exec i3-msg "[con_mark=\"$(i3-msg -t get_marks | json-array-to-string | rofi -P 'goto mark: ' -dmenu)\"] focus"
 
 bindsym $mod+Shift+m mode "monitor"
 mode "monitor" {
@@ -221,9 +222,9 @@ set $blackish                   #333333
 
 # window colors
 # element                border             background          text            indicator
-client.focused           $yellow            $yellow             $text-color     $yellow
-client.unfocused         $blackish       $blackish        $white          $blackish
-client.focused_inactive  $grey             $grey              $grey          $grey
+client.focused           $yellow            $yellow             $text-color     $orange
+client.unfocused         $blackish          $blackish           $white          $blackish
+client.focused_inactive  $grey              $grey               $grey           $grey
 client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color     $bg-color
 
 # rename workspaces

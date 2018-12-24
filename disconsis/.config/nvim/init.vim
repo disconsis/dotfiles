@@ -78,7 +78,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'datanoise/vim-dispatch-neovim'
 Plug 'mhinz/vim-grepper'
 Plug 'janko-m/vim-test'
-Plug 'hsanson/vim-android'
 Plug 'othree/xml.vim'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
@@ -120,7 +119,7 @@ Plug 'bitc/lushtags'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'NLKNguyen/c-syntax.vim'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'neovimhaskell/haskell-vim'
+" Plug 'neovimhaskell/haskell-vim'
 Plug 'nathanaelkane/vim-indent-guides'
 " }}}
 
@@ -147,7 +146,7 @@ Plug 'lilydjwg/colorizer'
 " Syntax files {{{
 Plug 'gburca/vim-logcat'
 Plug 'Harenome/vim-mipssyntax'
-Plug 'vim-scripts/haskell.vim'
+Plug 'urso/haskell_syntax.vim'
 Plug 'vim-scripts/cabal.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'vim-scripts/Io-programming-language-syntax'
@@ -202,6 +201,7 @@ command! Wq wq
 " }}}
 
 " Miscellaneous {{{
+set title
 set lazyredraw " speed up macros by not redrawing
 set inccommand=nosplit
 " auto-enter terminal mode when entering a terminal window
@@ -305,12 +305,7 @@ nnoremap <silent> <leader>ew :silent! s/\v\s+$//g<cr>
 nnoremap <silent> <leader>eW :silent! %s/\v\s+$//g<cr>
 " }}}
 
-" Space before nu {{{
-augroup _nu
-    autocmd!
-    autocmd BufRead,BufWritePost * if &number | let &nuw = float2nr(ceil(log10(0.5 + line('$')))) + 2 | endif
-augroup END
-" }}}
+set nuw=2
 
 " tmux-navigator options {{{
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -503,13 +498,13 @@ augroup END
 augroup python_
     autocmd!
     autocmd Syntax python setlocal textwidth=79
-    " autocmd Syntax python setlocal colorcolumn=72,80
+    autocmd Syntax python setlocal colorcolumn=72,80
     " autocmd Syntax python call matchadd('ColorColumn', '\%80v')
     " autocmd Syntax python hi ColorColumn ctermbg=88
-    autocmd Syntax python hi CommentColorColumn ctermbg=236 guibg=gray16
-    autocmd Syntax python hi CodeColorColumn ctermbg=238 guibg=gray20
-    autocmd Syntax python call matchadd('CommentColorColumn', '\%72v')
-    autocmd Syntax python call matchadd('CodeColorColumn', '\%80v')
+    " autocmd Syntax python hi CommentColorColumn ctermbg=236 guibg=gray16
+    " autocmd Syntax python hi CodeColorColumn ctermbg=238 guibg=gray20
+    " autocmd Syntax python call matchadd('CommentColorColumn', '\%72v')
+    " autocmd Syntax python call matchadd('CodeColorColumn', '\%80v')
     autocmd Syntax python inoremap ' ''<esc>i
 augroup END
 " }}}
@@ -545,10 +540,6 @@ let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'NeomakeErrorSign'   }
 let g:neomake_warning_sign = { 'text': 'W|', 'texthl': 'NeomakeWarningSign' }
 let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'NeomakeMessageSign' }
 let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'NeomakeInfoSign'    }
-augroup java_disable_neomake_
-    autocmd!
-    autocmd Syntax java silent NeomakeDisableBuffer
-augroup END
 " }}}
 
 " netrw {{{
@@ -712,10 +703,6 @@ hi GitGutterChange guibg=NONE
 hi GitGutterChangeDelete guibg=NONE
 " }}}
 
-" android {{{
-let g:android_sdk_path = "~/Android/Sdk"
-" }}}
-
 " io {{{
 autocmd BufRead *.io set filetype=io
 " }}}
@@ -747,31 +734,6 @@ autocmd Syntax markdown set tabstop=2 shiftwidth=2
 
 " seiya {{{
 let g:seiya_target_groups = ['guibg']
-" }}}
-
-" droidplugin-log-files {{{
-function! CleanLogFile()
-    g/GCoreUlr/d
-    g/audio_hw_primary/d
-    g/Icing/d
-    g/InputDispatcher/d
-    g/PlatformStatusUtil/d
-    g/EGL-DRI2/d
-    g/ art /d
-    g/Finsky/d
-    g/OpenGLRenderer/d
-    g/GooglePlayServicesUtil/d
-    g/PlayCommon/d
-    g/KernelCpuSpeedReader/d
-    g/Conscrypt/d
-    g/axzt/d
-    g/ProxyAndroidLoggerBackend/d
-    g/PhenotypeFlagCommitter/d
-    g/dex2oat/d
-    g/cutils-trace/d
-    g/ColorFade/d
-endfunction
-command! CleanLogFile silent execute "call CleanLogFile()"
 " }}}
 
 " ligatures-color {{{
@@ -883,5 +845,8 @@ nnoremap <silent> ]h :set hlsearch<CR>
 nnoremap <silent> [h :set nohlsearch<CR>
 " }}}
 
+" easier global commands {{{
+vnoremap ,g :g/^/normal! 
+" }}}
 
 " vim: fdm=marker
