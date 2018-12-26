@@ -1,0 +1,48 @@
+Config { font = "xft:Monoid:size=8:antialias=true"
+       , borderColor = "black"
+       , border = BottomB
+       , bgColor = "black"
+       , fgColor = "white"
+       , position = Bottom
+       , commands = [ Run Date "%I:%M %P %a %b %_d %Y" "date" 10
+                    , Run StdinReader
+                    , Run Memory  [ "--template", "Mem: <usedratio>%"
+                                  , "--Low"     , "20"
+                                  , "--High"    , "60"
+                                  , "--low"     , "green"
+                                  , "--normal"  , "yellow"
+                                  , "--high"    , "red"
+                                  ] 10
+                    , Run Battery [ "--template", "Bat: <acstatus>"
+                                  , "--Low"     , "20"
+                                  , "--High"    , "80"
+                                  , "--low"     , "red"
+                                  , "--normal"  , "yellow"
+                                  , "--high"    , "green"
+                                  , "--"
+                                  , "-o"        , "<left>% [<timeleft>]"
+                                  , "-O"        , "Charging"
+                                  , "-i"        , "<fc=green>Charged</fc>"
+                                  ] 50
+                    , Run Wireless "wlp4s0"
+                                  [ "--template", "Wifi: <fc=#0088ff><essid></fc> <quality>%"
+                                  , "--Low"     , "40"
+                                  , "--High"    , "85"
+                                  , "--low"     , "red"
+                                  , "--normal"  , "yellow"
+                                  , "--high"    , "green"
+                                  ] 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %wlp4s0wi% | %battery% | %date% "
+       }
+
+-- TODO:
+---- volume
+---- colors same as polybar
+---- icons (fallback font?)
+---- height
+---- correct workspace names
+
+-- vim: ft=haskell
