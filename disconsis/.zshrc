@@ -29,7 +29,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DISABLE_AUTO_TITLE="true" # Prevent printing of command
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(newline status dir vcs virtualenv background_jobs newline vi_mode)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(newline status dir vcs background_jobs newline vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
 
@@ -269,24 +269,10 @@ export PATH="$PATH:$HOME/.rvm/bin:$HOME/.git/dasht/bin"
 export MANPATH="$HOME/.git/dasht/man:$MANPATH"
 # }}}
 
-# virtualenvwrapper {{{
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_SCRIPT=$(which virtualenvwrapper.sh)
-source virtualenvwrapper.sh
-# }}}
-
-# # FIXME: project venv {{{
-# function set_project_venv {
-#     chdir "$@"
-#     if [[ `pwd | cut -d / -f 1-5` == '/home/ketan/.git/superlists' ]]
-#     then
-#         workon superlists
-#     else
-#         deactivate >& /dev/null
-#         true
-#     fi
-# }
-# alias cd=set_project_venv
+# # virtualenvwrapper {{{
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# export VIRTUALENVWRAPPER_SCRIPT=$(which virtualenvwrapper.sh)
+# source virtualenvwrapper.sh
 # # }}}
 
 # beep {{{

@@ -103,7 +103,7 @@ Plug 'Twinside/vim-haskellFold'
 " Plug 'easymotion/vim-easymotion'
 Plug 'chrisbra/NrrwRgn'
 " Plug 'vim-syntastic/syntastic'
-" Plug 'vim-scripts/DrawIt'
+Plug 'vim-scripts/DrawIt'
 Plug 'Yggdroot/indentLine'
 " Plug 'junegunn/vader.vim'
 " Plug 'vim-scripts/SyntaxRange'
@@ -170,7 +170,7 @@ set guioptions=agit
 " Colours {{{
 set termguicolors
 set background=dark
-" let g:seiya_auto_enable = 1 " transparency
+let g:seiya_auto_enable = 1 " transparency
 colorscheme base16-onedark
 
 autocmd Colorscheme * hi LineNr guibg=NONE
@@ -536,10 +536,10 @@ nnoremap \ <Plug>VinegarUp
 let g:neomake_python_enabled_makers = ['pylint', 'pycodestyle']
 call neomake#configure#automake('w')
 " colors
-let g:neomake_error_sign   = { 'text': 'E|', 'texthl': 'NeomakeErrorSign'   }
-let g:neomake_warning_sign = { 'text': 'W|', 'texthl': 'NeomakeWarningSign' }
-let g:neomake_message_sign = { 'text': 'M|', 'texthl': 'NeomakeMessageSign' }
-let g:neomake_info_sign    = { 'text': 'I|', 'texthl': 'NeomakeInfoSign'    }
+let g:neomake_error_sign   = { 'text': 'E', 'texthl': 'NeomakeErrorSign'   }
+let g:neomake_warning_sign = { 'text': 'W', 'texthl': 'NeomakeWarningSign' }
+let g:neomake_message_sign = { 'text': 'M', 'texthl': 'NeomakeMessageSign' }
+let g:neomake_info_sign    = { 'text': 'I', 'texthl': 'NeomakeInfoSign'    }
 " }}}
 
 " netrw {{{

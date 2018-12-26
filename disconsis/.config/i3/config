@@ -24,8 +24,7 @@ hide_edge_borders both
 bindsym $mod+Return exec "kitty tmux"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
-# bindsym $mod2+l exec "i3lock-clock -p win -t -e -f -i ~/.config/i3/i3lock-img"
-bindsym $mod+shift+o exec "i3lock-clock -p win -t -e -f -c 000000"
+bindsym $mod+shift+o exec /home/ketan/bin/lock.sh
 bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -RTMIN+2 i3blocks"
 
 # Screenshot keybinds
