@@ -706,7 +706,7 @@ c.content.plugins = True
 ## Directory to save downloads to. If unset, a sensible OS-specific
 ## default is used.
 ## Type: Directory
-# c.downloads.location.directory = None
+c.downloads.location.directory = os.path.join(os.getenv("HOME"), "downloads")
 
 ## Prompt the user for the download location. If set to false,
 ## `downloads.location.directory` will be used.
@@ -758,69 +758,69 @@ c.downloads.position = 'bottom'
 
 ## Font used in the completion categories.
 ## Type: Font
-# c.fonts.completion.category = 'bold 10pt monospace'
-c.fonts.completion.category = 'bold 10pt Scientifica'
+# c.fonts.completion.category = 'bold 8pt monospace'
+c.fonts.completion.category = 'bold 8pt Monoid'
 
 ## Font used in the completion widget.
 ## Type: Font
-# c.fonts.completion.entry = '10pt monospace'
-c.fonts.completion.entry = '10pt Scientifica'
+# c.fonts.completion.entry = '8pt monospace'
+c.fonts.completion.entry = '8pt Monoid'
 
 ## Font used for the debugging console.
 ## Type: QtFont
-# c.fonts.debug_console = '10pt monospace'
-c.fonts.debug_console = '10pt Scientifica'
+# c.fonts.debug_console = '8pt monospace'
+c.fonts.debug_console = '8pt Monoid'
 
 ## Font used for the downloadbar.
 ## Type: Font
-# c.fonts.downloads = '10pt monospace'
-c.fonts.downloads = '10pt Scientifica'
+# c.fonts.downloads = '8pt monospace'
+c.fonts.downloads = '8pt Monoid'
 
 ## Font used for the hints.
 ## Type: Font
-# c.fonts.hints = 'bold 10pt monospace'
+# c.fonts.hints = 'bold 8pt monospace'
 c.fonts.hints = '12pt Monaco'
 
 ## Font used in the keyhint widget.
 ## Type: Font
-# c.fonts.keyhint = '10pt monospace'
-c.fonts.keyhint = '10pt Scientifica'
+# c.fonts.keyhint = '8pt monospace'
+c.fonts.keyhint = '8pt Monoid'
 
 ## Font used for error messages.
 ## Type: Font
-# c.fonts.messages.error = '10pt monospace'
-c.fonts.messages.error = '10pt Scientifica'
+# c.fonts.messages.error = '8pt monospace'
+c.fonts.messages.error = '8pt Monoid'
 
 ## Font used for info messages.
 ## Type: Font
-# c.fonts.messages.info = '10pt monospace'
-c.fonts.messages.info = '10pt Scientifica'
+# c.fonts.messages.info = '8pt monospace'
+c.fonts.messages.info = '8pt Monoid'
 
 ## Font used for warning messages.
 ## Type: Font
-# c.fonts.messages.warning = '10pt monospace'
-c.fonts.messages.warning = '10pt Scientifica'
+# c.fonts.messages.warning = '8pt monospace'
+c.fonts.messages.warning = '8pt Monoid'
 
 ## Default monospace fonts. Whenever "monospace" is used in a font
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
-# c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Scientifica, Terminal'
-c.fonts.monospace = 'Scientifica'
+# c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Monoid, Terminal'
+c.fonts.monospace = 'Monoid'
 
 ## Font used for prompts.
 ## Type: Font
-# c.fonts.prompts = '10pt sans-serif'
-c.fonts.prompts = '10pt Scientifica'
+# c.fonts.prompts = '8pt sans-serif'
+c.fonts.prompts = '8pt Monoid'
 
 ## Font used in the statusbar.
 ## Type: Font
-# c.fonts.statusbar = '10pt monospace'
-c.fonts.statusbar = '10pt monospace'
+# c.fonts.statusbar = '8pt monospace'
+c.fonts.statusbar = '8pt Monoid'
 
 ## Font used in the tab bar.
 ## Type: QtFont
-# c.fonts.tabs = '10pt monospace'
-c.fonts.tabs = '10pt Scientifica'
+# c.fonts.tabs = '8pt monospace'
+c.fonts.tabs = '8pt Monoid'
 
 ## Font family for cursive fonts.
 ## Type: FontFamily
@@ -832,19 +832,19 @@ c.fonts.tabs = '10pt Scientifica'
 
 ## Font family for fixed fonts.
 ## Type: FontFamily
-# c.fonts.web.family.fixed = 'Scientifica'
+c.fonts.web.family.fixed = 'Monoid'
 
 ## Font family for sans-serif fonts.
 ## Type: FontFamily
-# c.fonts.web.family.sans_serif = 'Scientifica'
+# c.fonts.web.family.sans_serif = 'Monoid'
 
 ## Font family for serif fonts.
 ## Type: FontFamily
-# c.fonts.web.family.serif = 'Scientifica'
+# c.fonts.web.family.serif = 'Monoid'
 
 ## Font family for standard fonts.
 ## Type: FontFamily
-# c.fonts.web.family.standard = 'Scientifica'
+# c.fonts.web.family.standard = 'Monoid'
 
 ## Default font size (in pixels) for regular text.
 ## Type: Int
@@ -1318,7 +1318,7 @@ c.tabs.width = '11%'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = 'file:///home/ketan/Pictures/simple-desktops/oragami_s.png'
+c.url.default_page = 'about:blank'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.

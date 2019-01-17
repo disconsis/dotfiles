@@ -1,16 +1,13 @@
 # Startup settings
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
-exec --no-startup-id /home/ketan/bin/TapToClick.hs
-exec --no-startup-id python ~/.config/i3blocks/scripts/mouse disable
-exec --no-startup-id bash ~/.fehbg
-exec_always --no-startup-id python3 ~/.git/i3-app-list/src/i3_app_list.py 2>/tmp/app.log
-exec_always --no-startup-id python3 ~/.config/i3/focus-last.py
-exec --no-startup-id xset s off
 exec --no-startup-id compton
-exec_always --no-startup-id configure_monitors.sh
+exec --no-startup-id unclutter
+exec_always --no-startup-id python3 ~/i3-app-list/src/i3_app_list.py 2> /tmp/app.log
+exec --no-startup-id python3 ~/i3-scripts/focus-last.py &> /tmp/focus-last.log
+exec --no-startup-id bash ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id emacs25 --daemon
-exec --no-startup-id sleep 10 && /home/ketan/bin/notes.sh
+exec --no-startup-id nm-applet
+exec_always --no-startup-id albert
 
 # set modifier key
 set $mod Mod1
@@ -21,21 +18,22 @@ font pango:ShureTechMono Nerd Font 0
 
 # Misc
 hide_edge_borders both
-bindsym $mod+Return exec "kitty tmux"
+bindsym $mod+Return exec "kitty tmux -2"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
-bindsym $mod+shift+o exec /home/ketan/bin/lock.sh
-bindsym $mod+grave exec "python ~/.config/i3blocks/scripts/mouse toggle; pkill -RTMIN+2 i3blocks"
+bindsym $mod+shift+o exec ~/bin/lock.sh
 
 # Screenshot keybinds
 ## focused monitor only
-bindsym Print exec scrot -q 100 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures/scrots'
-## both monitors
-bindsym Shift+Print exec scrot -q 100 -m 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/ketan/Pictures/scrots'
+bindsym Print exec scrot -q 100 'Screenshot from %Y-%m-%d %H-%M-%S.png' -e 'mv "$f" /home/disconsis/pictures/scrots'
 
 # remove borders for i3-gaps
-for_window [class="^.*"] border pixel 2
-new_window pixel 2
+for_window [class="^.*"] border pixel 1
+new_window pixel 1
+smart_borders on
+
+# remove border for albert
+for_window [class="^albert$"] border pixel 0
 
 # Move workspaces between monitors
 bindsym $mod+u move workspace to output right
@@ -89,7 +87,7 @@ bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
-bindsym $mod+Tab exec "python3 ~/.config/i3/focus-last.py --switch"
+bindsym $mod+Tab exec "python3 ~/i3-scripts/focus-last.py --switch"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
@@ -104,7 +102,7 @@ bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
 
 # reload/restart/exit i3
 bindsym $mod+Shift+r reload
-bindsym $mod+Shift+z exec "pkill -f ~/.config/i3/";restart
+bindsym $mod+Shift+z restart
 bindsym $mod+Shift+e exec "i3-msg exit"
 
 # scratchpad
@@ -113,12 +111,6 @@ bindsym $mod+period scratchpad show
 
 # notes
 bindsym $mod+backslash [title="^notes$"] scratchpad show
-
-# # dropdown terminal
-# exec --no-startup-id st -n st-dropdown tmux
-# for_window [instance="st-dropdown"] floating enable
-# for_window [instance="st-dropdown"] move scratchpad; [instance="st-dropdown"] scratchpad show; move position 0px 22px resize shrink height 300px; resize grow width 683px; move scratchpad
-# bindsym F6 [instance="st-dropdown"] scratchpad show
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -137,10 +129,6 @@ mode "resize" {
     bindsym Escape mode "default"
     bindsym $mod+bracketleft mode "default"
 }
-
-bindsym $mod+m exec i3-input -F 'mark %s' -P "mark: "
-# bindsym $mod+apostrophe exec i3-input -F '[con_mark="%s"] focus' -P "goto mark: "
-bindsym $mod+apostrophe exec i3-msg "[con_mark=\"$(i3-msg -t get_marks | json-array-to-string | rofi -P 'goto mark: ' -dmenu)\"] focus"
 
 bindsym $mod+Shift+m mode "monitor"
 mode "monitor" {
@@ -216,13 +204,13 @@ set $grey                       #777777
 set $lightgrey                  #abb2bf
 set $purple                     #8300ff
 set $lightblue                  #48b8d6
-set $blue                       #485eef
+set $blue                       #00afee
 set $blackish                   #333333
 
 # window colors
 # element                border             background          text            indicator
-client.focused           $yellow            $yellow             $text-color     $orange
-client.unfocused         $blackish          $blackish           $white          $blackish
+client.focused           $blue            $blue             $text-color     $blue
+client.unfocused         $grey              $grey               $grey           $grey
 client.focused_inactive  $grey              $grey               $grey           $grey
 client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color     $bg-color
 
@@ -230,17 +218,12 @@ client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color     
 # bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder
 bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P "workspace name: "
 
-# run applications (rofi)
-bindsym $mod+d exec rofi -show run
-bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu='rofi -dmenu -p "Run: "'
-
 # volume keybinds
-bindsym $mod+minus exec "amixer -D pulse sset Master 5%-; pkill -RTMIN+2 i3blocks"
-bindsym $mod+equal exec "amixer -D pulse sset Master 5%+; pkill -RTMIN+2 i3blocks"
-bindsym $mod+0 exec "amixer -D pulse sset Master toggle; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioMute           exec "pamixer --toggle-mute"
+bindsym XF86AudioLowerVolume    exec "pamixer --allow-boost --decrease 5"
+bindsym XF86AudioRaiseVolume    exec "pamixer --allow-boost --increase 5"
 
 # float experimental tk windows
 for_window [class="^Tk$"] floating enable
-
-# qtspim
-for_window [class="^QtSpim$" title="^Console$"] floating enable, resize set 272 px 204 px, move position 3568 px 856 px
+# float xev
+for_window [title="^Event Tester$"] floating enable

@@ -1,24 +1,3 @@
-# exports {{{
-export TERM=xterm-256color-italic-tc
-export TERMINAL=st
-export ZSH=$HOME/.oh-my-zsh
-export PYTHONSTARTUP=$HOME/.pythonrc
-export ARCHFLAGS="-arch x86_64"
-export EDITOR='nvim'
-export XDG_CONFIG_HOME=$HOME/.config
-export PROJECT_HOME=$HOME/.git
-export WORKON_HOME=$HOME/.virtualenvs
-export ANDROID_HOME=$HOME/Android/Sdk
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
-export PATH=$PATH:$HOME/bin/jar
-export PATH=$PATH:$HOME/ctftools
-export PATH=$PATH:$HOME/.cabal/bin
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin
-export MAIL=/var/spool/mail/ketan
-export FZF_DEFAULT_COMMAND='rg --files'
-# }}}
-
 # limit {{{
 ulimit -m 8192000
 # ulimit -v 8192000
@@ -34,7 +13,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
 
 # plugins {{{
-plugins=(zsh-autosuggestions colored-man-pages zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last in the list
+plugins=(zsh-autosuggestions zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last in the list
 # }}}
 
 BACKGROUND='clear'
@@ -135,49 +114,14 @@ POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='005'
 POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=$BACKGROUND
 POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND=$BACKGROUND
 
-# fix vi_mode {{{
-function zle-line-init {
-  powerlevel9k_prepare_prompts
-  if (( ${+terminfo[smkx]} )); then
-    printf '%s' ${terminfo[smkx]}
-  fi
-  zle reset-prompt
-  zle -R
-}
-
-function zle-line-finish {
-  vim_mode="INS"
-  powerlevel9k_prepare_prompts
-  if (( ${+terminfo[rmkx]} )); then
-    printf '%s' ${terminfo[rmkx]}
-  fi
-  zle reset-prompt
-  zle -R
-}
-
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/CMD}/(main|viins)/INS}"
-  powerlevel9k_prepare_prompts
-  zle reset-prompt
-  zle -R
-}
-
-# cause problems with emacs shell
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
-# # }}}
-
 # # }}}
 
 # # }}}
 
 # # misc {{{
-HIST_STAMPS="dd/mm/yyyy" DISABLE_AUTO_UPDATE=false
+HIST_STAMPS="dd/mm/yyyy"
+DISABLE_AUTO_UPDATE=false
 DISABLE_UPDATE_PROMPT=false
-[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || eval $(dircolors -b)
-
-source $ZSH/oh-my-zsh.sh
 
 if [[ -n $SSH_CONNECTION ]]; then
     export PATH=$PATH:/home/ketan/bin:/bin:/usr/bin
@@ -190,13 +134,13 @@ setopt hist_ignore_space
 
 # # zsh autosuggestions {{{
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=237"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
+bindkey '^ ' autosuggest-accept # ctrl-space = complete current suggestion
 # # }}}
 
-# vim binds {{{
-bindkey -v
-export KEYTIMEOUT=1
-# setxkbmap -option ctrl:swapcaps
-# }}}
+
+source $ZSH/oh-my-zsh.sh
 
 # misc aliases {{{
 alias kbfix="setxkbmap -option ctrl:swapcaps"
@@ -210,15 +154,10 @@ alias dict='sdcv --color'
 alias -g nope='&> /dev/null &!'
 alias eog='pqiv -i'
 alias l="ls -lAh"
-alias open='xdg-open'
-alias speed='speedometer'
-alias mux='tmuxinator'
 alias tree='tree -I .git -I __pycache__'
 alias clock='tty-clock -ctB'
-alias skype='skypeforlinux'
 alias ls='ls --color=always'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-alias ack='ack --color'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
 function ord() {
@@ -238,7 +177,6 @@ function e {
     /usr/bin/emacs -nw $@
 }
 alias vim='nvim'
-alias feh='/usr/bin/feh -B black -.'
 alias todo='$EDITOR ~/tmp/todo.wiki'
 alias sbcl='sbcl --noinform'
 alias doc='zeal nope'
@@ -246,34 +184,11 @@ function mkcd {
     /bin/mkdir -p $@ 2>/dev/null
     cd $@
 }
-function rgless {
-    /usr/bin/rg --color=always --line-number --heading $@ | less
-}
 alias ghci="ghci -v0"
 function bright {
-    /usr/bin/brightnessctl set $@
-}
-function spacemacs {
-    emacs25 --with-profile spacemacs $@
+    sudo /usr/bin/brightnessctl set $@
 }
 # }}}
-
-# help {{{
-autoload -Uz run-help
-alias help=run-help
-# }}}
-
-# dasht {{{
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/.git/dasht/bin"
-export MANPATH="$HOME/.git/dasht/man:$MANPATH"
-# }}}
-
-# # virtualenvwrapper {{{
-# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-# export VIRTUALENVWRAPPER_SCRIPT=$(which virtualenvwrapper.sh)
-# source virtualenvwrapper.sh
-# # }}}
 
 # beep {{{
 function beep {
@@ -289,17 +204,15 @@ function beep {
 }
 # }}}
 
-# ncmpcpp {{{
-function mus {
-    ! pidof /usr/bin/mpd > /dev/null && mpd
-    /usr/bin/ncmpcpp "$@"
-}
+# vim binds {{{
+bindkey -v
+export KEYTIMEOUT=1
 # }}}
 
 # fzf {{{
 # export FZF_DEFAULT_COMMAND='cd'
-export FZF_COMPLETION_TRIGGER='.'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# export FZF_COMPLETION_TRIGGER='.'
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 
 # vim: fdm=marker

@@ -45,7 +45,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = xwindow
-modules-right = cpu memory filesystem battery wifi volume time date
+modules-right = cpu memory filesystem battery brightnessctl wifi volume time date
 
 tray-position = right
 tray-padding = 2
@@ -76,12 +76,14 @@ type = custom/text
 content = "|"
 content-foreground = ${colors.light-grey}
 
-[module/papers]
+[module/brightnessctl]
 type = custom/script
-exec = find ~/papers -type f ! -executable | wc -l | tr -d "\n"; echo " papers"
-format-prefix = " "
+exec = brightnessctl intel_backlight -m | cut -d , -f 4
+scroll-up = sudo brightnessctl -d intel_backlight set 2%+
+scroll-down = sudo brightnessctl -d intel_backlight set 2%-
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
-interval = 1
+interval = 2
 
 [module/xwindow]
 type = internal/xwindow
@@ -181,7 +183,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = ""
+format-prefix = ""
 format-prefix-foreground = ${colors.red}
 label = %percentage:2%%
 

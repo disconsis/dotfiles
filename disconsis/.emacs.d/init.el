@@ -48,13 +48,13 @@
   :config
   (helm-mode 1))
 
-(use-package haskell-mode
+(use-package haskell-mode :ensure t
   :config
   (setq haskell-font-lock-symbols t))
 
-(use-package magit)
+(use-package magit :ensure t)
 
-(use-package which-key
+(use-package which-key :ensure t
   :config (which-key-mode))
 
 (use-package autopair :ensure t
@@ -70,7 +70,7 @@
   (setq org-blank-before-new-entry
         '((heading . nil) (plain-list-item . nil)))
 
-  (use-package org-bullets
+  (use-package org-bullets :ensure t
     :config
     (setq org-bullets-bullet-list
           '("▶" "▷" "»" "›" "→" "-" "⋅"))
@@ -78,7 +78,7 @@
     (add-hook 'org-mode-hook 'org-bullets-mode))
   )
 
-(use-package smart-mode-line
+(use-package smart-mode-line :ensure t
   :config
   (setq sml/theme 'atom-one-dark)
   ;; set path aliases
@@ -94,12 +94,12 @@
 
   (sml/setup))
 
-(use-package rainbow-delimiters
+(use-package rainbow-delimiters :ensure t
   :config (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
 ;; colorschemes
-(use-package color-theme-sanityinc-tomorrow)
-(use-package gruvbox-theme)
+(use-package color-theme-sanityinc-tomorrow :ensure t)
+(use-package gruvbox-theme :ensure t)
 (use-package one-themes :ensure t)
 
 ;; colors

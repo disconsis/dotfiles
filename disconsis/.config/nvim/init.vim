@@ -1,33 +1,29 @@
+" todo
+" - neoterm -> fix issue with terminal normal mode
+" - get a decent outliner for configs
+
 " plugins to check out
 " - abolish
 " - projectionist
 " - vim-test
-" - tagbar
 " - dispatch
 " - vim-sexp
 " - vim-multiple-cursors
-" - neoterm -> fix issue with terminal normal mode
+" - ale
 
 " features to check out
 " - tags (tselect, tjump...)
 
-" nvim-from-vim {{{
-set rtp^=~/.vim
-set rtp+=~/.vim/after
-set rtp+=/usr/share/vim/vim74
-let &packpath = &rtp
-" }}}
-
 " vim-plug {{{
 " install `vim-plug` for new install {{{
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 " }}}
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Always on {{{
 Plug 'vimwiki/vimwiki'
@@ -47,7 +43,7 @@ Plug 'alvan/vim-closetag'
 Plug 'tmhedberg/SimpylFold'
 Plug 'Konfekt/FastFold'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'zchee/deoplete-jedi' "
 " Plug 'zchee/deoplete-clang' "FIXME
 Plug 'Shougo/neco-vim'
@@ -61,7 +57,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'vimoutliner/vimoutliner'
-Plug 'neomake/neomake'
 Plug 'tpope/vim-obsession'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
@@ -111,6 +106,7 @@ Plug 'Yggdroot/indentLine'
 " }}}
 
 " Experimental {{{
+Plug 'w0rp/ale'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
@@ -230,14 +226,11 @@ set undofile        " persistent undo !!!
 " stop vim littering every directory
 set undodir=~/tmp/.vim/undo
 set backupdir=~/tmp/.vim/swap
-" HTML FTW
-packadd! matchit
 set nocursorline
 " }}}
 
 " providers {{{
-let g:python_host_prog = '/usr/bin/python2.7'
-let g:python3_host_prog = '/usr/bin/python3.5'
+let g:python3_host_prog = '/usr/bin/python3.7'
 " }}}
 
 " Functions {{{
@@ -378,7 +371,7 @@ let g:vimshell_prompt="$ "
 " }}}
 
 " youcompleteme options {{{
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_server_python_interpreter = '/usr/bin/python3.7'
 let g:ycm_server_log_level = 'debug'
 " }}}
 
@@ -532,16 +525,6 @@ let g:org_indent = 1
 nnoremap \ <Plug>VinegarUp
 " }}}
 
-" neomake {{{
-let g:neomake_python_enabled_makers = ['pylint', 'pycodestyle']
-call neomake#configure#automake('w')
-" colors
-let g:neomake_error_sign   = { 'text': 'E', 'texthl': 'NeomakeErrorSign'   }
-let g:neomake_warning_sign = { 'text': 'W', 'texthl': 'NeomakeWarningSign' }
-let g:neomake_message_sign = { 'text': 'M', 'texthl': 'NeomakeMessageSign' }
-let g:neomake_info_sign    = { 'text': 'I', 'texthl': 'NeomakeInfoSign'    }
-" }}}
-
 " netrw {{{
 let g:netrw_list_hide = ',^\.\.\=/\=$,^__pycache__$,^\.pytest_cache$'  " fix
 let g:netrw_liststyle = 0
@@ -652,7 +635,7 @@ call SetupCommandAlias("grep", "GrepperGrep")
 let g:UltiSnipsExpandTrigger = "<c-c>"
 let g:UltiSnipsJumpForwardTrigger = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
-let g:UltiSnipsSnippetsDir = '~/.vim/custom_snippets'
+let g:UltiSnipsSnippetsDir = '~/.config/nvim/custom_snippets'
 let g:UltiSnipsSnippetDirectories = ['UltiSnips',"custom_snippets"]
 let g:ultisnips_python_style = 'sphinx'
 let g:ultisnips_python_quoting_style = 'double'
@@ -797,6 +780,12 @@ let g:colorizer_maxlines = 1000
 " nunmap <C-e>
 " silent nnoremap <C-w>e :WinResizerStartResize<CR>
 let g:winresizer_start_key = "<C-w><C-e>"
+" }}}
+
+" ale {{{
+let g:ale_linters = {
+            \'haskell': ['stack-ghc-mod', 'hlint'],
+            \}
 " }}}
 
 " haskell-concealPlus {{{
