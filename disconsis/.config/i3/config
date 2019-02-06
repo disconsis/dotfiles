@@ -1,8 +1,9 @@
 # Startup settings
+exec --no-startup-id emacsclientserver.sh ~/notes/todo.org
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id compton
 exec --no-startup-id unclutter
-exec_always --no-startup-id python3 ~/i3-app-list/src/i3_app_list.py 2> /tmp/app.log
+exec_always --no-startup-id python3 ~/i3-scripts/i3-app-list/src/i3_app_list.py 2> /tmp/app.log
 exec --no-startup-id python3 ~/i3-scripts/focus-last.py &> /tmp/focus-last.log
 exec --no-startup-id bash ~/.fehbg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
@@ -21,7 +22,6 @@ hide_edge_borders both
 bindsym $mod+Return exec "kitty tmux -2"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
-bindsym $mod+shift+o exec ~/bin/lock.sh
 
 # Screenshot keybinds
 ## focused monitor only
@@ -150,7 +150,7 @@ gaps outer $outer_gap
 bindsym $mod+Shift+g mode "gaps"
 mode "gaps" {
     bindsym $mod+0 gaps outer all set 0;  gaps inner all set 0;
-    bindsym $mod+e gaps inner all set $inner_gap; gaps outer all set $outer_gap;
+    bindsym $mod+equals gaps inner all set $inner_gap; gaps outer all set $outer_gap;
     bindsym $mod+i mode "gaps-inner"
     bindsym $mod+o mode "gaps-outer"
     bindsym Escape mode "default"
@@ -205,25 +205,54 @@ set $lightgrey                  #abb2bf
 set $purple                     #8300ff
 set $lightblue                  #48b8d6
 set $blue                       #00afee
+set $dimblue                    #11c0ff88
 set $blackish                   #333333
 
 # window colors
-# element                border             background          text            indicator
-client.focused           $blue            $blue             $text-color     $blue
-client.unfocused         $grey              $grey               $grey           $grey
-client.focused_inactive  $grey              $grey               $grey           $grey
-client.urgent            $urgent-bg-color   $urgent-bg-color    $text-color     $bg-color
-
-# rename workspaces
-# bindsym $mod+Shift+n exec python3 /home/ketan/.config/i3/rename_ws.py reorder
-bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P "workspace name: "
+# element               border               background            text              indicator
+client.focused          $blue                $blue                 $text-color       $blue
+client.unfocused        $grey                $grey                 $grey             $grey
+client.focused_inactive $dimblue                $dimblue                 $dimblue             $dimblue
+client.urgent           $urgent-bg-color     $urgent-bg-color      $text-color       $bg-color
 
 # volume keybinds
 bindsym XF86AudioMute           exec "pamixer --toggle-mute"
 bindsym XF86AudioLowerVolume    exec "pamixer --allow-boost --decrease 5"
 bindsym XF86AudioRaiseVolume    exec "pamixer --allow-boost --increase 5"
 
+# brightness controls
+bindsym XF86MonBrightnessUp     exec "sudo brightnessctl -d intel_backlight set 2%+"
+bindsym XF86MonBrightnessDown   exec "sudo brightnessctl -d intel_backlight set 2%-"
+
+bindsym ctrl+Up     exec "sudo brightnessctl -d intel_backlight set 2%+"
+bindsym ctrl+Down   exec "sudo brightnessctl -d intel_backlight set 2%-"
+
 # float experimental tk windows
 for_window [class="^Tk$"] floating enable
 # float xev
 for_window [title="^Event Tester$"] floating enable
+
+# pause netflix
+bindsym XF86AudioPlay exec playpausenetflix.sh
+
+# toggle touchscreen
+bindsym XF86Search exec xinput-toggle -r elan
+
+# rotate
+bindsym $mod+Shift+greater mode "rotation"
+mode "rotation" {
+    bindsym $mod+Left exec "xrandr --output eDP-1 --rotate left"
+    bindsym $mod+h exec "xrandr --output eDP-1 --rotate left"
+
+    bindsym $mod+Down exec "xrandr --output eDP-1 --rotate inverted"
+    bindsym $mod+j exec "xrandr --output eDP-1 --rotate inverted"
+
+    bindsym $mod+Up exec "xrandr --output eDP-1 --rotate normal"
+    bindsym $mod+k exec "xrandr --output eDP-1 --rotate normal"
+
+    bindsym $mod+Right exec "xrandr --output eDP-1 --rotate right"
+    bindsym $mod+l exec "xrandr --output eDP-1 --rotate right"
+
+    bindsym $mod+bracketleft mode "default"
+    bindsym Escape mode "default"
+}

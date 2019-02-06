@@ -3,6 +3,13 @@
 (load custom-file :noerror t)
 
 ;; repositories
+
+;; manual repos
+(setq manual-plugin-dir "/home/disconsis/.emacs.d/manual-plugins/")
+(if (not (member manual-plugin-dir load-path))
+    (setq load-path (append load-path '("/home/disconsis/.emacs.d/manual-plugins/"))))
+(require 'tbemail)
+
 (require 'package)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -63,7 +70,7 @@
 (use-package org :ensure t
   :config
   (setq org-todo-keywords
-        '((sequence "TODO" "WAIT" "VERIFY" "DONE")))
+        '((sequence "TODO" "|" "WAIT" "VERIFY" "DONE")))
 
   (org-display-inline-images)
 
@@ -83,14 +90,13 @@
   (setq sml/theme 'atom-one-dark)
   ;; set path aliases
   (setq sml/replacer-regexp-list
-        '(("^~/\\.git/droidplugin-customization/" ":Pad:")
-          ("^~/\\.git/dotfiles/disconsis/\\.config" ":C:")
+        '(("^~/\\.git/dotfiles/disconsis/\\.config" ":C:")
           ("^~/\\.git/dotfiles/disconsis/" ":Dot:")
 	  ("^~/\\.emacs\\.d/init\\.el$" ":Init:")
 	  ("^~/\\.emacs\\.d/" ":ED:")
-	  ("^~/Documents/" ":Doc:")
+	  ("^~/documents/" ":Doc:")
           ("^~/masters/" ":MS:")
-          ("^~/.git/" ":G:")))
+          ("^~/class/" ":Class:")))
 
   (sml/setup))
 
@@ -106,15 +112,13 @@
 (load-theme 'one-dark t)
 
 ;; config edit/reload
-(defconst actual-user-init-file "~/.emacs.d/init.el")
-
 (defun my/config-open ()
   (interactive)
-  (find-file actual-user-init-file))
+  (find-file user-init-file))
 
 (defun my/config-reload ()
   (interactive)
-  (load actual-user-init-file))
+  (load user-init-file))
 
 (evil-ex-define-cmd "co" 'my/config-open)
 (evil-ex-define-cmd "cr" 'my/config-reload)
@@ -188,12 +192,6 @@
 	  (buffer-substring-no-properties line-start (+ 1 line-start))))
     (string= "*" line-start-char)))
 
-(defun my/test-semantic-cmd ()
-  (interactive)
-  (if (my/semantic-org-p)
-      (evil-echo "org")
-      (evil-echo "text")))
-
 (defun my/semantic-org-promote ()
   (interactive)
   (if (my/semantic-org-p)
@@ -239,6 +237,9 @@
 (evil-leader/set-key-for-mode haskell-mode-map (kbd "t") 'haskell-process-do-type)
 (evil-leader/set-key-for-mode haskell-mode-map (kbd "i") 'haskell-process-do-info)
 
+;; move visual lines (gj, gk)
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
 ;; TODO: make keybind for Meta
 ;; TODO: use space key for maps like in spacemacs
@@ -250,9 +251,23 @@
 ;; TODO: fix folding so that it doesn't have to be on the brace
 ;; TODO: exchange lines
 
-;; (defun my/evil-meta ()
-;;   (interactive)
-;;   (evil-execute-in-emacs-state)
-;;   (execute-kbd-macro (kbd "M")))
+;; (defun my/get-line (linum)
+;;   (save-excursion
+;;     (goto-line linum)
+;;     (thing-at-point 'line t)))
 
-;; (evil-global-set-key 'normal (kbd "\\") 'my/evil-meta)
+;; (defun my/exchange-line-with-before ()
+;;   "exchange the current line with the one before"
+;;   (interactive)
+;;   ; if first line, no-op
+;;   (let ((linum (line-number-at-pos)))
+;;     (if (= 1 linum)
+;;       (return))
+;;     (kill-region (line-beginning-position) (+ 1 (line-end-position)))
+;;     (beginning-of-line)
+;;     (yank)
+;;     ))
+
+;; ;; sdlkfj
+;; (my/exchange-line-with-before)
+;; (yank)

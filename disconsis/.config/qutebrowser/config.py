@@ -1550,8 +1550,8 @@ config.bind('b', 'set-cmd-text -s :buffer')
 config.bind(',c', 'clear-messages')
 config.bind(',p', 'spawn --userscript ' + USERSCRIPT_DIR + 'qute-pass')
 config.bind('O', 'set-cmd-text -s :open -t -r')
-# TODO: add bindings for add_stylsheets()
-config.bind(',s', 'spawn --userscript ' + USERSCRIPT_DIR + 'add_stylesheets')
+config.bind(',acd', 'spawn --userscript /home/disconsis/practice/advent-of-code/download-data.sh')
+config.bind(',s', 'set-cmd-text -s :open -t scholar')
 
 ## Bindings for caret mode
 # config.bind('$', 'move-to-end-of-line', mode='caret')

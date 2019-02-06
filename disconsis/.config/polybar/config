@@ -12,6 +12,8 @@ alert = #bd2c40
 red = #ff4230
 yellow = #f6d75b
 light-grey = #aaa
+blue = #00afee
+blue-green = #48b8d6
 
 [files]
 [bar/main]
@@ -34,21 +36,23 @@ border-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 1
 
 module-margin-left = 1
 module-margin-right = 1
 
 font-0 = Monoid:pixelsize=8
-font-1 = FuraCode Nerd Font:pixelsize=10
-font-2 = siji:pixelsize=10;1
+font-1 = Material Icons:pixelsize=11
+font-2 = FuraCode Nerd Font:pixelsize=10
+font-3 = siji:pixelsize=10
+font-4 = file\-icons:pixelsize=10
 
 modules-left = i3
 modules-center = xwindow
-modules-right = cpu memory filesystem battery brightnessctl wifi volume time date
+modules-right = cpu memory filesystem separator battery brightnessctl volume separator time date
 
 tray-position = right
-tray-padding = 2
+tray-padding = 0
 ;tray-transparent = true
 ;tray-background = #0063ff
 
@@ -73,21 +77,22 @@ modules-center = title-xmonad
 
 [module/separator]
 type = custom/text
-content = "|"
+content = "-"
 content-foreground = ${colors.light-grey}
 
 [module/brightnessctl]
 type = custom/script
-exec = brightnessctl intel_backlight -m | cut -d , -f 4
-scroll-up = sudo brightnessctl -d intel_backlight set 2%+
-scroll-down = sudo brightnessctl -d intel_backlight set 2%-
-format-prefix = " "
+exec = brightnessupdate.sh
+scroll-up = sudo brightnessctl -d intel_backlight set 2%+ &
+scroll-down = sudo brightnessctl -d intel_backlight set 2%- &
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
-interval = 2
+interval = 0
+tail = true
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:80:...%
+label = %title:0:70:...%
 
 [module/filesystem]
 type = internal/fs
@@ -183,7 +188,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = ""
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
 label = %percentage:2%%
 
@@ -196,7 +201,7 @@ label = %percentage_used%%
 
 [module/wifi]
 type = internal/network
-interface = wlp4s0
+interface = wlp2s0
 interval = 3.0
 
 format-connected-prefix = " "
@@ -239,7 +244,7 @@ interval = 5
 time = "%I:%M %p"
 label = %time%
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
 
 
@@ -260,8 +265,9 @@ format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = 婢
-label-muted-foreground = ${colors.red}
+format-muted-prefix = "婢 "
+format-muted-prefix-foreground = ${colors.red}
+label-muted = OFF
 
 ramp-volume-0 = 奔
 ramp-volume-1 = 墳
@@ -272,7 +278,7 @@ ramp-volume-foreground = ${colors.red}
 type = internal/battery
 battery = BAT0
 adapter = AC0
-full-at = 98
+full-at = 100
 
 time-format = %H:%M
 

@@ -1,6 +1,9 @@
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 
+map [normal] f mode fullscreen
+map [fullscreen] f mode normal
+
 map [normal] l navigate next
 map [fullscreen] l navigate next
 map [normal] h navigate previous
@@ -16,18 +19,31 @@ map [fullscreen] <C-e> scroll down
 map [normal] <C-y> scroll up
 map [fullscreen] <C-y> scroll up
 
-set recolor-darkcolor #33333
+set recolor-darkcolor "#333333"
+set recolor-darkcolor "#aaaaaa"
 set recolor-reverse-video true
 
-set font 'Operator Mono Light 9'
+set font 'Monoid 8'
 
 set statusbar-basename false
 set statusbar-home-tilde true
 
+set statusbar-bg '#FFFFFF00'
+set statusbar-fg '#FF7500'
+
+set default-bg '#222222'
+
 set window-title-basename true
 
-set guioptions 's'  # statusbar
+# set guioptions 's'  # statusbar
+set guioptions ''
 
-set clipboard "clipboard"
+set window-title-page true
+
+set selection-clipboard "clipboard"
+
+set first-page-column 1:1
+
+set adjust-open "width"
 
 # vim: ft=conf

@@ -106,6 +106,8 @@ Plug 'Yggdroot/indentLine'
 " }}}
 
 " Experimental {{{
+Plug 'ElmCast/elm-vim'
+Plug 'dmix/elvish.vim'
 Plug 'w0rp/ale'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'guns/vim-sexp'
@@ -567,6 +569,7 @@ augroup commentstring_
     autocmd Syntax c setlocal commentstring=//\ %s
     autocmd Syntax cpp setlocal commentstring=//\ %s
     autocmd Syntax dosini setlocal commentstring=;\ %s
+    autocmd Syntax elvish setlocal commentstring=#\ %s
 augroup END
 " }}}
 

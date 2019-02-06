@@ -26,5 +26,8 @@
  '(border ((t (:background nil))))
  '(fringe ((t (:background nil))))
  '(italic ((t (:inherit default :weight light :slant italic :height 105 :foundry "H&Co" :family "Operator Mono"))))
+ '(org-document-title ((t (:foreground "cyan" :overline t :underline t :weight bold :height 2.0))))
+ '(org-done ((t (:foreground "#98C379" :box (:line-width 2 :color "grey75" :style released-button) :weight bold))))
+ '(org-todo ((t (:foreground "#BE5046" :box (:line-width 2 :color "grey75" :style released-button) :weight bold))))
  '(rainbow-delimiters-mismatched-face ((t (:background "red"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red")))))
