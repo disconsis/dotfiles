@@ -1,3 +1,5 @@
+export TERM=xterm-256color
+
 # limit {{{
 ulimit -m 8192000
 # ulimit -v 8192000
@@ -8,7 +10,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DISABLE_AUTO_TITLE="true" # Prevent printing of command
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(newline status dir vcs background_jobs newline vi_mode)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(newline status dir vcs background_jobs newline custom_prompt_symbol)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n"
 
@@ -99,22 +101,29 @@ POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=$BACKGROUND
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$BACKGROUND
 # }}}
 
-# vi-mode {{{
-if [[ "$(whoami)" != "root" ]]; then
-    POWERLEVEL9K_VI_INSERT_MODE_STRING="->"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING="->>"
-else
-    POWERLEVEL9K_VI_INSERT_MODE_STRING="#"
-    POWERLEVEL9K_VI_COMMAND_MODE_STRING="|#"
-fi
+# # vi-mode {{{
+# if [[ "$(whoami)" != "root" ]]; then
+#     POWERLEVEL9K_VI_INSERT_MODE_STRING="->"
+#     POWERLEVEL9K_VI_COMMAND_MODE_STRING="=>"
+# else
+#     POWERLEVEL9K_VI_INSERT_MODE_STRING="#"
+#     POWERLEVEL9K_VI_COMMAND_MODE_STRING="|#"
+# fi
 
-POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='005'
-POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='005'
+# POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='005'
+# POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='005'
 
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=$BACKGROUND
-POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND=$BACKGROUND
+# POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=$BACKGROUND
+# POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND=$BACKGROUND
 
 # # }}}
+
+# custom_end {{{
+POWERLEVEL9K_CUSTOM_PROMPT_SYMBOL='if [[ "$(id -u)" != "0" ]]; then echo "->"; else echo "#"; fi'
+# POWERLEVEL9K_CUSTOM_PROMPT_SYMBOL='echo "->"'
+POWERLEVEL9K_CUSTOM_PROMPT_SYMBOL_FOREGROUND='005'
+POWERLEVEL9K_CUSTOM_PROMPT_SYMBOL_BACKGROUND=$BACKGROUND
+# }}}
 
 # # }}}
 
@@ -164,7 +173,7 @@ function ord() {
     LC_TYPE=C printf '%x' "'$1'"
 }
 function za {
-    /usr/bin/zathura $@ &>/dev/null &!
+    /usr/bin/zathura --fork $@
 }
 function ev {
     /usr/bin/evince $@ &>/dev/null &!
@@ -214,5 +223,17 @@ export KEYTIMEOUT=1
 # export FZF_COMPLETION_TRIGGER='.'
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
+
+if [ -z "$EMACS" ]; then
+    function zle-keymap-select zle-line-init zle-line-finish {
+        if [ $KEYMAP = vicmd ]; then
+            # the command mode for vi
+            echo -ne "\e[2 q"
+        else
+            # the insert mode for vi
+            echo -ne "\e[5 q"
+        fi
+    }
+fi
 
 # vim: fdm=marker

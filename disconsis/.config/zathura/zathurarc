@@ -1,9 +1,6 @@
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 
-map [normal] f mode fullscreen
-map [fullscreen] f mode normal
-
 map [normal] l navigate next
 map [fullscreen] l navigate next
 map [normal] h navigate previous
@@ -19,8 +16,22 @@ map [fullscreen] <C-e> scroll down
 map [normal] <C-y> scroll up
 map [fullscreen] <C-y> scroll up
 
-set recolor-darkcolor "#333333"
+map [normal] <S-Space> navigate previous
+map [fullscreen] <S-Space> navigate previous
+map [normal] <C-Space> navigate previous
+map [fullscreen] <C-Space> navigate previous
+
+map [normal] <C-h> scroll left
+map [normal] <C-j> scroll down
+map [normal] <C-k> scroll up
+map [normal] <C-l> scroll right
+map [fullscreen] <C-h> scroll left
+map [fullscreen] <C-j> scroll down
+map [fullscreen] <C-k> scroll up
+map [fullscreen] <C-l> scroll right
+
 set recolor-darkcolor "#aaaaaa"
+set recolor-lightcolor "#222222"
 set recolor-reverse-video true
 
 set font 'Monoid 8'

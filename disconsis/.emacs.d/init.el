@@ -5,11 +5,6 @@
 ;; repositories
 
 ;; manual repos
-(setq manual-plugin-dir "/home/disconsis/.emacs.d/manual-plugins/")
-(if (not (member manual-plugin-dir load-path))
-    (setq load-path (append load-path '("/home/disconsis/.emacs.d/manual-plugins/"))))
-(require 'tbemail)
-
 (require 'package)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -22,16 +17,18 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(setq use-package-always-ensure t)
+
 (eval-when-compile
   (require 'use-package))
 
 ;; package list
-(use-package evil :ensure t
+(use-package evil
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-want-Y-yank-to-eol t)
 
-  (use-package evil-leader :ensure t
+  (use-package evil-leader
     :config
     (global-evil-leader-mode))
 
@@ -39,53 +36,72 @@
   (setq evil-mode-line-format nil)
   (evil-mode 1)
 
-  (use-package evil-surround :ensure t
+  (use-package evil-surround
     :config (global-evil-surround-mode))
 
   ;; `evil-leader' config
   (evil-global-set-key 'motion (kbd "SPC") 'evil-repeat-find-char-reverse)
   (evil-leader/set-leader (kbd ","))
 
-  (use-package evil-indent-textobject :ensure t)
+  (use-package evil-indent-textobject)
 
-  (use-package evil-commentary :ensure t
+  (use-package evil-commentary
     :config (evil-commentary-mode)))
 
-(use-package helm :ensure t
+(use-package helm
   :config
   (helm-mode 1))
 
-(use-package haskell-mode :ensure t
+(use-package haskell-mode
   :config
   (setq haskell-font-lock-symbols t))
 
-(use-package magit :ensure t)
+(use-package magit)
 
-(use-package which-key :ensure t
+(use-package which-key
   :config (which-key-mode))
 
-(use-package autopair :ensure t
+(use-package autopair
   :config (autopair-global-mode))
 
-(use-package org :ensure t
+(use-package org
   :config
   (setq org-todo-keywords
         '((sequence "TODO" "|" "WAIT" "VERIFY" "DONE")))
 
   (org-display-inline-images)
 
+  (setq org-hide-emphasis-markers t)
+
   (setq org-blank-before-new-entry
         '((heading . nil) (plain-list-item . nil)))
 
-  (use-package org-bullets :ensure t
+  (use-package org-bullets
     :config
     (setq org-bullets-bullet-list
-          '("▶" "▷" "»" "›" "→" "-" "⋅"))
+	  '("#"))
+          ;; '("▶" "▷" "»" "›" "→" "-" "⋅"))
 
     (add-hook 'org-mode-hook 'org-bullets-mode))
-  )
+  
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((latex . t)))
 
-(use-package smart-mode-line :ensure t
+  (setq org-preview-latex-default-process 'dvipng)
+  (setq org-latex-preview-ltxpng-directory
+  	"/home/disconsis/tmp/.emacs-backup-files/ltximg/")
+
+  (setq org-format-latex-options
+  	'(:foreground default
+  	  :background default
+  	  :scale 2.0
+  	  :html-foreground "Black"
+  	  :html-background "Transparent"
+  	  :html-scale 1.0
+  	  :matchers ("begin" "$1" "$" "$$" "\\(" "\\["))))
+
+(use-package smart-mode-line
   :config
   (setq sml/theme 'atom-one-dark)
   ;; set path aliases
@@ -100,13 +116,13 @@
 
   (sml/setup))
 
-(use-package rainbow-delimiters :ensure t
+(use-package rainbow-delimiters
   :config (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
 ;; colorschemes
-(use-package color-theme-sanityinc-tomorrow :ensure t)
-(use-package gruvbox-theme :ensure t)
-(use-package one-themes :ensure t)
+(use-package color-theme-sanityinc-tomorrow)
+(use-package gruvbox-theme)
+(use-package one-themes)
 
 ;; colors
 (load-theme 'one-dark t)
@@ -144,23 +160,24 @@
 (evil-global-set-key 'normal (kbd "] SPC") 'my/line-after)
 
 
-;; line numbers
-(add-hook 'prog-mode-hook 'linum-mode)
-;; add space before linum
-(setq linum-format 'my/linum-format-func)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; ;; line numbers
+;; (add-hook 'prog-mode-hook 'linum-mode)
+;; ;; add space before linum
+;; (setq linum-format 'my/linum-format-func)
 
-(add-hook 'linum-before-numbering-hook
-	(lambda ()
-	    (setq-local linum-format-fmt
-			(let ((w (length (number-to-string
-					(count-lines (point-min) (point-max))))))
-			(concat "%" (number-to-string w) "d")))))
+;; (add-hook 'linum-before-numbering-hook
+;; 	(lambda ()
+;; 	    (setq-local linum-format-fmt
+;; 			(let ((w (length (number-to-string
+;; 					(count-lines (point-min) (point-max))))))
+;; 			(concat "%" (number-to-string w) "d")))))
 
-(defun my/linum-format-func (line)
-  (let ((space (propertize " " 'face 'linum)))
-    (concat
-      space
-      (propertize (format linum-format-fmt line) 'face 'linum))))
+;; (defun my/linum-format-func (line)
+;;   (let ((space (propertize " " 'face 'linum)))
+;;     (concat
+;;       space
+;;       (propertize (format linum-format-fmt line) 'face 'linum))))
 
 ;; expand tabs
 (setq indent-tabs-mode nil)
@@ -221,10 +238,21 @@
 
 ;; set single backup dir
 (setq backup-directory-alist '(("." . "~/tmp/.emacs-backup-files")))
+;; save a lot
+(setq delete-old-versions -1)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/tmp/.emacs-backup-files/" t)))
 
 ;; word boundaries
 ;; (modify-syntax-entry ?_ "w" python-mode-syntax-table)
 (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
+
+;; single space between sentences
+(setq sentence-end-double-space nil)
+
+;; y[es] / n[o]
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; projectile
 (evil-define-key 'normal projectile-mode-map (kbd "C-p") 'projectile-command-map)
@@ -250,24 +278,3 @@
 ;; TODO: vim-vinegar? or just fuzzy finding
 ;; TODO: fix folding so that it doesn't have to be on the brace
 ;; TODO: exchange lines
-
-;; (defun my/get-line (linum)
-;;   (save-excursion
-;;     (goto-line linum)
-;;     (thing-at-point 'line t)))
-
-;; (defun my/exchange-line-with-before ()
-;;   "exchange the current line with the one before"
-;;   (interactive)
-;;   ; if first line, no-op
-;;   (let ((linum (line-number-at-pos)))
-;;     (if (= 1 linum)
-;;       (return))
-;;     (kill-region (line-beginning-position) (+ 1 (line-end-position)))
-;;     (beginning-of-line)
-;;     (yank)
-;;     ))
-
-;; ;; sdlkfj
-;; (my/exchange-line-with-before)
-;; (yank)

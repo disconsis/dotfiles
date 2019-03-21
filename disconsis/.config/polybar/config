@@ -1,9 +1,10 @@
 [colors]
-;background = ${xrdb:color0:#222}
+; IMP: colors are #ARGB, not #RGBA
+
 background = #222
-transparent-background= #0000
+transparent-background = #0000
+slightly-transparent-background= #dd222222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #dfdfdf
 primary = #ffb52a
@@ -15,18 +16,23 @@ light-grey = #aaa
 blue = #00afee
 blue-green = #48b8d6
 
-[files]
+dull-red = #8f4230
+dull-yellow = #a6973b
+dull-grey = #757777
+
 [bar/main]
 monitor = ${env:MONITOR:HDMI2}
 bottom = true
 width = 100%
+height = 26
 
 ; offset-x = 12
-; offset-y = 1%
+; offset-y = 5%
+
 radius = 0.0
 fixed-center = true
 
-background = ${colors.transparent-background}
+background = ${colors.slightly-transparent-background}
 foreground = ${colors.foreground}
 
 line-size = 3
@@ -38,8 +44,8 @@ border-color = #00000000
 padding-left = 0
 padding-right = 1
 
-module-margin-left = 1
-module-margin-right = 1
+module-margin-left = 0
+module-margin-right = 0
 
 font-0 = Monoid:pixelsize=8
 font-1 = Material Icons:pixelsize=11
@@ -49,7 +55,7 @@ font-4 = file\-icons:pixelsize=10
 
 modules-left = i3
 modules-center = xwindow
-modules-right = cpu memory filesystem separator battery brightnessctl volume separator time date
+modules-right = memory battery separator brightnessctl volume separator time date
 
 tray-position = right
 tray-padding = 0
@@ -77,7 +83,7 @@ modules-center = title-xmonad
 
 [module/separator]
 type = custom/text
-content = "-"
+content = " "
 content-foreground = ${colors.light-grey}
 
 [module/brightnessctl]
@@ -87,6 +93,7 @@ scroll-up = sudo brightnessctl -d intel_backlight set 2%+ &
 scroll-down = sudo brightnessctl -d intel_backlight set 2%- &
 format-prefix = " "
 format-prefix-foreground = ${colors.red}
+format-underline = ${colors.dull-yellow}
 interval = 0
 tail = true
 
@@ -197,6 +204,7 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.red}
+format-underline = ${colors.dull-red}
 label = %percentage_used%%
 
 [module/wifi]
@@ -246,6 +254,7 @@ label = %time%
 
 format-prefix = " "
 format-prefix-foreground = ${colors.red}
+format-underline = ${colors.dull-grey}
 
 
 [module/date]
@@ -255,19 +264,23 @@ date = "%a, %b %d"
 
 format-prefix = " "
 format-prefix-foreground = ${colors.red}
+format-underline = ${colors.dull-grey}
 
 label = %date%
 
 [module/volume]
 type = internal/pulseaudio
 
-format-volume = <ramp-volume> <label-volume>
+format-volume-prefix = "墳 "
+format-volume-prefix-foreground = ${colors.red}
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
+format-volume-underline = ${colors.dull-yellow}
 
 format-muted-prefix = "婢 "
 format-muted-prefix-foreground = ${colors.red}
 label-muted = OFF
+format-muted-underline = ${colors.dull-yellow}
 
 ramp-volume-0 = 奔
 ramp-volume-1 = 墳
@@ -277,23 +290,25 @@ ramp-volume-foreground = ${colors.red}
 [module/battery]
 type = internal/battery
 battery = BAT0
-adapter = AC0
+adapter = AC
 full-at = 100
 
 time-format = %H:%M
 
-; format-charging = <animation-charging> <label-charging>
 format-charging-prefix = ""
 format-charging = <ramp-capacity> <label-charging>
 label-charging = %percentage%% [%time%]
 format-charging-prefix-foreground = ${colors.red}
+format-charging-underline = ${colors.dull-red}
 
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%% [%time%]
+format-discharging-underline = ${colors.dull-red}
 
-format-full-prefix = ""
+format-full-prefix = " "
 format-full-prefix-foreground = ${colors.red}
-label-full =
+format-full-underline = ${colors.dull-red}
+label-full = FULL
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -306,29 +321,6 @@ ramp-capacity-7 = 
 ramp-capacity-8 = 
 ramp-capacity-9 = 
 ramp-capacity-foreground = ${colors.red}
-
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-5 = 
-animation-charging-6 = 
-animation-charging-foreground = ${colors.red}
-animation-charging-framerate = 300
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-3 = 
-animation-discharging-4 = 
-animation-discharging-5 = 
-animation-discharging-6 = 
-animation-discharging-7 = 
-animation-discharging-8 = 
-animation-discharging-9 = 
-animation-discharging-foreground = ${colors.red}
-animation-discharging-framerate = 300
 
 [module/temperature]
 type = internal/temperature
@@ -360,6 +352,7 @@ exec-if = [ -p /tmp/.xmonad-title-log ]
 tail = true
 [settings]
 screenchange-reload = true
+format-padding = 1
 ;compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source

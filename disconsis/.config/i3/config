@@ -1,14 +1,15 @@
 # Startup settings
-exec --no-startup-id emacsclientserver.sh ~/notes/todo.org
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id compton
 exec --no-startup-id unclutter
 exec_always --no-startup-id python3 ~/i3-scripts/i3-app-list/src/i3_app_list.py 2> /tmp/app.log
-exec --no-startup-id python3 ~/i3-scripts/focus-last.py &> /tmp/focus-last.log
-exec --no-startup-id bash ~/.fehbg
+exec_always --no-startup-id "pkill -xf 'python3 /home/disconsis/i3-scripts/focus-last.py'; python3 ~/i3-scripts/focus-last.py &> /tmp/focus-last.log"
+exec --no-startup-id feh --bg-fill --no-fehbg ~/.local/share/pictures/wallpaper_orig
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id nm-applet
 exec_always --no-startup-id albert
+
+exec --no-startup-id ~/bin/emacsclientserver.sh
 
 # set modifier key
 set $mod Mod1
@@ -205,7 +206,7 @@ set $lightgrey                  #abb2bf
 set $purple                     #8300ff
 set $lightblue                  #48b8d6
 set $blue                       #00afee
-set $dimblue                    #11c0ff88
+set $dimblue                    #006f9e
 set $blackish                   #333333
 
 # window colors
@@ -218,7 +219,7 @@ client.urgent           $urgent-bg-color     $urgent-bg-color      $text-color  
 # volume keybinds
 bindsym XF86AudioMute           exec "pamixer --toggle-mute"
 bindsym XF86AudioLowerVolume    exec "pamixer --allow-boost --decrease 5"
-bindsym XF86AudioRaiseVolume    exec "pamixer --allow-boost --increase 5"
+bindsym XF86AudioRaiseVolume    exec "[ $(pamixer --get-volume) -le 145 ] && pamixer --allow-boost --increase 5"
 
 # brightness controls
 bindsym XF86MonBrightnessUp     exec "sudo brightnessctl -d intel_backlight set 2%+"
@@ -227,13 +228,13 @@ bindsym XF86MonBrightnessDown   exec "sudo brightnessctl -d intel_backlight set 
 bindsym ctrl+Up     exec "sudo brightnessctl -d intel_backlight set 2%+"
 bindsym ctrl+Down   exec "sudo brightnessctl -d intel_backlight set 2%-"
 
+bindsym ctrl+Right workspace next
+bindsym ctrl+Left  workspace prev
+
 # float experimental tk windows
 for_window [class="^Tk$"] floating enable
 # float xev
 for_window [title="^Event Tester$"] floating enable
-
-# pause netflix
-bindsym XF86AudioPlay exec playpausenetflix.sh
 
 # toggle touchscreen
 bindsym XF86Search exec xinput-toggle -r elan
@@ -256,3 +257,11 @@ mode "rotation" {
     bindsym $mod+bracketleft mode "default"
     bindsym Escape mode "default"
 }
+
+# sleep keybinds
+bindsym End exec "systemctl hibernate -i"
+
+# mpc keybinds
+bindsym XF86AudioPrev exec "mpc prev"
+bindsym XF86AudioPlay exec "mpc toggle"
+bindsym XF86AudioNext exec "mpc next"

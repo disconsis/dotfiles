@@ -1318,7 +1318,8 @@ c.tabs.width = '11%'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = 'about:blank'
+c.url.default_page = os.path.join(
+    os.getenv("XDG_DATA_HOME"), "pictures", "wallpaper_blur")
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1346,9 +1347,11 @@ c.url.searchengines = {
     'urban': 'https://urbandictionary.com/define.php?term={}',
     'scholar': 'https://scholar.google.co.in/scholar?hl=en&q={}',
     'google': 'https://www.google.co.in/search?q={}',
-    'y': 'https://www.youtube.com/results?search_query={}',
+    'yt': 'https://www.youtube.com/results?search_query={}',
     'words': 'https://www.thesaurus.com/browse/{}',
     'hoogle': 'https://www.haskell.org/hoogle/?hoogle={}',
+    'terraria': 'https://terraria.gamepedia.com/index.php?search={}',
+    'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
 }
 c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 
