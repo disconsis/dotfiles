@@ -6,8 +6,10 @@
 [push]
 	default = simple
 [http]
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [merge]
-	tool = vimdiff
+	tool = p4merge
 [alias]
 	co = commit
 	ch = checkout

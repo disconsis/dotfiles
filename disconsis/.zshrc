@@ -237,3 +237,4 @@ if [ -z "$EMACS" ]; then
 fi
 
 # vim: fdm=marker
+droidtest() { git clean -fd &>/dev/null ; python3 customize.py "$1" test.pkgname localhost }
