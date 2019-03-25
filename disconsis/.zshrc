@@ -161,7 +161,6 @@ alias public_ip='curl http://icanhazip.com'
 alias nautilus='nautilus --no-desktop'
 alias dict='sdcv --color'
 alias -g nope='&> /dev/null &!'
-alias eog='pqiv -i'
 alias l="ls -lAh"
 alias tree='tree -I .git -I __pycache__'
 alias clock='tty-clock -ctB'

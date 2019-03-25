@@ -4,7 +4,7 @@
 background = #222
 transparent-background = #0000
 slightly-transparent-background= #dd222222
-background-alt = #444
+background-alt = #333
 foreground = #dfdfdf
 foreground-alt = #dfdfdf
 primary = #ffb52a
@@ -47,7 +47,7 @@ padding-right = 1
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Monoid:pixelsize=8
+font-0 = Iosevka Nerd Font:pixelsize=10
 font-1 = Material Icons:pixelsize=11
 font-2 = FuraCode Nerd Font:pixelsize=10
 font-3 = siji:pixelsize=10
@@ -122,21 +122,22 @@ pin-workspaces = true
 
 strip-wsnumbers = false
 
-label-mode-padding = 2
+label-mode-padding = 0
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
 label-focused = %name%
-; label-focused-background = ${colors.background-alt}
+label-focused-background = ${colors.background-alt}
 label-focused-underline = ${colors.yellow}
-label-focused-padding = 2
+label-focused-padding = 1
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
 label-unfocused-foreground = ${colors.light-grey}
-; label-unfocused-background = #333
-label-unfocused-padding = 2
+; label-unfocused-background = #222222
+label-unfocused-underline = ${colors.dull-grey}
+label-unfocused-padding = 1
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %name%
@@ -146,7 +147,10 @@ label-visible-padding = ${self.label-focused-padding}
 ; urgent = Workspace with urgency hint set
 label-urgent = %name%
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding = 1
+
+label-separator = " "
+label-separator-padding = 0
 
 ; Separator in between workspaces
 ; label-separator = |
