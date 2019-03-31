@@ -41,7 +41,7 @@ c.auto_save.session = True
 ## Valid values:
 ##   - webengine: Use QtWebEngine (based on Chromium).
 ##   - webkit: Use QtWebKit (based on WebKit, similar to Safari).
-# c.backend = 'webengine'
+c.backend = 'webkit'
 
 ## This setting can be used to map keys to other keys. When the key used
 ## as dictionary-key is pressed, the binding for the key used as
@@ -1318,8 +1318,9 @@ c.tabs.width = '11%'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = os.path.join(
-    os.getenv("XDG_DATA_HOME"), "pictures", "wallpaper_blur")
+c.url.default_page = 'about:blank'
+# c.url.default_page = os.path.join(
+#     os.getenv("XDG_DATA_HOME"), "pictures", "wallpaper_blur")
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.

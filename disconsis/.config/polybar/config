@@ -55,7 +55,7 @@ font-4 = file\-icons:pixelsize=10
 
 modules-left = i3
 modules-center = xwindow
-modules-right = memory battery separator brightnessctl volume separator time date
+modules-right = cpu memory battery separator brightnessctl volume separator time date
 
 tray-position = right
 tray-padding = 0
@@ -199,9 +199,10 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = "龍 "
 format-prefix-foreground = ${colors.red}
-label = %percentage:2%%
+format-underline = ${colors.dull-red}
+label = %percentage%%
 
 [module/memory]
 type = internal/memory

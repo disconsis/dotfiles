@@ -1,6 +1,8 @@
 # Startup settings
+exec --no-startup-id ~/bin/emacsclientserver.sh
+
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
-exec --no-startup-id compton
+exec --no-startup-id compton --respect-prop-shadow
 exec --no-startup-id unclutter
 exec_always --no-startup-id python3 ~/i3-scripts/i3-app-list/src/i3_app_list.py 2> /tmp/app.log
 exec_always --no-startup-id "pkill -xf 'python3 /home/disconsis/i3-scripts/focus-last.py'; python3 ~/i3-scripts/focus-last.py &> /tmp/focus-last.log"
@@ -8,8 +10,6 @@ exec --no-startup-id feh --bg-fill --no-fehbg ~/.local/share/pictures/wallpaper_
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id nm-applet
 exec_always --no-startup-id albert
-
-exec --no-startup-id ~/bin/emacsclientserver.sh
 
 # set modifier key
 set $mod Mod1
@@ -20,9 +20,13 @@ font pango:ShureTechMono Nerd Font 0
 
 # Misc
 hide_edge_borders both
-bindsym $mod+Return exec "kitty tmux -2"
 bindsym $mod+q kill
 bindsym $mod+f fullscreen toggle
+
+# programs
+bindsym $mod+Return exec "kitty tmux -2"
+bindsym $mod+e exec "emacsclientserver.sh"
+bindsym $mod+p exec "qutebrowser"
 
 # Screenshot keybinds
 ## focused monitor only
@@ -175,7 +179,7 @@ mode "gaps-outer" {
 }
 
 # sticky
-bindsym $mod+p sticky toggle
+bindsym $mod+shift+p sticky toggle
 
 # colours
 set $bg-color                   #ffffff
