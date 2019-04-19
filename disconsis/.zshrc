@@ -1,3 +1,4 @@
+if [ -z "$EMACS" ]; then
 export TERM=xterm-256color
 
 # limit {{{
@@ -223,17 +224,29 @@ export KEYTIMEOUT=1
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 
-if [ -z "$EMACS" ]; then
-    function zle-keymap-select zle-line-init zle-line-finish {
-        if [ $KEYMAP = vicmd ]; then
-            # the command mode for vi
-            echo -ne "\e[2 q"
-        else
-            # the insert mode for vi
-            echo -ne "\e[5 q"
-        fi
-    }
-fi
+function zle-keymap-select zle-line-init zle-line-finish {
+    if [ $KEYMAP = vicmd ]; then
+        # the command mode for vi
+        echo -ne "\e[2 q"
+    else
+        # the insert mode for vi
+        echo -ne "\e[5 q"
+    fi
+}
 
+# droidtest() { git clean -fd &>/dev/null ; python3 customize.py "$1" test.pkgname localhost }
+droidtest() {
+    bash gradlew :app:assembleDebug
+    adb install -r -t -g $(find -type f -name "app-debug.apk")
+    adb logcat -c
+    echo "starting log"
+    echo "============"
+    adb logcat | tee /tmp/log.lc | rg ketan
+}
+
+else
+
+# config for terminal under emacs
+
+fi
 # vim: fdm=marker
-droidtest() { git clean -fd &>/dev/null ; python3 customize.py "$1" test.pkgname localhost }

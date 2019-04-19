@@ -6,7 +6,7 @@ exec --no-startup-id compton --respect-prop-shadow
 exec --no-startup-id unclutter
 exec_always --no-startup-id python3 ~/i3-scripts/i3-app-list/src/i3_app_list.py 2> /tmp/app.log
 exec_always --no-startup-id "pkill -xf 'python3 /home/disconsis/i3-scripts/focus-last.py'; python3 ~/i3-scripts/focus-last.py &> /tmp/focus-last.log"
-exec --no-startup-id feh --bg-fill --no-fehbg ~/.local/share/pictures/wallpaper_orig
+# exec --no-startup-id feh --bg-fill --no-fehbg ~/.local/share/pictures/wallpaper_orig
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id nm-applet
 exec_always --no-startup-id albert

@@ -41,7 +41,7 @@ c.auto_save.session = True
 ## Valid values:
 ##   - webengine: Use QtWebEngine (based on Chromium).
 ##   - webkit: Use QtWebKit (based on WebKit, similar to Safari).
-c.backend = 'webkit'
+# c.backend = 'webkit'
 
 ## This setting can be used to map keys to other keys. When the key used
 ## as dictionary-key is pressed, the binding for the key used as
@@ -685,7 +685,8 @@ c.content.plugins = True
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-# c.content.user_stylesheets = []
+# c.content.user_stylesheets = [os.path.join(os.getenv("HOME"), ".config/qutebrowser/stylesheets/global-dark.css")]
+config.bind(",n", "config-cycle content.user_stylesheets ~/.config/qutebrowser/stylesheets/solarized-dark-all-sites.css \"\"")
 
 
 ## Enable WebGL.

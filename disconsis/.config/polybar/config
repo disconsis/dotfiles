@@ -78,8 +78,8 @@ cursor-scroll = ns-resize
 
 [bar/xmonad]
 inherit = bar/main
-modules-left = workspaces-xmonad
-modules-center = title-xmonad
+modules-left = xmonad
+modules-center = 
 
 [module/separator]
 type = custom/text
@@ -267,6 +267,7 @@ type = internal/date
 interval = 5
 date = "%a, %b %d"
 
+format = %{A:gsimplecal&:}<label>%{A}
 format-prefix = " "
 format-prefix-foreground = ${colors.red}
 format-underline = ${colors.dull-grey}
@@ -344,17 +345,22 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
-[module/workspaces-xmonad]
+; [module/workspaces-xmonad]
+; type = custom/script
+; exec = tail -F /tmp/.xmonad-workspace-log
+; exec-if = [ -p /tmp/.xmonad-workspace-log ]
+; tail = true
+
+; [module/title-xmonad]
+; type = custom/script
+; exec = tail -F /tmp/.xmonad-title-log
+; exec-if = [ -p /tmp/.xmonad-title-log ]
+; tail = true
+[module/xmonad]
 type = custom/script
-exec = tail -F /tmp/.xmonad-workspace-log
-exec-if = [ -p /tmp/.xmonad-workspace-log ]
+exec = xmonad-log
 tail = true
 
-[module/title-xmonad]
-type = custom/script
-exec = tail -F /tmp/.xmonad-title-log
-exec-if = [ -p /tmp/.xmonad-title-log ]
-tail = true
 [settings]
 screenchange-reload = true
 format-padding = 1
