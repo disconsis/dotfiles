@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 
@@ -7,6 +8,7 @@ import           Control.Monad
 
 import           Data.Char
 import qualified Data.Map as M
+import           Data.Maybe
 
 import qualified DBus
 import qualified DBus.Client as DBus
@@ -29,6 +31,7 @@ import           XMonad.Hooks.DynamicProperty
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
+import           XMonad.Prompt.Workspace
 -- import           XMonad.Layout.Fullscreen hiding (fullscreenEventHook)
 import           XMonad.Layout.LayoutCombinators
 import           XMonad.Layout.NoBorders
@@ -72,7 +75,7 @@ import           XMonad.Util.SpawnOnce
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launching and killing programs
-    [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    [ ((modMask .|. shiftMask, xK_Return), spawnHere $ XMonad.terminal conf)
     , ((modMask              , xK_q     ), kill)
 
     -- function keys
@@ -101,18 +104,18 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_m     ), windows W.focusMaster)
 
     -- workspaces naming
-    , ((modMask,               xK_r     ), renameWorkspace myWorkspaceNamePrompt)
+    , ((modMask,               xK_r     ), renameWorkspaceWithShorten myWorkspaceNamePrompt myWorkspaceIcons)
+    , ((modMask .|. controlMask, xK_r   ), forM_ (flip setWorkspaceName "") myWorkspaces)
     , ((modMask .|. shiftMask, xK_r     ), setCurrentWorkspaceName "")
-    
 
     --- TwoPane
     , ((modMask,               xK_s     ), rotSlavesUp)
     , ((modMask .|. shiftMask, xK_s     ), rotSlavesDown)
-    
+
     --- Spacing
     -- TODO: make this work for all workspaces at once
     , ((modMask,               xK_g     ), toggleGaps)
-    
+
     --- Fullscreen
     -- TODO: toggle fullscreen
     -- , ((modMask,               xK_f     ), sendMessage ToggleStruts)
@@ -147,24 +150,24 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
         , (func, mask) <- [ (windows . W.greedyView, 0)
                           , (windows . viewShift, shiftMask)
                           , (swapWithCurrent, controlMask)]]
-    
+
     where
       viewShift = liftM2 (.) W.greedyView W.shift
-  
+
 -- * Workspaces
 wsTodo  = "\xf00b"
+wsConf  = "\xf992"
+wsEntt  = "\xf880"
 wsMusic = "\xf001"
 wsComms = "\xf086"
 
 myWorkspacesWithGotoKeys :: [(String, KeySym)]
-myWorkspacesWithGotoKeys =
-  [ (wsTodo, xK_0) ]
-  ++
-  zip (fmap show [1..9]) [xK_1..xK_9]
-  ++
-  [ (wsMusic, xK_minus)
-  , (wsComms, xK_equal)
-  ]
+myWorkspacesWithGotoKeys = zip workspaces keys
+  where
+    keys       = [xK_0..xK_9] ++ [xK_minus, xK_equal]
+    workspaces = [wsTodo] ++ fmap show [1 .. 7] ++ [wsConf, wsEntt, wsMusic, wsComms]
+
+myWorkspaces = fmap fst myWorkspacesWithGotoKeys
 
 -- * Layouts
 -- resizable tall
@@ -240,7 +243,7 @@ myLayoutHook =
   myLayouts
 
   -- where fullScreenFloat = mkToggle (single Full)
-    
+
 -- * Manage Hook
 doShiftAndGo = doF . liftM2 (.) W.greedyView W.shift
 
@@ -337,12 +340,38 @@ myFont = "xft:Iosevka Nerd Font:pixelsize=15"
 
 myWorkspaceNamePrompt :: XPConfig
 myWorkspaceNamePrompt = def
-  { font = myFont 
+  { font = myFont
   , height = 26
   , position = CenteredAt { xpCenterY = 0.989, xpWidth = 0.15 }
   , bgColor = white
   , fgColor = black
+  , maxComplRows = Just 2
+  , historySize = 5
+  , autoComplete = Nothing -- manually confirm
+  , showCompletionOnTab = False
   }
+
+renameWorkspaceWithShorten :: XPConfig -> M.Map String String -> X ()
+renameWorkspaceWithShorten conf shortNames =
+  workspaceNamePrompt conf (setCurrentWorkspaceName . replace shorten)
+  where
+    replace :: (a -> Maybe a) -> a -> a
+    replace f x = fromMaybe x (f x)
+    shorten  :: String -> Maybe String
+    shorten = flip M.lookup shortNames . fmap toLower
+
+flatten :: [([a], b)] -> [(a, b)]
+flatten = concatMap (\(as, b) -> fmap (,b) as)
+
+myWorkspaceIcons :: M.Map String String
+myWorkspaceIcons = M.fromList $ flatten $
+  [ (research,   "\xe27f")
+  , (grad,       "\xf973")
+  , (assignment, "\xf8e1")
+  ]
+  where research = ["research"]
+        grad = ["nyu", "grad"]
+        assignment = ["assignment", "assign", "assn", "exam", "paper"]
 
 -- * Startup Hook
 myStartupHook = do
@@ -361,7 +390,7 @@ main = do
     , normalBorderColor  = grey
     , focusFollowsMouse  = False
     , keys               = myKeys
-    , workspaces         = fmap fst myWorkspacesWithGotoKeys
+    , workspaces         = myWorkspaces
     , layoutHook         = myLayoutHook
     , manageHook         = myManageHook
     , logHook            = myLogHook polybarDbus

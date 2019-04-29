@@ -42,7 +42,7 @@ set statusbar-home-tilde true
 set statusbar-bg '#FFFFFF00'
 set statusbar-fg '#FF7500'
 
-set default-bg '#222222'
+set default-bg '#282c34'
 
 set window-title-basename true
 

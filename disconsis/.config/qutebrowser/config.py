@@ -329,7 +329,7 @@ c.colors.statusbar.insert.bg = '#000025'
 
 ## Background color of the tab bar.
 ## Type: QtColor
-c.colors.tabs.bar.bg = '#333333'
+c.colors.tabs.bar.bg = '#282c34'
 
 ## Background color of unselected even tabs.
 ## Type: QtColor
@@ -1354,6 +1354,7 @@ c.url.searchengines = {
     'hoogle': 'https://www.haskell.org/hoogle/?hoogle={}',
     'terraria': 'https://terraria.gamepedia.com/index.php?search={}',
     'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
+    'conf': 'http://portal.core.edu.au/conf-ranks/?search={}&by=all&source=all&sort=atitle&page=1'
 }
 c.url.searchengines['DEFAULT'] = c.url.searchengines['google']
 

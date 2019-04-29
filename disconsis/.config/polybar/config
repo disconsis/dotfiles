@@ -15,6 +15,7 @@ yellow = #f6d75b
 light-grey = #aaa
 blue = #00afee
 blue-green = #48b8d6
+one-dark = #282c34
 
 dull-red = #8f4230
 dull-yellow = #a6973b
@@ -80,6 +81,7 @@ cursor-scroll = ns-resize
 inherit = bar/main
 modules-left = xmonad
 modules-center = 
+override-redirect = false
 
 [module/separator]
 type = custom/text

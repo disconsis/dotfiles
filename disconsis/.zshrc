@@ -240,7 +240,7 @@ droidtest() {
     adb install -r -t -g $(find -type f -name "app-debug.apk")
     adb logcat -c
     echo "starting log"
-    echo "============"
+    echo "starting log"
     adb logcat | tee /tmp/log.lc | rg ketan
 }
 
