@@ -33,7 +33,7 @@ height = 26
 radius = 0.0
 fixed-center = true
 
-background = ${colors.slightly-transparent-background}
+background = ${colors.transparent-background}
 foreground = ${colors.foreground}
 
 line-size = 3
@@ -56,7 +56,7 @@ font-4 = file\-icons:pixelsize=10
 
 modules-left = i3
 modules-center = xwindow
-modules-right = cpu memory battery separator brightnessctl volume separator time date
+modules-right = cpu memory battery separator playerctl brightnessctl volume separator time date
 
 tray-position = right
 tray-padding = 0
@@ -97,6 +97,18 @@ format-prefix = " "
 format-prefix-foreground = ${colors.red}
 format-underline = ${colors.dull-yellow}
 interval = 0
+tail = true
+
+[module/playerctl]
+type = custom/script
+exec = playerctl-status.sh
+format-prefix = " "
+format-prefix-foreground = ${colors.red}
+format-underline = ${colors.dull-yellow}
+click-left = playerctl play-pause
+; click-right = playerctl metadata title &
+scroll-up = playerctl next
+scroll-down = playerctl previous
 tail = true
 
 [module/xwindow]
