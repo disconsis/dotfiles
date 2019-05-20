@@ -760,68 +760,67 @@ c.downloads.position = 'bottom'
 ## Font used in the completion categories.
 ## Type: Font
 # c.fonts.completion.category = 'bold 8pt monospace'
-c.fonts.completion.category = 'bold 8pt Monoid'
+c.fonts.completion.category = 'bold 10pt monospace'
 
 ## Font used in the completion widget.
 ## Type: Font
 # c.fonts.completion.entry = '8pt monospace'
-c.fonts.completion.entry = '8pt Monoid'
+c.fonts.completion.entry = '10pt monospace'
 
 ## Font used for the debugging console.
 ## Type: QtFont
 # c.fonts.debug_console = '8pt monospace'
-c.fonts.debug_console = '8pt Monoid'
+c.fonts.debug_console = '8pt monospace'
 
 ## Font used for the downloadbar.
 ## Type: Font
 # c.fonts.downloads = '8pt monospace'
-c.fonts.downloads = '8pt Monoid'
+c.fonts.downloads = '8pt monospace'
 
 ## Font used for the hints.
 ## Type: Font
 # c.fonts.hints = 'bold 8pt monospace'
-c.fonts.hints = '12pt Monaco'
+c.fonts.hints = '12pt monospace'
 
 ## Font used in the keyhint widget.
 ## Type: Font
 # c.fonts.keyhint = '8pt monospace'
-c.fonts.keyhint = '8pt Monoid'
+c.fonts.keyhint = '8pt monospace'
 
 ## Font used for error messages.
 ## Type: Font
 # c.fonts.messages.error = '8pt monospace'
-c.fonts.messages.error = '8pt Monoid'
+c.fonts.messages.error = '8pt monospace'
 
 ## Font used for info messages.
 ## Type: Font
 # c.fonts.messages.info = '8pt monospace'
-c.fonts.messages.info = '8pt Monoid'
+c.fonts.messages.info = '8pt monospace'
 
 ## Font used for warning messages.
 ## Type: Font
 # c.fonts.messages.warning = '8pt monospace'
-c.fonts.messages.warning = '8pt Monoid'
+c.fonts.messages.warning = '8pt monospace'
 
 ## Default monospace fonts. Whenever "monospace" is used in a font
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
-# c.fonts.monospace = '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Monoid, Terminal'
-c.fonts.monospace = 'Monoid'
+c.fonts.monospace = 'Iosevka'
 
 ## Font used for prompts.
 ## Type: Font
 # c.fonts.prompts = '8pt sans-serif'
-c.fonts.prompts = '8pt Monoid'
+c.fonts.prompts = '8pt monospace'
 
 ## Font used in the statusbar.
 ## Type: Font
 # c.fonts.statusbar = '8pt monospace'
-c.fonts.statusbar = '8pt Monoid'
+c.fonts.statusbar = '11pt monospace'
 
 ## Font used in the tab bar.
 ## Type: QtFont
 # c.fonts.tabs = '8pt monospace'
-c.fonts.tabs = '8pt Monoid'
+c.fonts.tabs = '9pt monospace'
 
 ## Font family for cursive fonts.
 ## Type: FontFamily
@@ -833,19 +832,19 @@ c.fonts.tabs = '8pt Monoid'
 
 ## Font family for fixed fonts.
 ## Type: FontFamily
-c.fonts.web.family.fixed = 'Monoid'
+c.fonts.web.family.fixed = 'monospace'
 
 ## Font family for sans-serif fonts.
 ## Type: FontFamily
-# c.fonts.web.family.sans_serif = 'Monoid'
+# c.fonts.web.family.sans_serif = 'monospace'
 
 ## Font family for serif fonts.
 ## Type: FontFamily
-# c.fonts.web.family.serif = 'Monoid'
+# c.fonts.web.family.serif = 'monospace'
 
 ## Font family for standard fonts.
 ## Type: FontFamily
-# c.fonts.web.family.standard = 'Monoid'
+# c.fonts.web.family.standard = 'monospace'
 
 ## Default font size (in pixels) for regular text.
 ## Type: Int
