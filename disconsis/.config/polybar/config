@@ -16,6 +16,7 @@ light-grey = #aaa
 blue = #00afee
 blue-green = #48b8d6
 one-dark = #282c34
+dark-grey = #333
 
 dull-red = #8f4230
 dull-yellow = #a6973b
@@ -33,7 +34,7 @@ height = 26
 radius = 0.0
 fixed-center = true
 
-background = ${colors.transparent-background}
+background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
