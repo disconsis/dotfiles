@@ -81,7 +81,7 @@ cursor-scroll = ns-resize
 [bar/xmonad]
 inherit = bar/main
 modules-left = xmonad
-modules-center = 
+modules-center = focused
 override-redirect = false
 
 [module/separator]
@@ -99,6 +99,11 @@ format-prefix-foreground = ${colors.red}
 format-underline = ${colors.dull-yellow}
 interval = 0
 tail = true
+
+[module/focused]
+type = custom/script
+exec = python /home/disconsis/tmp/focused_monitor.py
+interval = 1
 
 [module/playerctl]
 type = custom/script

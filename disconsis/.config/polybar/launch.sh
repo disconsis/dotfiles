@@ -1,8 +1,8 @@
 #!/usr/bin/bash -x
 
 # stop running polybar instances
-pkill polybar
-while pgrep -u `id --user` -x polybar; do sleep 1; done
+pkill -x polybar
+# while pgrep -u `id --user` -x polybar; do sleep 1; done
 
 # which bar
 if pgrep xmonad; then
