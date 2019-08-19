@@ -81,7 +81,7 @@ cursor-scroll = ns-resize
 [bar/xmonad]
 inherit = bar/main
 modules-left = xmonad
-modules-center = focused
+modules-center =
 override-redirect = false
 
 [module/separator]

@@ -13,6 +13,5 @@ fi
 
 # starts bars
 for monitor in `polybar -m | cut -d ":" -f 1`; do
-    echo "$monitor"
     MONITOR="$monitor" polybar $bar &
 done
