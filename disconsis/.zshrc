@@ -197,6 +197,7 @@ function mkcd {
     cd $@
 }
 alias ghci="ghci -v0"
+alias sml='smlnj'
 function bright {
     sudo /usr/bin/brightnessctl set $@
 }
@@ -235,16 +236,6 @@ function zle-keymap-select zle-line-init zle-line-finish {
         # the insert mode for vi
         echo -ne "\e[5 q"
     fi
-}
-
-# droidtest() { git clean -fd &>/dev/null ; python3 customize.py "$1" test.pkgname localhost }
-droidtest() {
-    bash gradlew :app:assembleDebug
-    adb install -r -t -g $(find -type f -name "app-debug.apk")
-    adb logcat -c
-    echo "starting log"
-    echo "starting log"
-    adb logcat | tee /tmp/log.lc | rg ketan
 }
 
 else
