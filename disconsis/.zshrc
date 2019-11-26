@@ -244,3 +244,6 @@ else
 
 fi
 # vim: fdm=marker
+
+# opam configuration
+test -r /home/disconsis/.opam/opam-init/init.zsh && . /home/disconsis/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
