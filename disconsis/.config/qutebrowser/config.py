@@ -805,7 +805,7 @@ c.fonts.messages.warning = '8pt monospace'
 ## Default monospace fonts. Whenever "monospace" is used in a font
 ## setting, it's replaced with the fonts listed here.
 ## Type: Font
-c.fonts.monospace = 'Iosevka'
+c.fonts.monospace = 'Iosevka Term SS06'
 
 ## Font used for prompts.
 ## Type: Font
