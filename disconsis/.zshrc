@@ -129,7 +129,7 @@ POWERLEVEL9K_CUSTOM_PROMPT_SYMBOL_BACKGROUND=$BACKGROUND
 # # }}}
 
 # # misc {{{
-HIST_STAMPS="dd/mm/yyyy"
+# HIST_STAMPS="dd/mm/yyyy"
 DISABLE_AUTO_UPDATE=false
 DISABLE_UPDATE_PROMPT=false
 
@@ -189,7 +189,7 @@ function e {
     /usr/bin/emacs -nw $@
 }
 alias vim='nvim'
-alias todo='$EDITOR ~/tmp/todo.wiki'
+alias todo='$EDITOR ~/tmp/todo.org'
 alias sbcl='sbcl --noinform'
 alias doc='zeal nope'
 function mkcd {

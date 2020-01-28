@@ -17,10 +17,22 @@ blue = #00afee
 blue-green = #48b8d6
 one-dark = #282c34
 dark-grey = #333
+onedarkBlack  = #282c34
+onedarkGreen  = #98c379
+onedarkYellow = #e5c07b
+onedarkRed    = #e06c75
+onedarkBlue   = #61afef
+onedarkPurple = #c678dd
+onedarkCyan   = #56b6c2
+onedarkGrey   = #abb2bf
+onedarkGreenDarker = #689349
 
 dull-red = #8f4230
 dull-yellow = #a6973b
 dull-grey = #757777
+
+foreground-module = ${colors.red}
+underline-module = ${colors.dull-red}
 
 [bar/main]
 monitor = ${env:MONITOR:HDMI2}
@@ -96,8 +108,8 @@ exec = brightnessupdate.sh
 scroll-up = sudo brightnessctl -d intel_backlight set 2%+ &
 scroll-down = sudo brightnessctl -d intel_backlight set 2%- &
 format-prefix = " "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.dull-yellow}
+format-prefix-foreground = ${colors.foreground-module}
+format-underline = ${colors.underline-module}
 interval = 0
 tail = true
 
@@ -110,8 +122,8 @@ interval = 1
 type = custom/script
 exec = playerctl-status.sh
 format-prefix = " "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.dull-yellow}
+format-prefix-foreground = ${colors.foreground-module}
+format-underline = ${colors.underline-module}
 click-left = playerctl play-pause
 ; click-right = playerctl metadata title &
 scroll-up = playerctl next
@@ -130,7 +142,7 @@ fixed-values = true
 mount-0 = /
 
 format-mounted-prefix = " "
-format-mounted-prefix-foreground = ${colors.red}
+format-mounted-prefix-foreground = ${colors.foreground-module}
 label-mounted = %free%
 
 [module/i3]
@@ -221,16 +233,16 @@ card = intel_backlight
 type = internal/cpu
 interval = 2
 format-prefix = "龍 "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.dull-red}
+format-prefix-foreground = ${colors.foreground-module}
+format-underline = ${colors.underline-module}
 label = %percentage%%
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.dull-red}
+format-prefix-foreground = ${colors.foreground-module}
+format-underline = ${colors.underline-module}
 label = %percentage_used%%
 
 [module/wifi]
@@ -279,8 +291,8 @@ time = "%I:%M %p"
 label = %time%
 
 format-prefix = " "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.dull-grey}
+format-prefix-foreground = ${colors.foreground-module}
+format-underline = ${colors.underline-module}
 
 
 [module/date]
@@ -290,8 +302,8 @@ date = "%a, %b %d"
 
 format = %{A:gsimplecal&:}<label>%{A}
 format-prefix = " "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.dull-grey}
+format-prefix-foreground = ${colors.foreground-module}
+format-underline = ${colors.underline-module}
 
 label = %date%
 
@@ -299,20 +311,20 @@ label = %date%
 type = internal/pulseaudio
 
 format-volume-prefix = "墳 "
-format-volume-prefix-foreground = ${colors.red}
+format-volume-prefix-foreground = ${colors.foreground-module}
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
-format-volume-underline = ${colors.dull-yellow}
+format-volume-underline = ${colors.underline-module}
 
 format-muted-prefix = "婢 "
-format-muted-prefix-foreground = ${colors.red}
+format-muted-prefix-foreground = ${colors.foreground-module}
 label-muted = OFF
-format-muted-underline = ${colors.dull-yellow}
+format-muted-underline = ${colors.underline-module}
 
 ramp-volume-0 = 奔
 ramp-volume-1 = 墳
 ramp-volume-2 = 
-ramp-volume-foreground = ${colors.red}
+ramp-volume-foreground = ${colors.foreground-module}
 
 [module/battery]
 type = internal/battery
@@ -325,16 +337,16 @@ time-format = %H:%M
 format-charging-prefix = ""
 format-charging = <ramp-capacity> <label-charging>
 label-charging = %percentage%% [%time%]
-format-charging-prefix-foreground = ${colors.red}
-format-charging-underline = ${colors.dull-red}
+format-charging-prefix-foreground = ${colors.foreground-module}
+format-charging-underline = ${colors.underline-module}
 
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%% [%time%]
-format-discharging-underline = ${colors.dull-red}
+format-discharging-underline = ${colors.underline-module}
 
 format-full-prefix = " "
-format-full-prefix-foreground = ${colors.red}
-format-full-underline = ${colors.dull-red}
+format-full-prefix-foreground = ${colors.foreground-module}
+format-full-underline = ${colors.underline-module}
 label-full = FULL
 
 ramp-capacity-0 = 
@@ -347,7 +359,7 @@ ramp-capacity-6 = 
 ramp-capacity-7 = 
 ramp-capacity-8 = 
 ramp-capacity-9 = 
-ramp-capacity-foreground = ${colors.red}
+ramp-capacity-foreground = ${colors.foreground-module}
 
 [module/temperature]
 type = internal/temperature
@@ -366,20 +378,10 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
-; [module/workspaces-xmonad]
-; type = custom/script
-; exec = tail -F /tmp/.xmonad-workspace-log
-; exec-if = [ -p /tmp/.xmonad-workspace-log ]
-; tail = true
-
-; [module/title-xmonad]
-; type = custom/script
-; exec = tail -F /tmp/.xmonad-title-log
-; exec-if = [ -p /tmp/.xmonad-title-log ]
-; tail = true
 [module/xmonad]
 type = custom/script
-exec = xmonad-log
+exec = cat /tmp/polybar-$MONITOR.fifo
+exec-if = [ -p /tmp/polybar-$MONITOR.fifo ]
 tail = true
 
 [settings]

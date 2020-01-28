@@ -232,7 +232,7 @@ set nocursorline
 " }}}
 
 " providers {{{
-let g:python3_host_prog = '/usr/bin/python3.7'
+let g:python3_host_prog = '/usr/bin/python3.8'
 " }}}
 
 " Functions {{{
@@ -373,7 +373,7 @@ let g:vimshell_prompt="$ "
 " }}}
 
 " youcompleteme options {{{
-let g:ycm_server_python_interpreter = '/usr/bin/python3.7'
+let g:ycm_server_python_interpreter = '/usr/bin/python3.8'
 let g:ycm_server_log_level = 'debug'
 " }}}
 
