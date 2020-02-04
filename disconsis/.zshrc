@@ -164,7 +164,7 @@ alias dict='sdcv --color'
 alias -g nope='&> /dev/null &!'
 alias l="ls -lAh"
 alias tree='tree -I .git -I __pycache__'
-alias clock='tty-clock -ctB'
+alias clock='peaclock'
 alias ls='ls --color=always'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias v='vim'
