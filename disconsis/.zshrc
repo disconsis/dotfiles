@@ -169,6 +169,7 @@ alias ls='ls --color=always'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
+alias mic-test='arecord -vvv -f dat /dev/null'
 function open() {
     xdg-open $* &> /dev/null &!
 }
