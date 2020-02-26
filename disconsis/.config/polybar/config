@@ -384,7 +384,6 @@ ramp-foreground = ${colors.foreground-module}
 [module/xmonad]
 type = custom/script
 exec = cat /tmp/polybar-$MONITOR.fifo
-exec-if = [ -p /tmp/polybar-$MONITOR.fifo ]
 tail = true
 
 [settings]
