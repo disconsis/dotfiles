@@ -93,7 +93,7 @@ cursor-scroll = ns-resize
 
 [bar/xmonad]
 inherit = bar/main
-modules-left = xmonad
+modules-left =
 modules-center =
 override-redirect = false
 
@@ -284,6 +284,13 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
+[module/counter]
+type = internal/date
+interval = 1
+time = "%S"
+label = %time%
+format-underline = ${colors.underline-module}
+
 [module/time]
 type = internal/date
 interval = 5
@@ -383,7 +390,8 @@ ramp-foreground = ${colors.foreground-module}
 
 [module/xmonad]
 type = custom/script
-exec = cat /tmp/polybar-$MONITOR.fifo
+exec = polybar-log $MONITO
+R # cat /tmp/polybar-$MONITOR.fifo
 tail = true
 
 [settings]

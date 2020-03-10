@@ -63,7 +63,7 @@ Plug 'mhinz/neovim-remote'
 Plug 'tpope/vim-unimpaired' " overrides >.. - causes delays while indenting
 Plug 'rayburgemeestre/phpfolding.vim'
 Plug 'eagletmt/neco-ghc'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
+" Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
 Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/fzf'
@@ -169,7 +169,7 @@ set guioptions=agit
 set termguicolors
 set background=dark
 let g:seiya_auto_enable = 1 " transparency
-colorscheme base16-onedark
+colorscheme base16-tomorrow
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
@@ -372,10 +372,10 @@ let g:vimshell_user_prompt='fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt="$ "
 " }}}
 
-" youcompleteme options {{{
-let g:ycm_server_python_interpreter = '/usr/bin/python3.8'
-let g:ycm_server_log_level = 'debug'
-" }}}
+" " youcompleteme options {{{
+" let g:ycm_server_python_interpreter = '/usr/bin/python3.8'
+" let g:ycm_server_log_level = 'debug'
+" " }}}
 
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
@@ -536,9 +536,9 @@ let g:netrw_liststyle = 0
 let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_method = "latexmk"
 let g:vimtex_view_method = "zathura"
-let g:ycm_semantic_triggers = {
-            \ 'tex': g:vimtex#re#youcompleteme,
-            \ }
+" let g:ycm_semantic_triggers = {
+"             \ 'tex': g:vimtex#re#youcompleteme,
+"             \ }
 let g:vimtex_quickfix_latexlog = {
       \ 'default':    1,
       \ 'general':    1,
