@@ -170,7 +170,10 @@ alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
 alias mic-test='arecord -vvv -f dat /dev/null'
-alias ec="emacsclient -c"
+alias "[k"="r"
+function ec() {
+    emacsclient -c $@ &>/dev/null $!
+}
 function open() {
     xdg-open $* &> /dev/null &!
 }
@@ -203,6 +206,7 @@ alias sml='smlnj'
 function bright {
     sudo /usr/bin/brightnessctl set $@
 }
+alias vimdiff="nvim -d"
 # }}}
 
 # beep {{{

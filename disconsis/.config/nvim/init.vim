@@ -169,7 +169,15 @@ set guioptions=agit
 set termguicolors
 set background=dark
 let g:seiya_auto_enable = 1 " transparency
-colorscheme base16-tomorrow
+" make colorscheme same as kitty -- should work for the themes I have
+" currently set in `kitty-invert`
+let kitty_color_file = "~/.config/kitty/color.link"
+if filereadable(expand(kitty_color_file))
+    let colo_name = system("basename $(readlink " . kitty_color_file . ") | cut -d '.' -f 1")
+else
+    let colo_name = "base16-onedark"
+endif
+execute "colorscheme " . colo_name
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
@@ -840,5 +848,7 @@ nnoremap <silent> [h :set nohlsearch<CR>
 " easier global commands {{{
 vnoremap ,g :g/^/normal! 
 " }}}
+"
+set nonumber
 
 " vim: fdm=marker
