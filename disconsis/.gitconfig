@@ -19,3 +19,5 @@
     diffs = diff --staged
 [color]
 	ui = auto
+[core]
+	excludesfile = /home/disconsis/.gitignore

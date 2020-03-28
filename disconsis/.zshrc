@@ -171,8 +171,15 @@ alias v='vim'
 alias xclip='xclip -selection clipboard'
 alias mic-test='arecord -vvv -f dat /dev/null'
 alias "[k"="r"
-function ec() {
-    emacsclient -c $@ &>/dev/null $!
+function ec {
+    emacsclient -c $@ &>/dev/null &!
+}
+function ect {
+    if [[ $# -lt 1 ]]; then
+        emacsclient .
+    else
+        emacsclient $@
+    fi
 }
 function open() {
     xdg-open $* &> /dev/null &!
