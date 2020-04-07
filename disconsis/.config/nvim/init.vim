@@ -849,6 +849,5 @@ nnoremap <silent> [h :set nohlsearch<CR>
 vnoremap ,g :g/^/normal! 
 " }}}
 "
-set nonumber
 
 " vim: fdm=marker

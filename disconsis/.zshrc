@@ -170,7 +170,9 @@ alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias v='vim'
 alias xclip='xclip -selection clipboard'
 alias mic-test='arecord -vvv -f dat /dev/null'
-alias "[k"="r"
+alias idea="_JAVA_AWT_WM_NONREPARENTING=1 /usr/bin/idea"
+alias '[k'="fc -e -"
+alias r=ranger
 function ec {
     emacsclient -c $@ &>/dev/null &!
 }

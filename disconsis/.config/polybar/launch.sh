@@ -1,7 +1,8 @@
 #!/usr/bin/bash -x
 
 # stop running polybar instances
-pkill -x polybar
+# pkill -x polybar
+# echo "Foo"
 # while pgrep -u `id --user` -x polybar; do sleep 1; done
 
 # which bar
