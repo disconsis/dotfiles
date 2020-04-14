@@ -93,9 +93,13 @@ cursor-scroll = ns-resize
 
 [bar/xmonad]
 inherit = bar/main
-modules-left =
+modules-left = xmonad
 modules-center =
 override-redirect = false
+
+[bar/xmonad-stdin]
+inherit = bar/xmonad
+modules-left = stdin
 
 [module/separator]
 type = custom/text
@@ -390,9 +394,14 @@ ramp-foreground = ${colors.foreground-module}
 
 [module/xmonad]
 type = custom/script
-exec = polybar-log $MONITO
-R # cat /tmp/polybar-$MONITOR.fifo
+; exec = polybar-log $MONITOR
+exec = tail -F /tmp/polybar-$MONITOR.fifo
 tail = true
+
+[module/stdin]
+type = custom/script
+tail = true
+exec = cat $STDINFIFO
 
 [settings]
 screenchange-reload = true

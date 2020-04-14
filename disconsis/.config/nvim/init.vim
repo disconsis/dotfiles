@@ -177,7 +177,12 @@ if filereadable(expand(kitty_color_file))
 else
     let colo_name = "base16-onedark"
 endif
-execute "colorscheme " . colo_name
+try
+    execute "colorscheme " . colo_name
+catch /^Vim\%((\a\+)\)\=:E185/
+    " deal with it
+    colorscheme base16-onedark
+endtry
 
 autocmd Colorscheme * hi LineNr guibg=NONE
 autocmd Colorscheme * hi! link MatchParen IncSearch
@@ -265,7 +270,7 @@ nnoremap <silent> gk k
 
 " Line numbering {{{
 set ruler
-set number
+set nonumber
 set norelativenumber
 " }}}
 
