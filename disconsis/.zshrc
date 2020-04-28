@@ -1,6 +1,8 @@
 if [ -z "$EMACS" ]; then
 export TERM=xterm-256color
 
+export PAGER=less
+
 # limit {{{
 ulimit -m 8192000
 # ulimit -v 8192000
