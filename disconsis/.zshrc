@@ -181,16 +181,16 @@ alias idea="_JAVA_AWT_WM_NONREPARENTING=1 /usr/bin/idea"
 alias '[k'="fc -e -"
 alias r=ranger
 alias sudovim="sudo -H nvim -u ~$(whoami)/.config/nvim/init.vim"
-function ec {
-    emacsclient -c $@ &>/dev/null &!
-}
-function ect {
-    if [[ $# -lt 1 ]]; then
-        emacsclient .
-    else
-        emacsclient $@
-    fi
-}
+# function ec {
+#     emacsclient -c $@ &>/dev/null &!
+# }
+# function ect {
+#     if [[ $# -lt 1 ]]; then
+#         emacsclient .
+#     else
+#         emacsclient $@
+#     fi
+# }
 function open() {
     xdg-open $* &> /dev/null &!
 }
@@ -208,7 +208,7 @@ function mu {
 }
 alias q='qutebrowser --enable-webengine-inspector &>/dev/null &!'
 function e {
-    /usr/bin/emacs -nw $@
+    /usr/bin/emacs $@
 }
 alias vim='nvim'
 alias todo='$EDITOR ~/tmp/todo.org'
