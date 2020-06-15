@@ -1,4 +1,3 @@
-if [ -z "$EMACS" ]; then
 export TERM=xterm-256color
 
 export PAGER=less
@@ -191,6 +190,11 @@ alias sudovim="sudo -H nvim -u ~$(whoami)/.config/nvim/init.vim"
 #         emacsclient $@
 #     fi
 # }
+function ppid () {
+    # get ppid of current process if called without arguments,
+    # of argument pid if called with
+    ps -p ${1:-$$} -o ppid=;
+}
 function open() {
     xdg-open $* &> /dev/null &!
 }
@@ -261,16 +265,15 @@ function zle-keymap-select zle-line-init zle-line-finish {
     fi
 }
 
-else
-
-# config for terminal under emacs
-
-fi
-
 # opam configuration
 test -r /home/disconsis/.opam/opam-init/init.zsh && . /home/disconsis/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # colors cripts
 export PATH=$PATH:~/bin/color-scripts
+
+if [[ $(ps -o cmd= `ppid`) = "emacs" ]]; then
+    # emacs vterm config
+    set -o emacs
+fi
 
 # vim: fdm=marker
