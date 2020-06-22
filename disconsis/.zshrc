@@ -1,5 +1,8 @@
-export TERM=xterm-256color
+if [[ $(ps -o cmd= `ps -p $$ -o ppid=`) = "emacs" ]]; then
+    in_emacs="true"
+fi
 
+export TERM=xterm-256color
 export PAGER=less
 
 # limit {{{
@@ -130,8 +133,12 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting) # zsh-syntax-highlighting 
 # # # }}}
 
 
-# bubblified theme {{{
-ZSH_THEME="bubblified"
+# theme {{{
+if [ -z "$in_emacs" ]; then
+    ZSH_THEME="bubblified" # 'bubble' characters don't look good in vterm
+else
+    ZSH_THEME="avit"
+fi
 # }}}
 
 # # misc {{{
@@ -271,9 +278,10 @@ test -r /home/disconsis/.opam/opam-init/init.zsh && . /home/disconsis/.opam/opam
 # colors cripts
 export PATH=$PATH:~/bin/color-scripts
 
-if [[ $(ps -o cmd= `ppid`) = "emacs" ]]; then
+if [ -n "$in_emacs" ]; then
     # emacs vterm config
     set -o emacs
+    ZSH_THEME="agnoster"
 fi
 
 # vim: fdm=marker
