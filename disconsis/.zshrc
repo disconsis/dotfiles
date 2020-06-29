@@ -1,4 +1,4 @@
-if [[ $(ps -o cmd= `ps -p $$ -o ppid=`) = "emacs" ]]; then
+if [[ $(ps -o cmd= `ps -p $$ -o ppid=`) =~ "emacs" ]]; then
     in_emacs="true"
 fi
 
