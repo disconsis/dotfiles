@@ -249,6 +249,9 @@ function beep {
     sleep $duration
     pkill -9 speaker-test
 }
+function yay! {
+    yay "$@" --noconfirm
+}
 # }}}
 
 # vim binds {{{
