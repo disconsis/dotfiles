@@ -403,6 +403,15 @@ type = custom/script
 tail = true
 exec = cat $STDINFIFO
 
+; [module/xworkspaces] ;; No proper support for multiple monitors,
+;                         yet [[https://github.com/polybar/polybar/issues/1849]].
+; type = internal/xworkspaces
+; enable-click = true
+
+; label-separator = "----"
+; label-active-foreground = ${colors.onedarkBlack}
+; label-active-background = ${colors.onedarkGreen}
+
 [settings]
 screenchange-reload = true
 format-padding = 1
