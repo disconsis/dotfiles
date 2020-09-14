@@ -173,12 +173,14 @@ let g:seiya_auto_enable = 1 " transparency
 " currently set in `kitty-invert`
 let kitty_color_file = "~/.config/kitty/color.link"
 if filereadable(expand(kitty_color_file))
-    let colo_name = system("basename $(readlink " . kitty_color_file . ") | cut -d '.' -f 1")
+    let colorscheme = system("basename $(readlink " . kitty_color_file . ") | cut -d '.' -f 1")
+    let g:airline_theme = 'papercolor'
 else
-    let colo_name = "base16-onedark"
+    let colorscheme = "base16-onedark"
+    let g:airline_theme = 'onedark'
 endif
 try
-    execute "colorscheme " . colo_name
+    execute "colorscheme " . colorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
     " deal with it
     colorscheme base16-onedark
@@ -189,8 +191,6 @@ autocmd Colorscheme * hi! link MatchParen IncSearch
 " make spelling errors more noticeable
 autocmd Colorscheme * hi! link SpellBad Error
 hi CursorLine guibg=NONE
-
-let g:airline_theme = 'onedark'
 
 " " italics {{{
 " augroup italic_
