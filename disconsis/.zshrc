@@ -221,6 +221,12 @@ alias q='qutebrowser --enable-webengine-inspector &>/dev/null &!'
 function e {
     /usr/bin/emacs $@
 }
+function enw {
+    /usr/bin/emacs -nw $@
+}
+function et {
+    /usr/bin/emacs -nw $@
+}
 alias vim='nvim'
 alias todo='$EDITOR ~/tmp/todo.org'
 alias sbcl='sbcl --noinform'
