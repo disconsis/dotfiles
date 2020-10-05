@@ -258,6 +258,11 @@ function beep {
 function yay! {
     yay "$@" --noconfirm
 }
+
+function gnatrun {
+    gnatmake "$1" -D /tmp && ./"$1"
+}
+
 # }}}
 
 # vim binds {{{
