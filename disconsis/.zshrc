@@ -217,7 +217,6 @@ function ev {
 function mu {
     /usr/bin/mupdf $@ &>/dev/null &!
 }
-alias q='qutebrowser --enable-webengine-inspector &>/dev/null &!'
 function e {
     /usr/bin/emacs $@
 }
