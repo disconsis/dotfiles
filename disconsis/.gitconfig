@@ -21,8 +21,8 @@
 	ui = auto
 [core]
 	excludesfile = /home/disconsis/.gitignore
-	pager = delta --theme='Monokai Extended' # --plus-color="#73cc58" --minus-color="#340001" --width=
+    # pager = delta --theme='Monokai Extended' # --plus-color="#73cc58" --minus-color="#340001" --width=
 	# pager = delta
 
 [interactive]
-	diffFilter = delta --color-only
+    # diffFilter = delta --color-only
