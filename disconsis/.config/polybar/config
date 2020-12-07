@@ -3,7 +3,7 @@
 
 background = #222
 transparent-background = #0000
-slightly-transparent-background= #dd222222
+slightly-transparent-background= #66222222
 background-alt = #333
 foreground = #dfdfdf
 foreground-alt = #dfdfdf
@@ -46,7 +46,7 @@ height = 26
 radius = 0.0
 fixed-center = true
 
-background = ${colors.transparent-background}
+background = ${colors.slightly-transparent-background}
 foreground = ${colors.foreground}
 
 line-size = 3
@@ -61,9 +61,10 @@ padding-right = 1
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Camingo Code:pixelsize=10
+; font-0 = Camingo Code:pixelsize=10
 ; font-0 = Hurmit Nerd Font:pixelsize=9 ;ypn envypn:pixelsize=20
-; font-0 = Iosevka Nerd Font:pixelsize=10
+; font-0 = UbuntuCondensed Nerd Font:pixelsize=11
+font-0 = Sudo:pixelsize=11
 font-1 = Iosevka Nerd Font:pixelsize=10
 font-2 = Material Icons:pixelsize=11
 font-3 = FuraCode Nerd Font:pixelsize=10
@@ -115,7 +116,7 @@ scroll-up = sudo brightnessctl -d intel_backlight set 2%+ &
 scroll-down = sudo brightnessctl -d intel_backlight set 2%- &
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-module}
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 interval = 0
 tail = true
 
@@ -129,7 +130,7 @@ type = custom/script
 exec = playerctl-status.sh
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-module}
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 click-left = playerctl play-pause
 ; click-right = playerctl metadata title &
 scroll-up = playerctl next
@@ -240,7 +241,7 @@ type = internal/cpu
 interval = 2
 format-prefix = "龍 "
 format-prefix-foreground = ${colors.foreground-module}
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 label = %percentage%%
 
 [module/memory]
@@ -248,7 +249,7 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-module}
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 label = %percentage_used%%
 
 [module/wifi]
@@ -279,7 +280,7 @@ type = internal/network
 interface = vmnet1
 interval = 3.0
 
-format-connected-underline = #55aa55
+; format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
@@ -295,7 +296,7 @@ type = internal/date
 interval = 1
 time = "%S"
 label = %time%
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 
 [module/time]
 type = internal/date
@@ -305,7 +306,7 @@ label = %time%
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-module}
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 
 
 [module/date]
@@ -314,9 +315,9 @@ interval = 5
 date = "%a, %b %d"
 
 format = %{A:gsimplecal&:}<label>%{A}
-format-prefix = " "
+format-prefix = "  "
 format-prefix-foreground = ${colors.foreground-module}
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 
 label = %date%
 
@@ -327,12 +328,12 @@ format-volume-prefix = "墳 "
 format-volume-prefix-foreground = ${colors.foreground-module}
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
-format-volume-underline = ${colors.underline-module}
+; format-volume-underline = ${colors.underline-module}
 
 format-muted-prefix = "婢 "
 format-muted-prefix-foreground = ${colors.foreground-module}
 label-muted = OFF
-format-muted-underline = ${colors.underline-module}
+; format-muted-underline = ${colors.underline-module}
 
 ramp-volume-0 = 奔
 ramp-volume-1 = 墳
@@ -351,15 +352,15 @@ format-charging-prefix = ""
 format-charging = <ramp-capacity> <label-charging>
 label-charging = %percentage%% [%time%]
 format-charging-prefix-foreground = ${colors.foreground-module}
-format-charging-underline = ${colors.underline-module}
+; format-charging-underline = ${colors.underline-module}
 
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%% [%time%]
-format-discharging-underline = ${colors.underline-module}
+; format-discharging-underline = ${colors.underline-module}
 
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-module}
-format-full-underline = ${colors.underline-module}
+; format-full-underline = ${colors.underline-module}
 label-full = FULL
 
 ramp-capacity-0 = 
@@ -381,7 +382,7 @@ warn-temperature = 60
 
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
-format-underline = ${colors.underline-module}
+; format-underline = ${colors.underline-module}
 
 label = %temperature-c%
 label-warn = %temperature-c%
