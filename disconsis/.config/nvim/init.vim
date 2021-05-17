@@ -853,6 +853,7 @@ nnoremap <silent> [h :set nohlsearch<CR>
 " easier global commands {{{
 vnoremap ,g :g/^/normal! 
 " }}}
-"
+
+let g:ale_enabled = 0
 
 " vim: fdm=marker
