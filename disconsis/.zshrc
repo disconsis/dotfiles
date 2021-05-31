@@ -166,7 +166,6 @@ bindkey '^ ' autosuggest-accept # ctrl-space = complete current suggestion
 source $ZSH/oh-my-zsh.sh
 
 # misc aliases {{{
-alias kbfix="setxkbmap -option ctrl:swapcaps; xset r rate 200 30"
 alias c="clear"
 alias lh="ls -lh"
 alias objdump="objdump -M intel --no-show-raw-insn"
